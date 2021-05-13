@@ -6,23 +6,28 @@ object bala {
 	var property seDisparo = false	
 	
 	method image() { 
-		return if (self.seDisparo()){
+		return if (self.seDisparo() && self.dirALaQueApuntaElTanque("arriba")){
 			"balaArriba.png"
 		}
-		else {
-			// aca no se deberia mostrar la bala lo puse para ver si funcionaba
-			"balaArriba.png"
+		else if(self.seDisparo() && self.dirALaQueApuntaElTanque("abajo")) {			
+			"balaAbajo.png"
+		}
+		else if(self.seDisparo() && self.dirALaQueApuntaElTanque("derecha")) {					
+			"balaDerecha.png"
+		}
+		else{
+			"balaIzquierda.png"
 		}
 	}
 	
 	method position(){
-		return if(self.direccionALaQueApuntaElTanque("arriba")){		
+		return if(self.dirALaQueApuntaElTanque("arriba")){		
 				game.at(tanque.position().x(), tanque.position().y() + 1)
 		}
-		else if (self.direccionALaQueApuntaElTanque("abajo")){
+		else if (self.dirALaQueApuntaElTanque("abajo")){
 				game.at(tanque.position().x() , tanque.position().y() - 2)
 		}
-		else if(self.direccionALaQueApuntaElTanque("derecha")){
+		else if(self.dirALaQueApuntaElTanque("derecha")){
 				game.at(tanque.position().x() + 1, tanque.position().y() )
 		}
 		else {
@@ -30,7 +35,7 @@ object bala {
 		}
 	}
 
-	method direccionALaQueApuntaElTanque(dir){
+	method dirALaQueApuntaElTanque(dir){
 		return tanque.ultimoMovimiento() == dir
 	}	
 	
