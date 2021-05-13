@@ -5,9 +5,10 @@ object config {
 
 	method mapa(){
 		game.title("Wollanzerkampfwagen")
-		game.height(45)
-		game.width(80)
-		game.cellSize(20)
+		game.height(10)
+		game.width(10)
+		game.cellSize(50)
+		
 }
 	
 	method teclas() {
