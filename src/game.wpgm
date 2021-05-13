@@ -3,8 +3,9 @@ import tanque.*
 import enemigos.*
 import config.*
 
-program juego {
-	game.title("Wollanzerkampfwagen")
+program game {
+	config.mapa()
+	config.teclas()
 	game.addVisual(tanque)
 	game.start()
 }
