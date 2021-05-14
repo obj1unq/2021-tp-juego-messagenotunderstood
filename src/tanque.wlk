@@ -24,7 +24,7 @@ object tanque {
 	}
 	
 	method disparar(){
-		const bala = new Bala(danho = 14, posicionTanque = self.position(), direccion = ultimoMovimiento)	
+		const bala = new Bala(danho = 14, posicionTanque = self.position(), direccion = ultimoMovimiento, position = position)	
 		config.trayectoriaDe(bala)
 		//bala.avavanzarBala()
 	}
@@ -42,4 +42,3 @@ object tanque {
 	}
 	
 }
-

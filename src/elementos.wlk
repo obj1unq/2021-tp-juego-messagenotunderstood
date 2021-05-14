@@ -6,6 +6,8 @@ class Bala {
 	
 	var property position 
 	
+	const posicionTanque
+	
 	//obligo a pasar la dir del tanque
 	const direccion
 	
@@ -28,18 +30,18 @@ class Bala {
 	}
 	
 	//Revisar como podemos re implementar el mensaje position para que no devuelva siempre la misma posición
-	method position(){
-		return if(self.dirALaQueApuntaElTanque("arriba")){		
-				game.at(tanque.position().x(), tanque.position().y() + 2)
+	method positionOrigen(){
+		 if(self.dirALaQueApuntaElTanque("arriba")){		
+				position = game.at(tanque.position().x(), tanque.position().y() + 2)
 		}
 		else if (self.dirALaQueApuntaElTanque("abajo")){
-				game.at(tanque.position().x() , tanque.position().y() - 2)
+				position = game.at(tanque.position().x() , tanque.position().y() - 2)
 		}
 		else if(self.dirALaQueApuntaElTanque("derecha")){
-				game.at(tanque.position().x() + 2, tanque.position().y() )
+				position = game.at(tanque.position().x() + 2, tanque.position().y() )
 		}
 		else {
-			game.at(tanque.position().x() - 2, tanque.position().y() )
+			position = game.at(tanque.position().x() - 2, tanque.position().y() )
 		}
 	}
 	
@@ -47,7 +49,7 @@ class Bala {
 	
 	
 	method dirALaQueApuntaElTanque(dir){
-		return tanque.ultimoMovimiento() == dir
+		return direccion == dir
 	}	
 	
 	method desplazar(){
@@ -83,4 +85,3 @@ class Agua{
 	var property position = null
 	method image() = "agua.png"
 }
-
