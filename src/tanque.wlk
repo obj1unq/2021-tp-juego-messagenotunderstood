@@ -11,15 +11,14 @@ object tanque {
 	var attackPower = 20
 
 	method image() {
-		if (ultimoMovimiento == "arriba")  
-		{  return "tanque_up.png"
-			
+		if (ultimoMovimiento == "arriba"){  
+			return "tanque_up.png"
 		} else if (ultimoMovimiento == "abajo"){
 			return "tanque_dw.png"
 		} else if (ultimoMovimiento == "derecha"){
 			return "tanque_rh.png"
 		} else {
-			return "tanque_lf.png"
+			return "tanque_lf.png"	
 		}
 	}
 	
@@ -29,9 +28,15 @@ object tanque {
 	}
 
 	method irA(_position, _direction){
-		position = _position
-		ultimoMovimiento = _direction
+		if (self.validaPosicion(_position)){
+			position = _position
+			ultimoMovimiento = _direction
+		}
 		
+	}
+	
+	method validaPosicion(_position){
+		return (_position.y().between(0,game.width() -1) and _position.x().between(0, game.height() -1))
 	}
 	
 }
