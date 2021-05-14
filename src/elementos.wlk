@@ -45,22 +45,19 @@ class Bala {
 		}
 	}
 	
-	
-	
-	
 	method dirALaQueApuntaElTanque(dir){
 		return direccion == dir
 	}	
 	
 	method desplazar(){
 		if (self.dirALaQueApuntaElTanque("arriba")){
-			position.up(1) 
+			position = position.up(1) 
 		} else if (self.dirALaQueApuntaElTanque("abajo")) {
-			position.down(1)
+			position = position.down(1)
 		} else if (self.dirALaQueApuntaElTanque("derecha")) {
-			position.right(1)
+			position = position.right(1)
 		} else {
-			position.left(1)
+			position =position.left(1)
 		}
 	}
 	
