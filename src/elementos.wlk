@@ -7,16 +7,16 @@ object bala {
 	
 	method image() { 
 		return if (self.seDisparo() && self.dirALaQueApuntaElTanque("arriba")){
-			"balaArriba.png"
+			"bala-up.png"
 		}
 		else if(self.seDisparo() && self.dirALaQueApuntaElTanque("abajo")) {			
-			"balaAbajo.png"
+			"bala-dw.png"
 		}
 		else if(self.seDisparo() && self.dirALaQueApuntaElTanque("derecha")) {					
-			"balaDerecha.png"
+			"bala-rh.png"
 		}
 		else{
-			"balaIzquierda.png"
+			"bala-lf.png"
 		}
 	}
 	
