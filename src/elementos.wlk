@@ -50,15 +50,35 @@ class Bala {
 	}	
 	
 	method desplazar(){
-		if (self.dirALaQueApuntaElTanque("arriba")){
+
+		if (self.dirALaQueApuntaElTanque("arriba") and self.validaPosicion(position.up(1))){
 			position = position.up(1) 
-		} else if (self.dirALaQueApuntaElTanque("abajo")) {
+		} else if (self.dirALaQueApuntaElTanque("abajo") and self.validaPosicion(position.down(1))) {
 			position = position.down(1)
-		} else if (self.dirALaQueApuntaElTanque("derecha")) {
+		} else if (self.dirALaQueApuntaElTanque("derecha") and self.validaPosicion(position.right(1))) {
 			position = position.right(1)
-		} else {
+		} else if ( self.dirALaQueApuntaElTanque("izquierda")and self.validaPosicion(position.left(1))){
 			position = position.left(1)
+		} else {
+			self.explotar()
 		}
+	}
+	
+	method explotar(){
+		const explocion = new Explocion(position = position)
+		//game.removeVisual(self)
+		game.addVisual( explocion)
+		//game.removeVisual(explocion
+		game.removeTickEvent("Trayectoria")
+		game.removeVisual(self)
+		game.schedule(500, { 
+			game.removeVisual( explocion)
+			//game.removeVisual(explocion)
+		} )
+	}
+	
+	method validaPosicion(_position){
+		return (_position.y().between(-1, game.width() - 1) and _position.x().between(-1, game.height() - 2 ))
 	}
 	
 	method avanzar(){
@@ -81,4 +101,9 @@ class Ladrillo{
 class Agua{
 	var property position = null
 	method image() = "agua.png"
+}
+
+class Explocion {
+	var property position
+	method image() = "explosion-b.png"
 }
