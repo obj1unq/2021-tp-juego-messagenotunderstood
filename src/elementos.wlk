@@ -57,7 +57,7 @@ class Bala {
 		} else if (self.dirALaQueApuntaElTanque("derecha")) {
 			position = position.right(1)
 		} else {
-			position =position.left(1)
+			position = position.left(1)
 		}
 	}
 	
