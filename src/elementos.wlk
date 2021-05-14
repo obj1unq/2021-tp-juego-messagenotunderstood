@@ -78,7 +78,8 @@ class Bala {
 	}
 	
 	method validaPosicion(_position){
-		return (_position.y().between(-1, game.width() - 1) and _position.x().between(-1, game.height() - 2 ))
+		return _position.y().between(-1, game.width() - 1) and _position.x().between(-1, game.height() - 2 )
+	
 	}
 	
 	method avanzar(){
@@ -91,11 +92,27 @@ class Pasto{
 	var property position = null
 	method image() = "pasto.png"
 	
+	method impactar(bala){
+		game.removeTickEvent("Trayectoria")
+		game.removeVisual(bala)
+	}
+	
 }
 
 class Ladrillo{
-	var property position = null
+	
+	var property position
+	var property vida = 100 
+	const explocion = new Explocion(position = position)
+	
 	method image() = "muro.png"
+	
+	method impactar(bala){
+		game.removeTickEvent("Trayectoria")
+		game.removeVisual(bala)
+		//game.addVisual( explocion)
+		
+	}
 }
 
 class Agua{
