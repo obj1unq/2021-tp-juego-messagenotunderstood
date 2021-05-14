@@ -1,5 +1,6 @@
 import tanque.*
 import wollok.game.*
+import elementos.*
 
 object config {
 
@@ -17,6 +18,13 @@ object config {
 		keyboard.w().onPressDo({ tanque.irA(tanque.position().up(1), "arriba")})
 		keyboard.s().onPressDo({ tanque.irA(tanque.position().down(1), "abajo")})
 		keyboard.space().onPressDo({ tanque.disparar() })
+	}
+	
+	method trayectoriaDe(bala){
+		game.addVisual(bala)
+		game.onTick(1, "Trayectoria", {bala.desplazar()})
+		//game.onCollideDo(bala, { bala.impactar()})
+		//game.removeVisual(bala)
 	}
 	
 }

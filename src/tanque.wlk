@@ -1,12 +1,13 @@
 import wollok.game.*
 import elementos.*
+import config.*
 
 object tanque {
 	//Vida del tanque
 	var property health = 100
 	var property position = game.origin()
 	var property ultimoMovimiento = "arriba"
-	const balaDelTanque = bala
+	//const bala = new Bala(danho = 14, posicionTanque = self.position(), direccion = ultimoMovimiento)
 	//El AP puede ir incrementando a medida que se avanza en el juego.
 	var attackPower = 20
 
@@ -22,8 +23,9 @@ object tanque {
 		}
 	}
 	
-	method disparar(){	
-		balaDelTanque.seDisparo(true)
+	method disparar(){
+		const bala = new Bala(danho = 14, posicionTanque = self.position(), direccion = ultimoMovimiento)	
+		config.trayectoriaDe(bala)
 		//bala.avavanzarBala()
 	}
 

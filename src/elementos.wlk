@@ -1,18 +1,25 @@
 import wollok.game.*
 import tanque.*
 
-object bala {
-
-	var property seDisparo = false	
+class Bala {
+	//var property seDisparo = false	
+	
+	var property position 
+	
+	//obligo a pasar la dir del tanque
+	const direccion
+	
+	//Evaluar si nos puede servir
+	const danho = 7
 	
 	method image() { 
-		return if (self.seDisparo() && self.dirALaQueApuntaElTanque("arriba")){
+		return if (self.dirALaQueApuntaElTanque("arriba")){
 			"bala-up.png"
 		}
-		else if(self.seDisparo() && self.dirALaQueApuntaElTanque("abajo")) {			
+		else if(self.dirALaQueApuntaElTanque("abajo")) {			
 			"bala-dw.png"
 		}
-		else if(self.seDisparo() && self.dirALaQueApuntaElTanque("derecha")) {					
+		else if(self.dirALaQueApuntaElTanque("derecha")) {					
 			"bala-rh.png"
 		}
 		else{
@@ -20,27 +27,43 @@ object bala {
 		}
 	}
 	
+	//Revisar como podemos re implementar el mensaje position para que no devuelva siempre la misma posición
 	method position(){
 		return if(self.dirALaQueApuntaElTanque("arriba")){		
-				game.at(tanque.position().x(), tanque.position().y() + 1)
+				game.at(tanque.position().x(), tanque.position().y() + 2)
 		}
 		else if (self.dirALaQueApuntaElTanque("abajo")){
 				game.at(tanque.position().x() , tanque.position().y() - 2)
 		}
 		else if(self.dirALaQueApuntaElTanque("derecha")){
-				game.at(tanque.position().x() + 1, tanque.position().y() )
+				game.at(tanque.position().x() + 2, tanque.position().y() )
 		}
 		else {
 			game.at(tanque.position().x() - 2, tanque.position().y() )
 		}
 	}
-
+	
+	
+	
+	
 	method dirALaQueApuntaElTanque(dir){
 		return tanque.ultimoMovimiento() == dir
 	}	
 	
-	method avavanzarBala(){
-		
+	method desplazar(){
+		if (self.dirALaQueApuntaElTanque("arriba")){
+			position.up(1) 
+		} else if (self.dirALaQueApuntaElTanque("abajo")) {
+			position.down(1)
+		} else if (self.dirALaQueApuntaElTanque("derecha")) {
+			position.right(1)
+		} else {
+			position.left(1)
+		}
+	}
+	
+	method avanzar(){
+		//position += self.dirADesplazar() 
 	}
 }
 

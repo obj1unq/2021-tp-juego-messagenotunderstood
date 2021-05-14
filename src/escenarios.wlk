@@ -7,7 +7,7 @@ object nivelUno {
 	
 	method iniciar() {	
 		game.addVisual(tanque)
-		game.addVisual(bala)
+		//game.addVisual(Bala)
 		game.addVisual(defensa)
 		self.paredDefensa()
 	}	
