@@ -7,7 +7,6 @@ object tanque {
 	var property health = 100
 	var property position = game.origin()
 	var property ultimoMovimiento = "arriba"
-	//const bala = new Bala(danho = 14, posicionTanque = self.position(), direccion = ultimoMovimiento)
 	//El AP puede ir incrementando a medida que se avanza en el juego.
 	var attackPower = 20
 
@@ -26,7 +25,6 @@ object tanque {
 	method disparar(){
 		const bala = new Bala(danho = 14, posicionTanque = self.position(), direccion = ultimoMovimiento, position = position)	
 		config.trayectoriaDe(bala)
-		//bala.avavanzarBala()
 	}
 
 	method irA(_position, _direction){
@@ -39,6 +37,10 @@ object tanque {
 	
 	method validaPosicion(_position){
 		return (_position.y().between(0,game.width() -1) and _position.x().between(0, game.height() -1))
+	}
+	
+	method impactar(algo){
+		
 	}
 	
 }

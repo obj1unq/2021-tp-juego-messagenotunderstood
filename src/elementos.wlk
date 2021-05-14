@@ -12,7 +12,7 @@ class Bala {
 	const direccion
 	
 	//Evaluar si nos puede servir
-	const danho = 7
+	const property danho = 7
 	
 	method image() { 
 		return if (self.dirALaQueApuntaElTanque("arriba")){
@@ -66,14 +66,11 @@ class Bala {
 	
 	method explotar(){
 		const explocion = new Explocion(position = position)
-		//game.removeVisual(self)
 		game.addVisual( explocion)
-		//game.removeVisual(explocion
 		game.removeTickEvent("Trayectoria")
 		game.removeVisual(self)
-		game.schedule(500, { 
+		game.schedule(250, { 
 			game.removeVisual( explocion)
-			//game.removeVisual(explocion)
 		} )
 	}
 	
@@ -82,7 +79,7 @@ class Bala {
 	
 	}
 	
-	method avanzar(){
+	method impactar(algo){
 		//position += self.dirADesplazar() 
 	}
 }
@@ -90,11 +87,20 @@ class Bala {
 
 class Pasto{
 	var property position = null
+	var vida = 20
 	method image() = "pasto.png"
-	
+
 	method impactar(bala){
-		game.removeTickEvent("Trayectoria")
-		game.removeVisual(bala)
+		if (self.validaVida()){
+			bala.explotar()
+			vida -= bala.danho()	
+		} else {
+			game.removeVisual(self)
+		}
+	}
+	
+	method validaVida(){
+		return vida > 0
 	}
 	
 }
@@ -108,10 +114,16 @@ class Ladrillo{
 	method image() = "muro.png"
 	
 	method impactar(bala){
-		game.removeTickEvent("Trayectoria")
-		game.removeVisual(bala)
-		//game.addVisual( explocion)
-		
+		if (self.validaVida()){
+			bala.explotar()
+			vida -= bala.danho()	
+		} else {
+			game.removeVisual(self)
+		}
+	}
+	
+	method validaVida(){
+		return vida > 0
 	}
 }
 
@@ -123,4 +135,5 @@ class Agua{
 class Explocion {
 	var property position
 	method image() = "explosion-b.png"
+	method impactar(algo){}
 }
