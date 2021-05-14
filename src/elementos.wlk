@@ -84,7 +84,7 @@ class Ladrillo{
 	method impactar(bala){
 		game.say(bala, "Impacte contra algo")
 		game.removeTickEvent("Trayectoria")
-			
+		game.removeVisual(bala)
 	}
 }
 
