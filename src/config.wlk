@@ -5,9 +5,9 @@ object config {
 
 	method mapa(){
 		game.title("Wollanzerkampfwagen")
-		game.height(10)
-		game.width(10)
-		game.cellSize(50)
+		game.height(30)
+		game.width(30)
+		game.cellSize(20)
 		
 }
 	

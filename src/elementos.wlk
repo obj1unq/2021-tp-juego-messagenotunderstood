@@ -43,3 +43,21 @@ object bala {
 		
 	}
 }
+
+
+class Pasto{
+	var property position = null
+	method image() = "pasto.png"
+	
+}
+
+class Ladrillo{
+	var property position = null
+	method image() = "muro.png"
+}
+
+class Agua{
+	var property position = null
+	method image() = "agua.png"
+}
+
