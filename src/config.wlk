@@ -24,7 +24,6 @@ object config {
 		game.addVisual(bala)
 		game.onTick(1, "Trayectoria",  {bala.desplazar()})
 		game.onCollideDo(bala, { algo => algo.impactar(bala) })
-		//game.removeVisual(bala)
 	}
 	
 }

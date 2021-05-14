@@ -4,9 +4,7 @@ import tanque.*
 class Bala {
 	//var property seDisparo = false	
 	
-	var property position 
-	
-	const posicionTanque
+	var property position = game.origin()
 	
 	//obligo a pasar la dir del tanque
 	const direccion
@@ -30,18 +28,18 @@ class Bala {
 	}
 	
 	//Revisar como podemos re implementar el mensaje position para que no devuelva siempre la misma posición
-	method positionOrigen(){
+	method position(_posicion, _direccion){
 		 if(self.dirALaQueApuntaElTanque("arriba")){		
-				position = game.at(tanque.position().x(), tanque.position().y() + 2)
+				position = game.at(tanque.position().x(), tanque.position().y() + 1)
 		}
 		else if (self.dirALaQueApuntaElTanque("abajo")){
-				position = game.at(tanque.position().x() , tanque.position().y() - 2)
+				position = game.at(tanque.position().x() , tanque.position().y() - 1)
 		}
 		else if(self.dirALaQueApuntaElTanque("derecha")){
-				position = game.at(tanque.position().x() + 2, tanque.position().y() )
+				position = game.at(tanque.position().x() + 1, tanque.position().y() )
 		}
 		else {
-			position = game.at(tanque.position().x() - 2, tanque.position().y() )
+			position = game.at(tanque.position().x() - 1, tanque.position().y() )
 		}
 	}
 	
@@ -109,7 +107,6 @@ class Ladrillo{
 	
 	var property position
 	var property vida = 100 
-	const explocion = new Explocion(position = position)
 	
 	method image() = "muro.png"
 	
