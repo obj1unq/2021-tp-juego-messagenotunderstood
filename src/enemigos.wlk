@@ -49,5 +49,19 @@ object enemigoLeopard {
 	method estoyEnZona(lugarAMoverse){
 		return (lugarAMoverse.y().between(0,game.width() -3) and lugarAMoverse.x().between(0, game.height() -3))
 	}
+	
+	method impactar(bala){
+		if (self.validaVida()){
+			bala.explotar()
+			vida -= bala.danho()	
+		} else {
+			game.removeVisual(self)
+		}
+	}
+	
+	method validaVida(){
+		return vida > 0
+	}
+	
 }
 
