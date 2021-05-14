@@ -23,7 +23,7 @@ object config {
 	method trayectoriaDe(bala){
 		game.addVisual(bala)
 		game.onTick(1, "Trayectoria",  {bala.desplazar()})
-		//game.onCollideDo(bala, { bala.impactar()})
+		game.onCollideDo(bala, { algo => algo.impactar(bala) })
 		//game.removeVisual(bala)
 	}
 	

@@ -6,8 +6,6 @@ class Bala {
 	
 	var property position 
 	
-	const posicionTanque
-	
 	//obligo a pasar la dir del tanque
 	const direccion
 	
@@ -50,7 +48,7 @@ class Bala {
 	}	
 	
 	method desplazar(){
-		if (self.dirALaQueApuntaElTanque("arriba")){
+		if (self.dirALaQueApuntaElTanque("arriba") ){
 			position = position.up(1) 
 		} else if (self.dirALaQueApuntaElTanque("abajo")) {
 			position = position.down(1)
@@ -64,6 +62,10 @@ class Bala {
 	method avanzar(){
 		//position += self.dirADesplazar() 
 	}
+	
+
+	
+
 }
 
 
@@ -71,11 +73,19 @@ class Pasto{
 	var property position = null
 	method image() = "pasto.png"
 	
+	
+	
 }
 
 class Ladrillo{
 	var property position = null
 	method image() = "muro.png"
+	
+	method impactar(bala){
+		game.say(bala, "Impacte contra algo")
+		game.removeTickEvent("Trayectoria")
+			
+	}
 }
 
 class Agua{
