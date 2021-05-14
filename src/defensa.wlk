@@ -6,7 +6,7 @@ object defensa {
 	var property vida = 200
 	var property destruida = false
 	
-	method image() = "Exhaust_Fire.png"
+	method image() = "baseGit1.png"
 	method position () = game.at( (game.width()-1) / 2,0)
 	method impactar(bala){
 		if (self.validaVida()){

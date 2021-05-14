@@ -36,7 +36,7 @@ object tanque {
 	}
 	
 	method validaPosicion(_position){
-		return (_position.y().between(0,game.width() -1) and _position.x().between(0, game.height() -1))
+		return (_position.y().between(0,game.width() -3) and _position.x().between(0, game.height() -3))
 	}
 	
 	method impactar(algo){
