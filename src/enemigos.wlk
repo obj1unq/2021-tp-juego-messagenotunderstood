@@ -41,7 +41,7 @@ object enemigoLeopard {
 	
 	
 	method direccionAleatoria(){
-		return ["arriba,izquierda","abajo","derecha"].anyOne()
+		return ["arriba","izquierda","abajo","derecha"].anyOne()
 	}
 	
 
