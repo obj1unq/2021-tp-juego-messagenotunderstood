@@ -17,7 +17,7 @@ object enemigoLeopard {
 	}
 	
 	method moverDisparandoAleatorio(){		
-		game.onTick(800, "moverse" , {self.avanzar()})
+		game.onTick(800,  "moverse" , {self.avanzar()})
 		game.onTick(3000, "disparar" , {self.disparar()})			
 	}
 	
@@ -41,7 +41,7 @@ object enemigoLeopard {
 	
 	
 	method direccionAleatoria(){
-		return ["arriba,izquierda","abajo","derecha"].anyOne()
+		return ["arriba","izquierda","abajo","derecha"].anyOne()
 	}
 	
 
@@ -62,6 +62,7 @@ object enemigoLeopard {
 			bala.explotar()
 			vida -= bala.danho()	
 		} else {
+			game.removeTickEvent("disparar")
 			game.removeVisual(self)
 		}
 	}
