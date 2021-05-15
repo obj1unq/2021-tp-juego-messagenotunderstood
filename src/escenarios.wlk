@@ -7,10 +7,10 @@ import Enemigo.*
 object nivelUno {
 	
 	method iniciar() {	
+		var enemigo = new Enemigo()
 		self.paredDefensa()
 		game.addVisual(tanque)
 		game.addVisual(defensa)
-		var enemigo = new Enemigo()
 		game.addVisual(enemigo);
 		game.onTick(1000,"moverEnemigo", {=> enemigo.moverAleatorio()})
 		self.paredDefensa()
