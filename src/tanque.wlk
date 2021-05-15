@@ -8,15 +8,10 @@ object tanque {
 	var property ultimoMovimiento = "arriba"
 
 	method image() {
-		if (ultimoMovimiento == "arriba"){  
-			return "tanque_up.png"
-		} else if (ultimoMovimiento == "abajo"){
-			return "tanque_dw.png"
-		} else if (ultimoMovimiento == "derecha"){
-			return "tanque_rh.png"
-		} else {
-			return "tanque_lf.png"	
-		}
+		return if (ultimoMovimiento == "arriba")  {"tanque_up.png"}
+		 else if  (ultimoMovimiento == "abajo")   {"tanque_dw.png"}
+		  else if (ultimoMovimiento == "derecha") {"tanque_rh.png"}
+		   else {"tanque_lf.png"}	
 	}
 	
 	method disparar(){
