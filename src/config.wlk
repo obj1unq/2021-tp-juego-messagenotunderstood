@@ -6,12 +6,12 @@ object config {
 
 	method mapa(){
 		game.title("Wollanzerkampfwagen")
-		game.height(30)
-		game.width(30)
-		game.cellSize(20)
+		game.height(13)
+		game.width(13)
+		game.cellSize(50)
 		
-}
-	
+	}
+		
 	method teclas() {
 		keyboard.a().onPressDo({ tanque.irA(tanque.position().left(1), "izquierda")})
 		keyboard.d().onPressDo({ tanque.irA(tanque.position().right(1), "derecha")})
@@ -19,11 +19,4 @@ object config {
 		keyboard.s().onPressDo({ tanque.irA(tanque.position().down(1), "abajo")})
 		keyboard.space().onPressDo({ tanque.disparar() })
 	}
-	
-	method trayectoriaDe(bala){
-		game.addVisual(bala)
-		game.onTick(1, "Trayectoria",  {bala.desplazar()})
-		game.onCollideDo(bala, { algo => algo.impactar(bala) })
-	}
-	
 }

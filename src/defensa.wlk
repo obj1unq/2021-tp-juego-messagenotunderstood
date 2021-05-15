@@ -7,7 +7,7 @@ object defensa {
 	var property destruida = false
 	
 	method image() = "baseGit1.png"
-	method position () = game.at( (game.width()-1) / 2,0)
+	method position () = game.at( (game.width()) / 2,0)
 	method impactar(bala){
 		if (self.validaVida()){
 			bala.explotar()
@@ -15,6 +15,7 @@ object defensa {
 		} else {
 		//Implementar trigger de fin de juego por perder.
 			game.removeVisual(self)
+
 		}
 	}
 	method validaVida(){
