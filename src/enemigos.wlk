@@ -1,5 +1,6 @@
 import config.*
 import random.*
+import elementos.*
 import wollok.game.*
 
 object enemigoLeopard {
@@ -15,16 +16,20 @@ object enemigoLeopard {
 		   else {"Leopard-lf.png"}
 	}
 	
-	method moverAleatorio(){		
-		game.onTick(800, "moverse" , {self.avanzar()})		
+	method moverDisparandoAleatorio(){		
+		game.onTick(800, "moverse" , {self.avanzar()})
+		game.onTick(3000, "disparar" , {self.disparar()})			
 	}
 	
 	method disparar(){
-		// falta implementar
+		const bala = new Bala(danho = 14 , direccion = direccion, tanqueActual = self)
+		bala.position(position, direccion)	
+		bala.trayectoriaDe()
 	}
- //game.at((position.up - 1 ),(game.height() - 1))
+
 	method avanzar(){
 		direccion = self.direccionAleatoria()
+		//self.disparar()
 		if(self.validaPosicion(self.moverAl(direccion)) and not self.esObtaculo(self.moverAl(direccion))) {
 				position = self.moverAl(direccion)
 		} 

@@ -2,11 +2,11 @@ import wollok.game.*
 import tanque.*
 
 class Bala {
-	// Obligo a pasar la direccion actual del tanque
+
 	const direccion
-	// Daño default
 	const property danho = 7
-	var nombreTick  = [1,2,3,4,5,6,7,8,9,10,11,12,13,15].anyOne().toString()
+	const tanqueActual = tanque 
+	const nombreTick  = [1,2,3,4,5,6,7,8,9,10,11,12,13,15].anyOne().toString()
 	var property position = game.origin()
 	
 	method image() { 
@@ -26,16 +26,16 @@ class Bala {
 	
 	method position(_posicion, _direccion){
 		 if(self.dirALaQueApuntaElTanque("arriba")){		
-				position = game.at(tanque.position().x(), tanque.position().y() + 1)
+				position = game.at(tanqueActual.position().x(), tanqueActual.position().y() + 1)
 		}
 		else if (self.dirALaQueApuntaElTanque("abajo")){
-				position = game.at(tanque.position().x() , tanque.position().y() - 1)
+				position = game.at(tanqueActual.position().x() , tanqueActual.position().y() - 1)
 		}
 		else if(self.dirALaQueApuntaElTanque("derecha")){
-				position = game.at(tanque.position().x() + 1, tanque.position().y() )
+				position = game.at(tanqueActual.position().x() + 1, tanqueActual.position().y() )
 		}
 		else {
-			position = game.at(tanque.position().x() - 1, tanque.position().y() )
+			position = game.at(tanqueActual.position().x() - 1, tanqueActual.position().y() )
 		}
 	}
 	

@@ -7,11 +7,11 @@ import enemigos.*
 object nivelUno {
 	
 	method iniciar() {	
+		self.paredDefensa()
 		game.addVisual(tanque)
 		game.addVisual(defensa)
-		game.addVisual(enemigoLeopard)
-		self.paredDefensa()
-		enemigoLeopard.moverAleatorio()
+		game.addVisual(enemigoLeopard)	
+		enemigoLeopard.moverDisparandoAleatorio()
 	}	
 	
 	method paredDefensa(){
