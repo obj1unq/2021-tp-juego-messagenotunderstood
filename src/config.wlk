@@ -19,11 +19,4 @@ object config {
 		keyboard.s().onPressDo({ tanque.irA(tanque.position().down(1), "abajo")})
 		keyboard.space().onPressDo({ tanque.disparar() })
 	}
-	
-	method trayectoriaDe(bala){
-		game.addVisual(bala)
-		game.onTick(1, "Trayectoria",  {bala.desplazar()})
-		game.onCollideDo(bala, { algo => algo.impactar(bala) })
-	}
-	
 }

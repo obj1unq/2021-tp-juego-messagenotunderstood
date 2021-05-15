@@ -2,15 +2,12 @@ import wollok.game.*
 import tanque.*
 
 class Bala {
-	//var property seDisparo = false	
-	
-	var property position = game.origin()
-	
-	//obligo a pasar la dir del tanque
+	// Obligo a pasar la direccion actual del tanque
 	const direccion
-	
-	//Evaluar si nos puede servir
+	// Daño default
 	const property danho = 7
+	var nombreTick  = [1,2,3,4,5,6,7,8,9,10,11,12,13,15].anyOne().toString()
+	var property position = game.origin()
 	
 	method image() { 
 		return if (self.dirALaQueApuntaElTanque("arriba")){
@@ -27,7 +24,6 @@ class Bala {
 		}
 	}
 	
-	//Revisar como podemos re implementar el mensaje position para que no devuelva siempre la misma posición
 	method position(_posicion, _direccion){
 		 if(self.dirALaQueApuntaElTanque("arriba")){		
 				position = game.at(tanque.position().x(), tanque.position().y() + 1)
@@ -65,20 +61,26 @@ class Bala {
 	method explotar(){
 		const explocion = new Explocion(position = position)
 		game.addVisual( explocion)
-		game.removeTickEvent("Trayectoria")
+		game.removeTickEvent(nombreTick)
 		game.removeVisual(self)
 		game.schedule(250, { 
 			game.removeVisual( explocion)
 		} )
 	}
-	
+
 	method validaPosicion(_position){
 		return _position.y().between(-1, game.width() - 1) and _position.x().between(-1, game.height() - 2 )
 	
 	}
 	
 	method impactar(algo){
-		//position += self.dirADesplazar() 
+		//No hace nada.
+	}
+	
+	method trayectoriaDe(){
+		game.addVisual(self)
+		game.onTick(1, nombreTick,  {self.desplazar()})
+		game.onCollideDo(self, { algo => algo.impactar(self) })
 	}
 }
 
@@ -100,11 +102,9 @@ class Pasto{
 	method validaVida(){
 		return vida > 0
 	}
-	
 }
 
 class Ladrillo{
-	
 	var property position
 	var property vida = 100 
 	
@@ -126,11 +126,14 @@ class Ladrillo{
 
 class Agua{
 	var property position = null
+	
 	method image() = "agua.png"
 }
 
 class Explocion {
 	var property position
+	
 	method image() = "explosion-b.png"
+	
 	method impactar(algo){}
 }

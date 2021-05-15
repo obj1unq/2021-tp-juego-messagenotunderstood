@@ -3,12 +3,9 @@ import elementos.*
 import config.*
 
 object tanque {
-	//Vida del tanque
-	var property health = 100
+	var property vida = 100
 	var property position = game.origin()
 	var property ultimoMovimiento = "arriba"
-	//El AP puede ir incrementando a medida que se avanza en el juego.
-	var attackPower = 20
 
 	method image() {
 		if (ultimoMovimiento == "arriba"){  
@@ -25,7 +22,7 @@ object tanque {
 	method disparar(){
 		const bala = new Bala(danho = 14 , direccion = ultimoMovimiento)
 		bala.position(position, ultimoMovimiento)	
-		config.trayectoriaDe(bala)
+		bala.trayectoriaDe()
 	}
 
 	method irA(_position, _direction){
@@ -39,8 +36,16 @@ object tanque {
 		return (_position.y().between(0,game.width() -3) and _position.x().between(0, game.height() -3))
 	}
 	
-	method impactar(algo){
-		
+	method impactar(bala){
+		if (self.validaVida()){
+			bala.explotar()
+			vida -= bala.danho()	
+		} else {
+			game.removeVisual(self)
+		}
 	}
 	
+	method validaVida(){
+		return vida > 0
+	}
 }

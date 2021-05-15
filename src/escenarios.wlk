@@ -8,12 +8,10 @@ object nivelUno {
 	
 	method iniciar() {	
 		game.addVisual(tanque)
-		//game.addVisual(Bala)
 		game.addVisual(defensa)
 		game.addVisual(enemigoLeopard)
 		self.paredDefensa()
 		enemigoLeopard.moverAleatorio()
-		self.paredDefensa()
 	}	
 	
 	method paredDefensa(){

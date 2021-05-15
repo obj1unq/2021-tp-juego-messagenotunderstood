@@ -7,7 +7,6 @@ object enemigoLeopard {
 	var property position = game.at(27,27)
 	var property ultimoMovimiento = "izquierda"
 	
-	
 	method image() {
 		if (ultimoMovimiento == "arriba"){  
 			return "Leopard-up.png"
@@ -20,14 +19,11 @@ object enemigoLeopard {
 		}
 	}
 	
-	
 	method moverAleatorio(){
 		
 		game.onTick(1500, "moverse" , {self.moverSiEstoyEnZona()})
 		
 	}
-	
-
 	
 	method moverSegun(direccion){
 		return if (direccion == "arriba") position.up(1)
@@ -62,6 +58,5 @@ object enemigoLeopard {
 	method validaVida(){
 		return vida > 0
 	}
-	
 }
 
