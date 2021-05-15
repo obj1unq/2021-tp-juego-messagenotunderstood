@@ -23,7 +23,7 @@ object enemigoLeopard {
 	
 	method moverAleatorio(){
 		
-		game.onTick(1500, "moverse" , {self.moverSiEstoyEnZona()})
+		game.onTick(500, "moverse" , {self.moverSiEstoyEnZona()})
 		
 	}
 	
@@ -37,7 +37,7 @@ object enemigoLeopard {
 	}
 	
 	method aleatorio(){
-		return ["arriba", "izquierda","abajo","derecha"].anyOne()
+		return ["abajo", "izquierda","derecha"].anyOne()
 	}
 	
 	method moverSiEstoyEnZona(){

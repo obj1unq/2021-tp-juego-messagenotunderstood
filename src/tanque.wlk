@@ -20,8 +20,7 @@ object tanque {
 		} else {
 			return "tanque_lf.png"	
 		}
-	}
-	
+	}	
 	method disparar(){
 		const bala = new Bala(danho = 14 , direccion = ultimoMovimiento)
 		bala.position(position, ultimoMovimiento)	
@@ -29,10 +28,14 @@ object tanque {
 	}
 
 	method irA(_position, _direction){
-		if (self.validaPosicion(_position)){
+		if (self.validaPosicion(_position) and not self.esObtaculo(_position)){
 			position = _position
 			ultimoMovimiento = _direction
 		}
+	}
+	
+	method esObtaculo(_position){
+		return not game.getObjectsIn(_position).isEmpty()
 	}
 	
 	method validaPosicion(_position){
