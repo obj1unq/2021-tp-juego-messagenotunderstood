@@ -2,7 +2,7 @@ import wollok.game.*
 import elementos.*
 import tanque.*
 import defensa.*
-import enemigos.*
+import Enemigo.*
 
 object nivelUno {
 	
@@ -10,8 +10,11 @@ object nivelUno {
 		self.paredDefensa()
 		game.addVisual(tanque)
 		game.addVisual(defensa)
-		game.addVisual(enemigoLeopard)	
-		enemigoLeopard.moverDisparandoAleatorio()
+		var enemigo = new Enemigo()
+		game.addVisual(enemigo);
+		game.onTick(1000,"moverEnemigo", {=> enemigo.moverAleatorio()})
+		self.paredDefensa()
+		self.paredDefensa()
 	}	
 	
 	method paredDefensa(){

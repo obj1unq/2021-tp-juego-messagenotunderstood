@@ -1,7 +1,7 @@
 import wollok.game.*
 import tanque.*
 import escenarios.*
-import enemigos.*
+
 import config.*
 
 program game {
