@@ -7,6 +7,10 @@ object random {
 					(0..  game.height() - 1).anyOne()
 		) 
 	}
+	
+	method direccionAleatoria(){				
+		return ["arriba","izquierda","abajo","derecha"].anyOne()	
+	}
 }
 	
 

@@ -1,6 +1,7 @@
 import config.*
 import random.*
 import elementos.*
+import random.*
 import wollok.game.*
 
 object enemigoLeopard {
@@ -22,30 +23,23 @@ object enemigoLeopard {
 	}
 	
 	method disparar(){
-		const bala = new Bala(danho = 14 , direccion = direccion, tanqueActual = self)
+		const bala = new Bala(danio = 14 , direccion = direccion, tanqueActual = self)
 		bala.position(position, direccion)	
 		bala.trayectoriaDe()
 	}
 
 	method avanzar(){
-		direccion = self.direccionAleatoria()
-		//self.disparar()
-		if(self.validaPosicion(self.moverAl(direccion)) and not self.esObtaculo(self.moverAl(direccion))) {
+		direccion = random.direccionAleatoria()
+		if(self.validaPosicion(self.moverAl(direccion)) and self.sinObstaculo(self.moverAl(direccion))) {
 				position = self.moverAl(direccion)
 		} 
 	}
 	
-	method esObtaculo(_position){
-		return not game.getObjectsIn(_position).isEmpty()
-	}
-	
-	
-	method direccionAleatoria(){
-		return ["arriba","izquierda","abajo","derecha"].anyOne()
+	method sinObstaculo(_position){
+		return game.getObjectsIn(_position).isEmpty()
 	}
 	
 
-	
 	method moverAl(_direccion){
 		return if (_direccion == "arriba")  {position.up(1)}
 		 else if  (_direccion == "derecha") {position.right(1)}
@@ -60,7 +54,7 @@ object enemigoLeopard {
 	method impactar(bala){
 		if (self.validaVida()){
 			bala.explotar()
-			vida -= bala.danho()	
+			vida -= bala.danio()	
 		} else {
 			game.removeTickEvent("disparar")
 			game.removeVisual(self)

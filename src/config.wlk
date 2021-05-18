@@ -19,4 +19,12 @@ object config {
 		keyboard.s().onPressDo({ tanque.irA(tanque.position().down(1), "abajo")})
 		keyboard.space().onPressDo({ tanque.disparar() })
 	}
+	
+	method configurarColisiones(){
+		
+	}
+	
+	method configurarMovimientosYDisparosAleatoriosEnemigos(){
+		
+	}
 }

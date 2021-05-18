@@ -6,6 +6,7 @@ object tanque {
 	var property vida = 100
 	var property position = game.origin()
 	var property ultimoMovimiento = "arriba"
+	const danioDisparo = 15
 
 	method image() {
 		return if (ultimoMovimiento == "arriba")  "tanque_up.png"
@@ -15,20 +16,20 @@ object tanque {
 	}
 
 	method disparar(){
-		const bala = new Bala(danho = 14 , direccion = ultimoMovimiento)
+		const bala = new Bala(danio = danioDisparo , direccion = ultimoMovimiento)
 		bala.position(position, ultimoMovimiento)	
 		bala.trayectoriaDe()
 	}
 
 	method irA(_position, _direction){
-		if (self.validaPosicion(_position) and not self.esObtaculo(_position)){
+		if (self.validaPosicion(_position) and self.sinObstaculo(_position)){
 			position = _position
 			ultimoMovimiento = _direction
 		}
 	}
 	
-	method esObtaculo(_position){
-		return not game.getObjectsIn(_position).isEmpty()
+	method sinObstaculo(_position){
+		return game.getObjectsIn(_position).isEmpty()
 	}
 	
 	method validaPosicion(_position){
