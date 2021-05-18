@@ -1,9 +1,11 @@
 import wollok.game.*
 import tanque.*
+import random.*
+import enemigos.*
 
 class Bala {
 
-	const direccion
+	const direccion ="arriba"
 	const property danio = 7
 	const tanqueActual = tanque 
 	const nombreTick  = [1,2,3,4,5,6,7,8,9,10,11,12,13,15].anyOne().toString()
@@ -89,13 +91,13 @@ class Bala {
 	method trayectoriaDe(){
 		game.addVisual(self)
 		game.onTick(1, nombreTick,  {self.desplazar()})
-		game.onCollideDo(self, { algo => algo.impactar(self) })
+	
 	}
 }
 
 
 class Pasto{
-	var property position = null
+	var property position
 	var vida = 20
 	method image() = "pasto.png"
 
@@ -104,7 +106,7 @@ class Pasto{
 			bala.explotar()
 			vida -= bala.danio()	
 		} else {
-			game.removeVisual(self)
+			game.removeVisual(self) 
 		}
 	}
 	
@@ -124,7 +126,7 @@ class Ladrillo{
 			bala.explotar()
 			vida -= bala.danio()	
 		} else {
-			game.removeVisual(self)
+			game.removeVisual(self) 
 		}
 	}
 	
@@ -160,7 +162,7 @@ object defensa {
 			vida -= bala.danio()	
 		} else {
 		//Implementar trigger de fin de juego por perder.
-			game.removeVisual(self)
+			game.removeVisual(self) 
 
 		}
 	}
@@ -169,3 +171,38 @@ object defensa {
 	}
 	
 }
+
+object gestorDeEnemigos{
+	const property enemigosEnMapa = []
+
+	method agregarEnemigos() {
+		if (self.enemigosEnMapa().size() <= 4 ) {
+			self.agregarNuevaEnemigo()
+		}
+	}
+	
+	method agregarNuevaEnemigo(){
+		const enemigosPosibles = [
+			new EnemigoLeopard(position =  random.emptyPosition()),
+			new EnemigoLeopard(position =  random.emptyPosition())		
+		]
+		const nuevoEnemigo = enemigosPosibles.anyOne()
+		self.agregarElemento(nuevoEnemigo)
+	}
+	
+	method agregarElemento(enemigo){
+		enemigosEnMapa.add(enemigo)	 
+		game.addVisual(enemigo)
+		self.enemigosEnMapa().forEach({tanqueEnemigo => tanqueEnemigo.moverDisparandoAleatorio() })
+	}
+	
+	method removerElemento(enemigo) {
+		enemigosEnMapa.remove(enemigo)
+		game.removeVisual(enemigo) 
+	}
+}
+
+
+
+
+

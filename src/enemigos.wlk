@@ -4,7 +4,7 @@ import elementos.*
 import random.*
 import wollok.game.*
 
-object enemigoLeopard {
+class EnemigoLeopard {
 	
 	var property vida = 100
 	var property position = game.at(10,10)
@@ -18,8 +18,8 @@ object enemigoLeopard {
 	}
 	
 	method moverDisparandoAleatorio(){		
-		game.onTick(800,  "moverse" , {self.avanzar()})
-		game.onTick(3000, "disparar" , {self.disparar()})			
+		game.onTick(1500,  "moverse" , {self.avanzar()})
+		game.onTick(5000, "disparar" , {self.disparar()})			
 	}
 	
 	method disparar(){
@@ -57,7 +57,7 @@ object enemigoLeopard {
 			vida -= bala.danio()	
 		} else {
 			game.removeTickEvent("disparar")
-			game.removeVisual(self)
+			game.removeVisual(self) 
 		}
 	}
 	

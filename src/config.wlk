@@ -18,14 +18,10 @@ object config {
 		game.onTick(1, "DISPARO" + bala.identity(), {bala.desplazar()})
 		game.onCollideDo(bala, { algo => algo.impactar(bala) })
 	}
-	
+
 	method configurarMovimientosYDisparosAleatoriosEnemigos(){
-		enemigoLeopard.moverDisparandoAleatorio()
-	}
-	
-	method generarEnemigos(){
 		//TODO: implementar un generador de enemigos aleatorios y a cada enemigo pasarle parametros aleatorios para que tengan distinta velocidad, daño, movimiento.
 		//Probablemente acá allá que instanciar a cada enemigo y meterlo en una lista.
-		game.addVisual(enemigoLeopard)	
+			game.onTick(300, "TANQUESENEMIGOS", {gestorDeEnemigos.agregarEnemigos()})
 	}
 }

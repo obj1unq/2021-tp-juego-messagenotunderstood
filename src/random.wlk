@@ -11,6 +11,16 @@ object random {
 	method direccionAleatoria(){				
 		return ["arriba","izquierda","abajo","derecha"].anyOne()	
 	}
+	
+	method emptyPosition() {
+		const position = self.position()
+		if(game.getObjectsIn(position).isEmpty()) {
+			return position	
+		}
+		else {
+			return self.emptyPosition()
+		}
+	}
 }
 	
 

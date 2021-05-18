@@ -9,9 +9,7 @@ object nivelUno {
 		self.paredDefensa()
 		self.agregarObjetosIniciales()
 		self.configurarTeclasYMecanismos()
-		
-		//
-		
+	
 	}	
 	
 	method agregarObjetosIniciales(){
@@ -30,7 +28,7 @@ object nivelUno {
 	}
 	
 	method configurarTeclasYMecanismos(){
-		config.configurarColisiones()
+		//config.configurarColisiones()
 		config.configurarMovimientosYDisparosAleatoriosEnemigos()
 	}
 
