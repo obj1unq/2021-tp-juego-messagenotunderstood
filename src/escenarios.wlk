@@ -1,20 +1,23 @@
 import wollok.game.*
 import elementos.*
 import tanque.*
-import enemigos.*
+import config.*
 
 object nivelUno {
 	
 	method iniciar() {	
 		self.paredDefensa()
-		self.AgregarObjetosIniciales()
-		enemigoLeopard.moverDisparandoAleatorio()
+		self.agregarObjetosIniciales()
+		self.configurarTeclasYMecanismos()
+		
+		//
+		
 	}	
 	
-	method AgregarObjetosIniciales(){
+	method agregarObjetosIniciales(){
 		game.addVisual(tanque)
 		game.addVisual(defensa)
-		game.addVisual(enemigoLeopard)	
+		//game.addVisual(enemigoLeopard)	
 	}
 	
 	method paredDefensa(){
@@ -25,4 +28,10 @@ object nivelUno {
 		game.addVisual(new Ladrillo(position = game.at(7,0)))
 
 	}
+	
+	method configurarTeclasYMecanismos(){
+		config.configurarColisiones()
+		config.configurarMovimientosYDisparosAleatoriosEnemigos()
+	}
+
 }

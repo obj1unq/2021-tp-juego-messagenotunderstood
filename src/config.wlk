@@ -1,17 +1,10 @@
 import tanque.*
 import wollok.game.*
 import elementos.*
+import enemigos.*
 
 object config {
 
-	method mapa(){
-		game.title("Wollanzerkampfwagen")
-		game.height(13)
-		game.width(13)
-		game.cellSize(50)
-		
-	}
-		
 	method teclas() {
 		keyboard.a().onPressDo({ tanque.irA(tanque.position().left(1), "izquierda")})
 		keyboard.d().onPressDo({ tanque.irA(tanque.position().right(1), "derecha")})
@@ -20,11 +13,19 @@ object config {
 		keyboard.space().onPressDo({ tanque.disparar() })
 	}
 	
-	method configurarColisiones(){
-		
+	method configurarColisiones(bala){
+		game.addVisual(bala)
+		game.onTick(1, "DISPARO" + bala.identity(), {bala.desplazar()})
+		game.onCollideDo(bala, { algo => algo.impactar(bala) })
 	}
 	
 	method configurarMovimientosYDisparosAleatoriosEnemigos(){
-		
+		enemigoLeopard.moverDisparandoAleatorio()
+	}
+	
+	method generarEnemigos(){
+		//TODO: implementar un generador de enemigos aleatorios y a cada enemigo pasarle parametros aleatorios para que tengan distinta velocidad, daño, movimiento.
+		//Probablemente acá allá que instanciar a cada enemigo y meterlo en una lista.
+		game.addVisual(enemigoLeopard)	
 	}
 }

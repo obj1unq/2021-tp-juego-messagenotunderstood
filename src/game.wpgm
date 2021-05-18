@@ -5,8 +5,10 @@ import enemigos.*
 import config.*
 
 program game {
-	config.mapa()
-	config.teclas()
+	game.title("Wollanzerkampfwagen")
+	game.height(13)
+	game.width(13)
+	game.cellSize(50)
 	nivelUno.iniciar()
 	game.start()
 }
