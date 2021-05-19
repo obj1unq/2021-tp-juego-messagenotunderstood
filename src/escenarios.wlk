@@ -5,7 +5,8 @@ import config.*
 
 object nivelUno {
 	
-	method iniciar() {	
+	method iniciar() {
+		game.boardGround("fondo.jpg")	
 		self.paredDefensa()
 		self.agregarObjetosIniciales()
 		self.configurarTeclasYMecanismos()

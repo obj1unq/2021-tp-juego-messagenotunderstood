@@ -78,7 +78,7 @@ class Bala {
 	}
 
 	method validaPosicion(_position){
-		return _position.y().between(0, game.width() ) and _position.x().between(0, game.height() )
+		return _position.y().between(0, game.width() -1 ) and _position.x().between(0, game.height() -1)
 	
 	}
 	
