@@ -27,18 +27,21 @@ class Bala {
 	}
 	
 	method ubicarPosicion(){
-		
+	
 		if(self.dirALaQueApuntaElTanque("arriba")){		
+		
 				position = game.at(tanqueActual.position().x(), tanqueActual.position().y() + 1)
 		}
 		else if (self.dirALaQueApuntaElTanque("abajo")){
 				position = game.at(tanqueActual.position().x() , tanqueActual.position().y() - 1)
 		}
 		else if(self.dirALaQueApuntaElTanque("derecha")){
+
 				position = game.at(tanqueActual.position().x() +1, tanqueActual.position().y() )
 		}
 		else {position = game.at(tanqueActual.position().x() - 1, tanqueActual.position().y()) }
-		}
+
+	}
 	
 	method dirALaQueApuntaElTanque(dir){
 		return direccion == dir
@@ -60,14 +63,11 @@ class Bala {
 	}
 	
 	method explotar(){
-
 		self.removerDisparo()
-		self.agregarExplosion()
-		
-	}
-	
+		self.agregarExplosion()		
+	}	
 	method removerDisparo(){
-		game.removeTickEvent("DISPARO"+ self.identity())
+		game.removeTickEvent("MOVIMIENTO_DE_BALA"+ self.identity())
 		game.removeVisual(self)
 	}
 	
@@ -89,7 +89,7 @@ class Bala {
 	method trayecto(){
 		self.ubicarPosicion()
 		game.addVisual(self)
-		game.onTick(1, "DISPARO" + self.identity(), {self.desplazar()})
+		game.onTick(50, "MOVIMIENTO_DE_BALA" + self.identity(), {self.desplazar()})
 		game.onCollideDo(self, { algo => algo.impactar(self) })
 	}
 }

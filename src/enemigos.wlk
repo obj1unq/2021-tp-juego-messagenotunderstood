@@ -22,8 +22,8 @@ class EnemigoLeopard {
 	
 	method moverDisparandoAleatorio(){		
 
-		game.onTick(timeMove,  "moverse" + self.identity(), {self.avanzar()})
-		game.onTick(shotTime, "disparar" + self.identity(), {self.disparar()})			
+		game.onTick(timeMove,  "MOVER_ENEMIGO" + self.identity(), {self.avanzar()})
+		game.onTick(shotTime,  "DISPARAR_ENEMIGO" + self.identity(), {self.disparar()})			
 
 	}
 	method disparar(){
@@ -56,14 +56,25 @@ class EnemigoLeopard {
 	
 	method impactar(bala){
 		if (self.validaVida()){
-			bala.explotar()
-			vida -= bala.danho()	
+			self.hacerDanio(bala)	
 		} else {
-			game.removeTickEvent("disparar"+ self.identity())
-			game.removeTickEvent("moverse"+ self.identity())
-			gestorDeEnemigos.removerElemento(self)
-
+			self.removerEnemigo()
 		}
+	}
+	
+	method removerEnemigo(){
+		game.removeTickEvent("DISPARAR_ENEMIGO"+ self.identity())
+		game.removeTickEvent("MOVER_ENEMIGO"+ self.identity())
+		gestorDeEnemigos.removerElemento(self)
+	}
+	
+	method removerElemento(){
+		game.removeVisual(self)
+	}
+	
+	method hacerDanio(bala) {
+		bala.explotar()
+		vida -= bala.danho()
 	}
 	
 	method validaVida(){

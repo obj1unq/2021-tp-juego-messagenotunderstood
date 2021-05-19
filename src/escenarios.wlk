@@ -15,7 +15,7 @@ object nivelUno {
 	method agregarObjetosIniciales(){
 		game.addVisual(tanque)
 		game.addVisual(defensa)
-		//game.addVisual(enemigoLeopard)	
+	
 	}
 	
 	method paredDefensa(){
@@ -29,7 +29,7 @@ object nivelUno {
 	
 	method configurarTeclasYMecanismos(){
 		config.configurarTeclas()
-		config.configurarColisiones()
+		//config.configurarColisiones()
 		config.configurarMovimientosYDisparosAleatoriosEnemigos()
 	}
 
