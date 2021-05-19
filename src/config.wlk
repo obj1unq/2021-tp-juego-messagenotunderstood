@@ -14,9 +14,8 @@ object config {
 	}
 	
 	method configurarColisiones(){
-		const bala = new Bala(direccion = "arriba")
-		game.addVisual(bala)
-		game.onTick(1, "DISPARO" + bala.identity(), {bala.desplazar()})
+		//const bala = new Bala(direccion = "arriba")
+		///game.onTick(1, "DISPARO" + bala.identity(), {bala.desplazar()})
 		//game.onCollideDo(bala, { algo => algo.impactar(bala) })
 
 		//TODO: implementar colisiones con los obstaculos aca??

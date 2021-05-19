@@ -29,16 +29,16 @@ class Bala {
 	
 	method ubicarPosicion(){
 		 if(self.dirALaQueApuntaElTanque("arriba")){		
-				position = game.at(tanqueActual.position().x(), tanqueActual.position().y() + 0.4)
+				position = game.at(tanqueActual.position().x(), tanqueActual.position().y() + 1)
 		}
 		else if (self.dirALaQueApuntaElTanque("abajo")){
-				position = game.at(tanqueActual.position().x() , tanqueActual.position().y() - 0.4)
+				position = game.at(tanqueActual.position().x() , tanqueActual.position().y() - 1)
 		}
 		else if(self.dirALaQueApuntaElTanque("derecha")){
-				position = game.at(tanqueActual.position().x() + 0.4, tanqueActual.position().y() )
+				position = game.at(tanqueActual.position().x() + 1, tanqueActual.position().y() )
 		}
 		else {
-			position = game.at(tanqueActual.position().x() - 0.4, tanqueActual.position().y()
+			position = game.at(tanqueActual.position().x() - 1, tanqueActual.position().y()
 			)
 		}
 	}
@@ -65,7 +65,7 @@ class Bala {
 	method explotar(){
 		const explocion = new Explocion(position = position)
 		game.addVisual( explocion)
-		game.removeTickEvent("DISPARO"+ self.identity())
+		game.removeTickEvent("MOVIENTO_DE_BALA"+ self.identity())
 		game.removeVisual(self)
 		game.schedule(250, { 
 		game.removeVisual( explocion)
@@ -84,7 +84,7 @@ class Bala {
 	method detonar(){
 		self.ubicarPosicion()
 		game.addVisual(self)
-		game.onTick(1, "DISPARO" + self.identity(), {self.desplazar()})
+		game.onTick(50, "MOVIENTO_DE_BALA" + self.identity(), {self.desplazar()})
 		game.onCollideDo(self, { algo => algo.impactar(self) })
 	}
 }
