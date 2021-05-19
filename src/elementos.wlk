@@ -1,14 +1,15 @@
 import wollok.game.*
 import tanque.*
-import random.*
 import enemigos.*
+import random.*
 
 class Bala {
-
-	const direccion ="arriba"
-	const property danio = 7
+	
+	const direccion
+	const property danho = 7
 	const tanqueActual = tanque 
-	const nombreTick  = [1,2,3,4,5,6,7,8,9,10,11,12,13,15].anyOne().toString()
+	//const nombreTick  = [1,2,3,4,5,6,7,8,9,10,11,12,13,15].anyOne().toString()
+	
 	var property position = game.origin()
 	
 	method image() { 
@@ -26,18 +27,19 @@ class Bala {
 		}
 	}
 	
-	method position(_posicion, _direccion){
+	method ubicarPosicion(){
 		 if(self.dirALaQueApuntaElTanque("arriba")){		
-				position = game.at(tanqueActual.position().x(), tanqueActual.position().y() + 1)
+				position = game.at(tanqueActual.position().x(), tanqueActual.position().y() + 0.4)
 		}
 		else if (self.dirALaQueApuntaElTanque("abajo")){
-				position = game.at(tanqueActual.position().x() , tanqueActual.position().y() - 1)
+				position = game.at(tanqueActual.position().x() , tanqueActual.position().y() - 0.4)
 		}
 		else if(self.dirALaQueApuntaElTanque("derecha")){
-				position = game.at(tanqueActual.position().x() + 1, tanqueActual.position().y() )
+				position = game.at(tanqueActual.position().x() + 0.4, tanqueActual.position().y() )
 		}
 		else {
-			position = game.at(tanqueActual.position().x() - 1, tanqueActual.position().y() )
+			position = game.at(tanqueActual.position().x() - 0.4, tanqueActual.position().y()
+			)
 		}
 	}
 	
@@ -61,52 +63,45 @@ class Bala {
 	}
 	
 	method explotar(){
-		self.agregarExplocionYRemoverBala( new Explocion(position = position))
-		self.removerBala()
-		
-	}
-	
-	method removerBala(){
-		game.removeVisual(self)
-		game.removeTickEvent(nombreTick)
-		
-	}
-	
-	method agregarExplocionYRemoverBala(explocion){
+		const explocion = new Explocion(position = position)
 		game.addVisual( explocion)
+		game.removeTickEvent("DISPARO"+ self.identity())
+		game.removeVisual(self)
 		game.schedule(250, { 
-			game.removeVisual( explocion)
+		game.removeVisual( explocion)
 		} )
 	}
 
 	method validaPosicion(_position){
-		return _position.y().between(0, game.width() - 1) and _position.x().between(0, game.height() - 1 )
+		return _position.y().between(0, game.width() ) and _position.x().between(0, game.height() )
 	
 	}
 	
 	method impactar(algo){
-		//No hace nada.
+		// No hace nada.
 	}
 	
-	method trayectoriaDe(){
+	method detonar(){
+		self.ubicarPosicion()
 		game.addVisual(self)
-		game.onTick(1, nombreTick,  {self.desplazar()})
-	
+		game.onTick(1, "DISPARO" + self.identity(), {self.desplazar()})
+		game.onCollideDo(self, { algo => algo.impactar(self) })
 	}
 }
 
 
 class Pasto{
-	var property position
+	var property position = null
 	var vida = 20
 	method image() = "pasto.png"
 
 	method impactar(bala){
 		if (self.validaVida()){
 			bala.explotar()
-			vida -= bala.danio()	
+			vida -= bala.danho()	
 		} else {
-			game.removeVisual(self) 
+			
+			game.removeVisual(self)
 		}
 	}
 	
@@ -124,9 +119,10 @@ class Ladrillo{
 	method impactar(bala){
 		if (self.validaVida()){
 			bala.explotar()
-			vida -= bala.danio()	
+			vida -= bala.danho()	
 		} else {
-			game.removeVisual(self) 
+			
+			game.removeVisual(self)
 		}
 	}
 	
@@ -137,18 +133,17 @@ class Ladrillo{
 
 class Agua{
 	var property position = null
-	method impactar(bala){
-		// No hace nada
-	}
+	
 	method image() = "agua.png"
 }
 
 class Explocion {
-	var property position	
+	var property position
+	
 	method image() = "explosion1.png"
+	
 	method impactar(algo){}
 }
-
 
 object defensa {
 	
@@ -159,9 +154,9 @@ object defensa {
 	method impactar(bala){
 		if (self.validaVida()){
 			bala.explotar()
-			vida -= bala.danio()	
+			vida -= bala.danho()	
 		} else {
-		//Implementar trigger de fin de juego por perder.
+		//Implementar trigger de fin de juego por perder.			
 			game.removeVisual(self) 
 
 		}
@@ -178,13 +173,15 @@ object gestorDeEnemigos{
 	method agregarEnemigos() {
 		if (self.enemigosEnMapa().size() <= 4 ) {
 			self.agregarNuevaEnemigo()
+			self.enemigosEnMapa().forEach({tanqueEnemigo => tanqueEnemigo.moverDisparandoAleatorio() })
 		}
+		
 	}
 	
 	method agregarNuevaEnemigo(){
 		const enemigosPosibles = [
-			new EnemigoLeopard(position =  random.emptyPosition()),
-			new EnemigoLeopard(position =  random.emptyPosition())		
+			new EnemigoLeopard(position =  random.emptyPosition(), shotTime = 3000 , timeMove = 4000),
+			new EnemigoLeopard(position =  random.emptyPosition(), shotTime = 2500,  timeMove = 3000 )		
 		]
 		const nuevoEnemigo = enemigosPosibles.anyOne()
 		self.agregarElemento(nuevoEnemigo)
@@ -193,7 +190,7 @@ object gestorDeEnemigos{
 	method agregarElemento(enemigo){
 		enemigosEnMapa.add(enemigo)	 
 		game.addVisual(enemigo)
-		self.enemigosEnMapa().forEach({tanqueEnemigo => tanqueEnemigo.moverDisparandoAleatorio() })
+		
 	}
 	
 	method removerElemento(enemigo) {
@@ -201,8 +198,5 @@ object gestorDeEnemigos{
 		game.removeVisual(enemigo) 
 	}
 }
-
-
-
 
 

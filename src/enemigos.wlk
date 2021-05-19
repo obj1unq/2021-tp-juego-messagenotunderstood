@@ -9,6 +9,10 @@ class EnemigoLeopard {
 	var property vida = 100
 	var property position = game.at(10,10)
 	var property direccion = "izquierda"
+	const danioDisparo = 15
+	var timeMove
+	var shotTime
+
 	
 	method image() {
 		return if (direccion == "arriba")  {"Leopard-up.png"}
@@ -18,14 +22,13 @@ class EnemigoLeopard {
 	}
 	
 	method moverDisparandoAleatorio(){		
-		game.onTick(1500,  "moverse" , {self.avanzar()})
-		game.onTick(5000, "disparar" , {self.disparar()})			
+		game.onTick(timeMove,  "moverse" + self.identity(), {self.avanzar()})
+		game.onTick(shotTime, "disparar" + self.identity(), {self.disparar()})			
 	}
 	
 	method disparar(){
-		const bala = new Bala(danio = 14 , direccion = direccion, tanqueActual = self)
-		bala.position(position, direccion)	
-		bala.trayectoriaDe()
+		const bala = new Bala(danho = danioDisparo , direccion = direccion, tanqueActual = self)
+		bala.detonar()
 	}
 
 	method avanzar(){
@@ -54,9 +57,11 @@ class EnemigoLeopard {
 	method impactar(bala){
 		if (self.validaVida()){
 			bala.explotar()
-			vida -= bala.danio()	
+			vida -= bala.danho()	
 		} else {
-			game.removeTickEvent("disparar")
+			game.removeTickEvent("disparar"+ self.identity())
+			game.removeTickEvent("moverse"+ self.identity())
+			gestorDeEnemigos.removerElemento(self)
 			game.removeVisual(self) 
 		}
 	}
