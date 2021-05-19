@@ -18,14 +18,13 @@ class EnemigoLeopard {
 	}
 	
 	method moverDisparandoAleatorio(){		
-		game.onTick(1500,  "moverse" , {self.avanzar()})
-		game.onTick(5000, "disparar" , {self.disparar()})			
+		game.onTick(1500,  "moverse" + self.identity(), {self.avanzar()})
+		game.onTick(5000, "disparar" + self.identity(), {self.disparar()})			
 	}
 	
 	method disparar(){
-		const bala = new Bala(danio = 14 , direccion = direccion, tanqueActual = self)
-		bala.position(position, direccion)	
-		bala.trayectoriaDe()
+		const bala = new Bala(danho = 14 , direccion = direccion, tanqueActual = self)
+		bala.detonar()
 	}
 
 	method avanzar(){
@@ -54,9 +53,10 @@ class EnemigoLeopard {
 	method impactar(bala){
 		if (self.validaVida()){
 			bala.explotar()
-			vida -= bala.danio()	
+			vida -= bala.danho()	
 		} else {
-			game.removeTickEvent("disparar")
+			game.removeTickEvent("disparar" + self.identity())
+			game.removeTickEvent("moverse" + self.identity())
 			game.removeVisual(self) 
 		}
 	}

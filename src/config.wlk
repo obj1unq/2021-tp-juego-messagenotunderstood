@@ -13,15 +13,12 @@ object config {
 		keyboard.space().onPressDo({ tanque.disparar() })
 	}
 	
-	method configurarColisiones(bala){
-		game.addVisual(bala)
-		game.onTick(1, "DISPARO" + bala.identity(), {bala.desplazar()})
-		game.onCollideDo(bala, { algo => algo.impactar(bala) })
+	method configurarColisiones(){
+		//TODO: implementar colisiones con los obstaculos aca??
 	}
 
 	method configurarMovimientosYDisparosAleatoriosEnemigos(){
 		//TODO: implementar un generador de enemigos aleatorios y a cada enemigo pasarle parametros aleatorios para que tengan distinta velocidad, daño, movimiento.
-		//Probablemente acá allá que instanciar a cada enemigo y meterlo en una lista.
 			game.onTick(300, "TANQUESENEMIGOS", {gestorDeEnemigos.agregarEnemigos()})
 	}
 }
