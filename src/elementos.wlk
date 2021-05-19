@@ -169,11 +169,10 @@ object gestorDeEnemigos{
 	const property enemigosEnMapa = []
 
 	method agregarEnemigos() {
-		if (self.enemigosEnMapa().size() <= 4 ) {
+		if (self.enemigosEnMapa().size() <= 2 ) {
 			self.agregarNuevaEnemigo()
-			self.enemigosEnMapa().forEach({tanqueEnemigo => tanqueEnemigo.moverDisparandoAleatorio() })
-		}
-		
+			//self.enemigosEnMapa().forEach({tanqueEnemigo => tanqueEnemigo.moverDisparandoAleatorio() })
+		}		
 	}
 	
 	method agregarNuevaEnemigo(){
@@ -182,6 +181,7 @@ object gestorDeEnemigos{
 			new EnemigoLeopard(position =  random.emptyPosition(), shotTime = 2500,  timeMove = 3000 )		
 		]
 		const nuevoEnemigo = enemigosPosibles.anyOne()
+		nuevoEnemigo.moverDisparandoAleatorio() 
 		self.agregarElemento(nuevoEnemigo)
 	}
 	

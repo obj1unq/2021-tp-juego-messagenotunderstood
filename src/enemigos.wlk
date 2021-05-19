@@ -13,7 +13,6 @@ class EnemigoLeopard {
 	var timeMove
 	var shotTime
 
-	
 	method image() {
 		return if (direccion == "arriba")  {"Leopard-up.png"}
 		 else if  (direccion == "abajo")   {"Leopard-dw.png"}

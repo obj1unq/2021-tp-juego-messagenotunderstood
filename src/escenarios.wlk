@@ -29,7 +29,7 @@ object nivelUno {
 	
 	method configurarTeclasYMecanismos(){
 		config.configurarTeclas()
-		//config.configurarColisiones()
+		config.configurarColisiones()
 		config.configurarMovimientosYDisparosAleatoriosEnemigos()
 	}
 
