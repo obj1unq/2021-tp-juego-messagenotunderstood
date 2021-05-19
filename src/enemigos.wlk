@@ -28,7 +28,7 @@ class EnemigoLeopard {
 	}
 	method disparar(){
 		const bala = new Bala(danho = danioDisparo , direccion = direccion, tanqueActual = self)
-		bala.detonar()
+		bala.trayecto()
 	}
 
 	method avanzar(){

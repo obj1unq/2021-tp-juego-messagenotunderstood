@@ -8,7 +8,6 @@ class Bala {
 	const direccion
 	const property danho = 7
 	const tanqueActual = tanque 
-	//const nombreTick  = [1,2,3,4,5,6,7,8,9,10,11,12,13,15].anyOne().toString()
 	
 	var property position = game.origin()
 	
@@ -28,20 +27,18 @@ class Bala {
 	}
 	
 	method ubicarPosicion(){
-		 if(self.dirALaQueApuntaElTanque("arriba")){		
-				position = game.at(tanqueActual.position().x(), tanqueActual.position().y() + 0.4)
+		
+		if(self.dirALaQueApuntaElTanque("arriba")){		
+				position = game.at(tanqueActual.position().x(), tanqueActual.position().y() + 1)
 		}
 		else if (self.dirALaQueApuntaElTanque("abajo")){
-				position = game.at(tanqueActual.position().x() , tanqueActual.position().y() - 0.4)
+				position = game.at(tanqueActual.position().x() , tanqueActual.position().y() - 1)
 		}
 		else if(self.dirALaQueApuntaElTanque("derecha")){
-				position = game.at(tanqueActual.position().x() + 0.4, tanqueActual.position().y() )
+				position = game.at(tanqueActual.position().x() +1, tanqueActual.position().y() )
 		}
-		else {
-			position = game.at(tanqueActual.position().x() - 0.4, tanqueActual.position().y()
-			)
+		else {position = game.at(tanqueActual.position().x() - 1, tanqueActual.position().y()) }
 		}
-	}
 	
 	method dirALaQueApuntaElTanque(dir){
 		return direccion == dir
@@ -63,13 +60,21 @@ class Bala {
 	}
 	
 	method explotar(){
-		const explocion = new Explocion(position = position)
-		game.addVisual( explocion)
+
+		self.removerDisparo()
+		self.agregarExplosion()
+		
+	}
+	
+	method removerDisparo(){
 		game.removeTickEvent("DISPARO"+ self.identity())
 		game.removeVisual(self)
-		game.schedule(250, { 
-		game.removeVisual( explocion)
-		} )
+	}
+	
+	method agregarExplosion(){
+		const explocion = new Explocion(position = position)
+		game.addVisual( explocion)
+		game.schedule(250, { game.removeVisual( explocion) })
 	}
 
 	method validaPosicion(_position){
@@ -81,7 +86,7 @@ class Bala {
 		// No hace nada.
 	}
 	
-	method detonar(){
+	method trayecto(){
 		self.ubicarPosicion()
 		game.addVisual(self)
 		game.onTick(1, "DISPARO" + self.identity(), {self.desplazar()})
@@ -97,11 +102,19 @@ class Pasto{
 
 	method impactar(bala){
 		if (self.validaVida()){
-			bala.explotar()
-			vida -= bala.danho()	
+			self.hacerDanio(bala)
 		} else {
-			game.removeVisual(self)
+			self.removerElemento()			
 		}
+	}
+	
+	method removerElemento(){
+		game.removeVisual(self)
+	}
+	
+	method hacerDanio(bala) {
+		bala.explotar()
+		vida -= bala.danho()
 	}
 	
 	method validaVida(){
@@ -117,29 +130,39 @@ class Ladrillo{
 	
 	method impactar(bala){
 		if (self.validaVida()){
-			bala.explotar()
-			vida -= bala.danho()	
+			self.hacerDanio(bala)
+				
 		} else {
-			game.removeVisual(self)
+			self.removerElemento()
 		}
 	}
 	
 	method validaVida(){
 		return vida > 0
 	}
+	
+	method hacerDanio(bala) {
+		bala.explotar()
+		vida -= bala.danho()
+	}
+	
+	method removerElemento(){
+		game.removeVisual(self)
+	}
 }
 
 class Agua{
-	var property position = null
 	
+	var property position = null	
 	method image() = "agua.png"
+	
 }
 
 class Explocion {
 	var property position
-	
+
 	method image() = "explosion1.png"
-	
+
 	method impactar(algo){}
 }
 
@@ -148,19 +171,30 @@ object defensa {
 	var property vida = 200
 	
 	method image() = "baseGit1.png"
+	
 	method position () = game.at( (game.width()) / 2,0)
+	
 	method impactar(bala){
 		if (self.validaVida()){
-			bala.explotar()
-			vida -= bala.danho()	
+			self.hacerDanio(bala)	
 		} else {
 		//Implementar trigger de fin de juego por perder.			
-			game.removeVisual(self) 
+			self.removerElemento()
 
 		}
 	}
+	
 	method validaVida(){
 		return vida > 0
+	}
+	
+	method hacerDanio(bala) {
+		bala.explotar()
+		vida -= bala.danho()
+	}
+	
+	method removerElemento(){
+		game.removeVisual(self)
 	}
 	
 }
@@ -171,7 +205,6 @@ object gestorDeEnemigos{
 	method agregarEnemigos() {
 		if (self.enemigosEnMapa().size() <= 2 ) {
 			self.agregarNuevaEnemigo()
-			//self.enemigosEnMapa().forEach({tanqueEnemigo => tanqueEnemigo.moverDisparandoAleatorio() })
 		}		
 	}
 	

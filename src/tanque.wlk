@@ -17,7 +17,7 @@ object tanque {
 
 	method disparar(){
 		const bala = new Bala(danho = danioDisparo , direccion = ultimoMovimiento)
-		bala.detonar()
+		bala.trayecto()
 	}
 
 	method irA(_position, _direction){
