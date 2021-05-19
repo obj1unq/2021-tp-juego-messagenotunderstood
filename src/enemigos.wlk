@@ -23,12 +23,14 @@ class EnemigoLeopard {
 	method moverDisparandoAleatorio(){		
 
 		game.onTick(timeMove,  "MOVER_ENEMIGO" + self.identity(), {self.avanzar()})
-		game.onTick(shotTime,  "DISPARAR_ENEMIGO" + self.identity(), {self.disparar()})			
+		game.onTick(shotTime,  "DISPARAR_ENEMIGO" + self.identity(), {config.mecanicaDe(self.balaDisparada())})			
 
 	}
-	method disparar(){
-		const bala = new Bala(danho = danioDisparo , direccion = direccion, tanqueActual = self)
-		bala.trayecto()
+	method balaDisparada(){
+		return new Bala(danio = danioDisparo , direccion = direccion, tanqueActual = self)
+//		const bala = new Bala(danio = danioDisparo , direccion = direccion, tanqueActual = self)
+//		bala.trayecto()
+
 	}
 
 	method avanzar(){
@@ -74,10 +76,14 @@ class EnemigoLeopard {
 	
 	method hacerDanio(bala) {
 		bala.explotar()
-		vida -= bala.danho()
+		vida -= bala.danio()
 	}
 	
 	method validaVida(){
 		return vida > 0
+	}
+	
+	method modelo(){
+		return "Leopard II"
 	}
 }

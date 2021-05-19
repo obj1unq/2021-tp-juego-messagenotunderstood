@@ -15,9 +15,10 @@ object tanque {
 		   else "tanque_lf.png"	
 	}
 
-	method disparar(){
-		const bala = new Bala(danho = danioDisparo , direccion = ultimoMovimiento)
-		bala.trayecto()
+	method balaDisparada(){
+		//const bala = new Bala(danio = danioDisparo , direccion = ultimoMovimiento)
+		//bala.trayecto()
+		return new Bala(danio = danioDisparo , direccion = ultimoMovimiento)
 	}
 
 	method irA(_position, _direction){
@@ -38,7 +39,7 @@ object tanque {
 	method impactar(bala){
 		if (self.validaVida()){
 			bala.explotar()
-			vida -= bala.danho()	
+			vida -= bala.danio()	
 		} else {
 			game.removeVisual(self)
 		}

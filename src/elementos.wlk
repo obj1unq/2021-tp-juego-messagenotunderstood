@@ -6,7 +6,7 @@ import random.*
 class Bala {
 	
 	const direccion
-	const property danho = 7
+	const property danio = 7
 	const tanqueActual = tanque 
 	
 	var property position = game.origin()
@@ -114,7 +114,7 @@ class Pasto{
 	
 	method hacerDanio(bala) {
 		bala.explotar()
-		vida -= bala.danho()
+		vida -= bala.danio()
 	}
 	
 	method validaVida(){
@@ -143,7 +143,7 @@ class Ladrillo{
 	
 	method hacerDanio(bala) {
 		bala.explotar()
-		vida -= bala.danho()
+		vida -= bala.danio()
 	}
 	
 	method removerElemento(){
@@ -179,7 +179,9 @@ object defensa {
 			self.hacerDanio(bala)	
 		} else {
 		//Implementar trigger de fin de juego por perder.			
-			self.removerElemento()
+			game.say(tanque, "Nooooooooooooooooooooooooo!!!")		
+			game.removeVisual(self) 
+			game.schedule(2000, {game.stop()})
 
 		}
 	}
@@ -190,7 +192,7 @@ object defensa {
 	
 	method hacerDanio(bala) {
 		bala.explotar()
-		vida -= bala.danho()
+		vida -= bala.danio()
 	}
 	
 	method removerElemento(){
@@ -201,10 +203,12 @@ object defensa {
 
 object gestorDeEnemigos{
 	const property enemigosEnMapa = []
+	var enemigosCaidos = 0 
 
 	method agregarEnemigos() {
 		if (self.enemigosEnMapa().size() <= 2 ) {
 			self.agregarNuevaEnemigo()
+			game.say(defensa,"¡CUIDADO! Se acerca un " + enemigosEnMapa.last().modelo() + ".")
 		}		
 	}
 	
@@ -227,6 +231,7 @@ object gestorDeEnemigos{
 	method removerElemento(enemigo) {
 		enemigosEnMapa.remove(enemigo)
 		game.removeVisual(enemigo) 
+		enemigosCaidos += 1
 	}
 }
 
