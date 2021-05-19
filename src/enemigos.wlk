@@ -22,10 +22,11 @@ class EnemigoLeopard {
 	}
 	
 	method moverDisparandoAleatorio(){		
+
 		game.onTick(timeMove,  "moverse" + self.identity(), {self.avanzar()})
 		game.onTick(shotTime, "disparar" + self.identity(), {self.disparar()})			
+
 	}
-	
 	method disparar(){
 		const bala = new Bala(danho = danioDisparo , direccion = direccion, tanqueActual = self)
 		bala.detonar()
@@ -62,7 +63,7 @@ class EnemigoLeopard {
 			game.removeTickEvent("disparar"+ self.identity())
 			game.removeTickEvent("moverse"+ self.identity())
 			gestorDeEnemigos.removerElemento(self)
-			game.removeVisual(self) 
+
 		}
 	}
 	

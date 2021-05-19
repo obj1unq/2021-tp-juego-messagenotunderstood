@@ -100,7 +100,6 @@ class Pasto{
 			bala.explotar()
 			vida -= bala.danho()	
 		} else {
-			
 			game.removeVisual(self)
 		}
 	}
@@ -121,7 +120,6 @@ class Ladrillo{
 			bala.explotar()
 			vida -= bala.danho()	
 		} else {
-			
 			game.removeVisual(self)
 		}
 	}
@@ -198,5 +196,4 @@ object gestorDeEnemigos{
 		game.removeVisual(enemigo) 
 	}
 }
-
 
