@@ -126,16 +126,21 @@ class Ladrillo{
 	var property position
 	var property vida = 100 
 	
-	method image() = "muro.png"
+	method image() {
+		return if (vida > 50) {"muro.png"}
+		 else {"muro_rajado.png"}
+	} 
 	
 	method impactar(bala){
 		if (self.validaVida()){
 			self.hacerDanio(bala)
 				
 		} else {
+			self.agregarHumo()
 			self.removerElemento()
 		}
 	}
+	
 	
 	method validaVida(){
 		return vida > 0
@@ -144,6 +149,18 @@ class Ladrillo{
 	method hacerDanio(bala) {
 		bala.explotar()
 		vida -= bala.danio()
+	}
+	
+	method agregarExplosion(){
+		const explocion = new Explocion(position = position)
+		game.addVisual( explocion)
+		game.schedule(250, { game.removeVisual( explocion) })
+	}
+	
+	method agregarHumo() {
+		const humo = new Humo(position = position)
+		game.addVisual(humo)
+		game.schedule(250, { game.removeVisual(humo) })
 	}
 	
 	method removerElemento(){
@@ -164,6 +181,13 @@ class Explocion {
 	method image() = "explosion1.png"
 
 	method impactar(algo){}
+}
+
+class Humo {
+	var property position
+
+	method image() = "humo.png"
+
 }
 
 object defensa {
