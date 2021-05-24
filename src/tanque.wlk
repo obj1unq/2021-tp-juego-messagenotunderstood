@@ -5,26 +5,21 @@ import config.*
 object tanque {
 	var property vida = 100
 	var property position = game.origin()
-	var property ultimoMovimiento = "arriba"
+	var property direccion = arriba
 	const danioDisparo = 15
 
 	method image() {
-		return if (ultimoMovimiento == "arriba")  "tanque_up.png"
-		 else if  (ultimoMovimiento == "abajo")   "tanque_dw.png"
-		  else if (ultimoMovimiento == "derecha") "tanque_rh.png"
-		   else "tanque_lf.png"	
+		return "tanque_" + direccion.sufijo()  + ".png"
 	}
 
 	method balaDisparada(){
-		//const bala = new Bala(danio = danioDisparo , direccion = ultimoMovimiento)
-		//bala.trayecto()
-		return new Bala(danio = danioDisparo , direccion = ultimoMovimiento)
+		return new Bala(danio = danioDisparo , direccion = direccion, position = position)
 	}
 
 	method irA(_position, _direction){
 		if (self.validaPosicion(_position) and self.sinObstaculo(_position)){
 			position = _position
-			ultimoMovimiento = _direction
+			direccion = _direction
 		}
 	}
 	

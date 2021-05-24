@@ -9,38 +9,15 @@ class Bala {
 	const property danio = 7
 	const tanqueActual = tanque 
 	
-	var property position = game.origin()
+	var property position //= game.origin()
 	
 	method image() { 
-		return if (self.dirALaQueApuntaElTanque("arriba")){
-			"bala-up.png"
-		}
-		else if(self.dirALaQueApuntaElTanque("abajo")) {			
-			"bala-dw.png"
-		}
-		else if(self.dirALaQueApuntaElTanque("derecha")) {					
-			"bala-rh.png"
-		}
-		else{
-			"bala-lf.png"
-		}
+		return "bala_" + direccion.sufijo()  + ".png"
 	}
 	
 	method ubicarPosicion(){
-	
-		if(self.dirALaQueApuntaElTanque("arriba")){		
-		
-				position = game.at(tanqueActual.position().x(), tanqueActual.position().y() + 1)
-		}
-		else if (self.dirALaQueApuntaElTanque("abajo")){
-				position = game.at(tanqueActual.position().x() , tanqueActual.position().y() - 1)
-		}
-		else if(self.dirALaQueApuntaElTanque("derecha")){
-
-				position = game.at(tanqueActual.position().x() +1, tanqueActual.position().y() )
-		}
-		else {position = game.at(tanqueActual.position().x() - 1, tanqueActual.position().y()) }
-
+		// Se utiliza para evitar la colision con el tanque que dispara
+		self.desplazar()
 	}
 	
 	method dirALaQueApuntaElTanque(dir){
@@ -48,18 +25,8 @@ class Bala {
 	}	
 	
 	method desplazar(){
+		position = direccion.siguientePosicion(position)
 
-		if (self.dirALaQueApuntaElTanque("arriba") and self.validaPosicion(position.up(1))){
-			position = position.up(1) 
-		} else if (self.dirALaQueApuntaElTanque("abajo") and self.validaPosicion(position.down(1))) {
-			position = position.down(1)
-		} else if (self.dirALaQueApuntaElTanque("derecha") and self.validaPosicion(position.right(1))) {
-			position = position.right(1)
-		} else if ( self.dirALaQueApuntaElTanque("izquierda")and self.validaPosicion(position.left(1))){
-			position = position.left(1)
-		} else {
-			self.explotar()
-		}
 	}
 	
 	method explotar(){
@@ -79,18 +46,10 @@ class Bala {
 
 	method validaPosicion(_position){
 		return _position.y().between(0, game.width() -1 ) and _position.x().between(0, game.height() -1)
-	
 	}
 	
 	method impactar(algo){
 		// No hace nada.
-	}
-	
-	method trayecto(){
-		self.ubicarPosicion()
-		game.addVisual(self)
-		game.onTick(50, "MOVIMIENTO_DE_BALA" + self.identity(), {self.desplazar()})
-		game.onCollideDo(self, { algo => algo.impactar(self) })
 	}
 }
 
@@ -171,16 +130,22 @@ class Ladrillo{
 class Agua{
 	
 	var property position = null	
+	
 	method image() = "agua.png"
+	
+	//TODO: implementar que las balas puedan pasar sobre el agua pero los tanques no.
 	
 }
 
 class Explocion {
+	
 	var property position
 
 	method image() = "explosion1.png"
 
-	method impactar(algo){}
+	method impactar(bala){
+		//No hace nada.
+	}
 }
 
 class Humo {
@@ -227,7 +192,9 @@ object defensa {
 }
 
 object gestorDeEnemigos{
+	
 	const property enemigosEnMapa = []
+	
 	var enemigosCaidos = 0 
 
 	method agregarEnemigos() {
@@ -240,7 +207,7 @@ object gestorDeEnemigos{
 	method agregarNuevaEnemigo(){
 		const enemigosPosibles = [
 			new EnemigoLeopard(position =  random.emptyPosition(), shotTime = 3000 , timeMove = 4000),
-			new EnemigoLeopard(position =  random.emptyPosition(), shotTime = 2500,  timeMove = 3000 )		
+			new EnemigoLeopard(position =  random.emptyPosition(), shotTime = 2500,  timeMove = 3000)		
 		]
 		const nuevoEnemigo = enemigosPosibles.anyOne()
 		nuevoEnemigo.moverDisparandoAleatorio() 
@@ -260,3 +227,38 @@ object gestorDeEnemigos{
 	}
 }
 
+object arriba {
+	method sufijo(){
+		return "up"
+	}
+	method siguientePosicion(posicion){
+		return posicion.up(2)
+	}
+}
+
+object abajo {
+	method sufijo(){
+		return "down"
+	}
+	method siguientePosicion(posicion){
+		return posicion.down(1)
+	}
+}
+
+object izquierda {
+	method sufijo(){
+		return "left"
+	}
+	method siguientePosicion(posicion){
+		return posicion.left(1)
+	}
+}
+
+object derecha {
+	method sufijo(){
+		return "right"
+	}
+	method siguientePosicion(posicion){
+		return posicion.right(1)
+	}
+}

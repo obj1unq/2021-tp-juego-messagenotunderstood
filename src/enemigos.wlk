@@ -23,14 +23,11 @@ class EnemigoLeopard {
 	method moverDisparandoAleatorio(){		
 
 		game.onTick(timeMove,  "MOVER_ENEMIGO" + self.identity(), {self.avanzar()})
-		game.onTick(shotTime,  "DISPARAR_ENEMIGO" + self.identity(), {config.mecanicaDe(self.balaDisparada())})			
+		game.onTick(shotTime,  "DISPARAR_ENEMIGO" + self.identity(), {config.movimientoDe(self.balaDisparada())})			
 
 	}
 	method balaDisparada(){
 		return new Bala(danio = danioDisparo , direccion = direccion, tanqueActual = self)
-//		const bala = new Bala(danio = danioDisparo , direccion = direccion, tanqueActual = self)
-//		bala.trayecto()
-
 	}
 
 	method avanzar(){

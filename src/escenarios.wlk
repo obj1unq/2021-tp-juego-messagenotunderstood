@@ -25,7 +25,6 @@ object nivelUno {
 		game.addVisual(new Ladrillo(position = game.at(6, 1)))
 		game.addVisual(new Ladrillo(position = game.at(7,1)))
 		game.addVisual(new Ladrillo(position = game.at(7,0)))
-
 	}
 	
 	method configurarTeclasYMecanismos(){
