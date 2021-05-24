@@ -187,7 +187,8 @@ class Humo {
 	var property position
 
 	method image() = "humo.png"
-
+	
+	method impactar(algo){}
 }
 
 object defensa {
