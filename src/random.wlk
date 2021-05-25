@@ -1,4 +1,5 @@
 import wollok.game.*
+import elementos.*
 
 object random {	
 	method position() {
@@ -9,7 +10,7 @@ object random {
 	}
 	
 	method direccionAleatoria(){				
-		return ["arriba","izquierda","abajo","derecha"].anyOne()	
+		return [arriba, izquierda, abajo, derecha].anyOne()	
 	}
 	
 	method emptyPosition() {

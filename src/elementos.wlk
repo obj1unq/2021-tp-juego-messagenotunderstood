@@ -7,7 +7,7 @@ class Bala {
 	
 	const direccion
 	const property danio = 7
-	const tanqueActual = tanque 
+	const tanqueActual = tanque
 	
 	var property position //= game.origin()
 	
@@ -25,8 +25,8 @@ class Bala {
 	}	
 	
 	method desplazar(){
+		//Hay que revisar error en nuevo desplazamiento de la bala
 		position = direccion.siguientePosicion(position)
-
 	}
 	
 	method explotar(){
@@ -39,7 +39,7 @@ class Bala {
 	}
 	
 	method agregarExplosion(){
-		const explocion = new Explocion(position = position)
+		const explocion = new Explosion(position = position)
 		game.addVisual( explocion)
 		game.schedule(250, { game.removeVisual( explocion) })
 	}
@@ -111,7 +111,7 @@ class Ladrillo{
 	}
 	
 	method agregarExplosion(){
-		const explocion = new Explocion(position = position)
+		const explocion = new Explosion(position = position)
 		game.addVisual( explocion)
 		game.schedule(250, { game.removeVisual( explocion) })
 	}
@@ -137,7 +137,7 @@ class Agua{
 	
 }
 
-class Explocion {
+class Explosion {
 	
 	var property position
 
@@ -232,7 +232,7 @@ object arriba {
 		return "up"
 	}
 	method siguientePosicion(posicion){
-		return posicion.up(2)
+		return posicion.up(1)
 	}
 }
 

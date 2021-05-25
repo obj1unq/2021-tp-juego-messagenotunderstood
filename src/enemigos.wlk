@@ -8,16 +8,13 @@ class EnemigoLeopard {
 	
 	var property vida = 100
 	var property position = game.at(10,10)
-	var property direccion = "izquierda"
+	var property direccion = izquierda
 	const danioDisparo = 15
 	var timeMove
 	var shotTime
 
 	method image() {
-		return if (direccion == "arriba")  {"Leopard-up.png"}
-		 else if  (direccion == "abajo")   {"Leopard-dw.png"}
-		  else if (direccion == "derecha") {"Leopard-rh.png"}
-		   else {"Leopard-lf.png"}
+		return "leopard_" + direccion.sufijo()  + ".png"
 	}
 	
 	method moverDisparandoAleatorio(){		
@@ -27,7 +24,7 @@ class EnemigoLeopard {
 
 	}
 	method balaDisparada(){
-		return new Bala(danio = danioDisparo , direccion = direccion, tanqueActual = self)
+		return new Bala(danio = danioDisparo , direccion = direccion, tanqueActual = self, position = position)
 	}
 
 	method avanzar(){
@@ -43,10 +40,7 @@ class EnemigoLeopard {
 	
 
 	method moverAl(_direccion){
-		return if (_direccion == "arriba")  {position.up(1)}
-		 else if  (_direccion == "derecha") {position.right(1)}
-		  else if (_direccion == "abajo")   {position.down(1)}
-		   else {position.left(1)}			
+		return {_direccion.siguientePosicion(self.position())}
 	}
 		
 	method validaPosicion(_position){
