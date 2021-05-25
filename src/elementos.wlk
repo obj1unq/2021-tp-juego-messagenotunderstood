@@ -26,7 +26,11 @@ class Bala {
 	
 	method desplazar(){
 		//Hay que revisar error en nuevo desplazamiento de la bala
-		position = direccion.siguientePosicion(position)
+		if (not self.enElBorde()) {
+			position = direccion.siguientePosicion(position)
+		} else{
+			self.removerDisparo()
+		}
 	}
 	
 	method explotar(){
@@ -50,6 +54,18 @@ class Bala {
 	
 	method impactar(algo){
 		// No hace nada.
+	}
+	
+	method enElBorde(){
+		return  self.margenesLaterales() or self.margenesSupEInf()
+	}
+	
+	method margenesLaterales(){
+		return position.x() > game.width() or position.x() < 0
+	}
+	
+	method margenesSupEInf(){
+		return position.y() > game.height() or position.y() < 0
 	}
 }
 

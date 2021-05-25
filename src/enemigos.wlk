@@ -29,8 +29,8 @@ class EnemigoLeopard {
 
 	method avanzar(){
 		direccion = random.direccionAleatoria()
-		if(self.validaPosicion(self.moverAl(direccion)) and self.sinObstaculo(self.moverAl(direccion))) {
-				position = self.moverAl(direccion)
+	 	if(self.validaPosicion(direccion.siguientePosicion(position)) and self.sinObstaculo(direccion.siguientePosicion(position))) {
+                position = direccion.siguientePosicion(position)
 		} 
 	}
 	
