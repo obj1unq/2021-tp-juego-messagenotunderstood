@@ -3,13 +3,10 @@ import random.*
 import elementos.*
 import random.*
 import wollok.game.*
+import tanque.*
 
-class Enemigo {
+class Enemigo inherits Tanque{
 	
-	var property position = game.at(10,10)
-	var property direccion = izquierda
-	var property vida = 100
-	const danioDisparo = 15
 	var timeMove
 	var shotTime
 	
@@ -26,31 +23,11 @@ class Enemigo {
 		} 
 	}
 	
-	
-	method balaDisparada(){
-		return new Bala(danio = danioDisparo , direccion = direccion, tanqueActual = self, position = position)
-	}
-	
 	method hacerDanio(bala) {
 		bala.explotar()
 		vida -= bala.danio()
 	}
 	
-	method validaVida(){
-		return vida > 0
-	}
-	
-	method impactar(bala){
-		if (self.validaVida()){
-			self.hacerDanio(bala)	
-		} else {
-			self.removerEnemigo()
-		}
-	}
-	
-	method sinObstaculo(_position){
-		return game.getObjectsIn(_position).isEmpty()
-	}
 	
 	method moverAl(_direccion){
 		return {_direccion.siguientePosicion(self.position())}
@@ -74,7 +51,7 @@ class Enemigo {
 
 class Leopard inherits Enemigo {
 	
-	method image() {
+	override method image() {
 		return "leopard_" + direccion.sufijo()  + ".png"
 	}
 	
@@ -90,7 +67,7 @@ class T62 inherits Enemigo {
 	
 	//Cambiar valor de vida y danioDisparo al instanciar
 	
-	method image() {
+	override method image() {
 		return "T-62_" + direccion.sufijo()  + ".png"
 	}
 	
@@ -105,7 +82,7 @@ class MBT70 inherits Enemigo {
 	
 	//Cambiar valor de vida y danioDisparo al instanciar
 	
-	method image() {
+	override method image() {
 		return "MBT-70_" + direccion.sufijo()  + ".png"
 	}
 	
