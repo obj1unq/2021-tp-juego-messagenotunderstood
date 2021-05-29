@@ -7,7 +7,7 @@ class Bala {
 	
 	const direccion
 	const property danio = 7
-	const tanqueActual = tanque
+	const tanqueActual = heroe
 	
 	var property position //= game.origin()
 	
@@ -71,7 +71,7 @@ class Bala {
 
 class Obstaculo {
 	var property position
-	var property vida
+	var property vida = 1
 	
 	method removerElemento(){
 		game.removeVisual(self)
@@ -145,7 +145,7 @@ class Agua inherits Obstaculo{
 }
 
 object defensa inherits Obstaculo{
-
+	
 	method image() = "baseGit1.png"
 	
 	override method position () = game.at( (game.width()) / 2,0)
@@ -155,7 +155,7 @@ object defensa inherits Obstaculo{
 			self.hacerDanio(bala)	
 		} else {
 		//Implementar trigger de fin de juego por perder.			
-			game.say(tanque, "Nooooooooooooooooooooooooo!!!")		
+			game.say(heroe, "Nooooooooooooooooooooooooo!!!")		
 			game.removeVisual(self) 
 			game.schedule(2000, {game.stop()})
 		}
@@ -196,8 +196,8 @@ object gestorDeEnemigos{
 	
 	method agregarNuevaEnemigo(){
 		const enemigosPosibles = [
-			new EnemigoLeopard(position =  random.emptyPosition(), shotTime = 3000 , timeMove = 4000),
-			new EnemigoLeopard(position =  random.emptyPosition(), shotTime = 2500,  timeMove = 3000)		
+			new Leopard(position =  random.emptyPosition(), shotTime = 3000 , timeMove = 4000),
+			new Leopard(position =  random.emptyPosition(), shotTime = 2500,  timeMove = 3000)		
 		]
 		const nuevoEnemigo = enemigosPosibles.anyOne()
 		nuevoEnemigo.moverDisparandoAleatorio() 

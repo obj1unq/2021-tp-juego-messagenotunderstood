@@ -14,7 +14,7 @@ object nivelUno {
 	}	
 	
 	method agregarObjetosIniciales(){
-		game.addVisual(tanque)
+		game.addVisual(heroe)
 		game.addVisual(defensa)
 	
 	}
