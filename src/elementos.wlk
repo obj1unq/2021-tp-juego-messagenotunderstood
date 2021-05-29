@@ -3,12 +3,39 @@ import tanque.*
 import enemigos.*
 import random.*
 
+class Fireball inherits Bala {
+	
+	const porcentajeDanioAQuitar = 2
+	
+	override method image(){
+		return "fireball_" + direccion.sufijo()  + ".png"
+	}
+	
+	override method danio(_porcentajeDanioAQuitar){	
+		danio = (self.danio() / _porcentajeDanioAQuitar).roundUp(0)  // El disparo de fuego saca la mitad de daio de la bala por defecto
+	}
+}
+
+
+class Plasma inherits Bala {
+	
+	const porcentajeExtraDanio = 2
+	
+	override method image(){
+		return "plasma_" + direccion.sufijo()  + ".png"
+	}
+	
+	override method danio(_porcentajeExtraDanio){		
+		danio = (self.danio() * _porcentajeExtraDanio).roundUp(0)  // El disparo de plasma saca el doble de danio de la bala por defecto
+	}
+}
+
+
 class Bala {
 	
 	const direccion
-	const property danio = 7
-	const tanqueActual = heroe
-	
+	var property danio = 7
+
 	var property position //= game.origin()
 	
 	method image() { 
@@ -146,7 +173,7 @@ class Agua inherits Obstaculo{
 
 object defensa inherits Obstaculo{
 	
-	method image() = "baseGit1.png"
+	method image() = "baseAguila.png"
 	
 	override method position () = game.at( (game.width()) / 2,0)
 	
@@ -166,7 +193,7 @@ class Explosion {
 	
 	var property position
 
-	method image() = "explosion1.png"
+	method image() = "explosion2.png"
 
 	method impactar(bala){
 		//No hace nada.
@@ -188,7 +215,7 @@ object gestorDeEnemigos{
 	var enemigosCaidos = 0 
 
 	method agregarEnemigos() {
-		if (self.enemigosEnMapa().size() <= 2 ) {
+		if (self.enemigosEnMapa().size() <= 4 ) {
 			self.agregarNuevaEnemigo()
 			game.say(defensa,"¡CUIDADO! Se acerca un " + enemigosEnMapa.last().modelo() + ".")
 		}		
@@ -196,8 +223,10 @@ object gestorDeEnemigos{
 	
 	method agregarNuevaEnemigo(){
 		const enemigosPosibles = [
-			new Leopard(position =  random.emptyPosition(), shotTime = 3000 , timeMove = 4000),
-			new Leopard(position =  random.emptyPosition(), shotTime = 2500,  timeMove = 3000)		
+			new Leopard(  position =  random.emptyPosition(), danioDisparo= 20, shotTime = 3000 , timeMove = 4000),		
+			new MBT70 (   position =  random.emptyPosition(), danioDisparo= 12, shotTime = 2500,  timeMove = 3000),
+			new T62 (     position =  random.emptyPosition(), danioDisparo= 25, shotTime = 2500,  timeMove = 3000),
+			new T62 (     position =  random.emptyPosition(), danioDisparo= 25, shotTime = 2500,  timeMove = 3000)				
 		]
 		const nuevoEnemigo = enemigosPosibles.anyOne()
 		nuevoEnemigo.moverDisparandoAleatorio() 

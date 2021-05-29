@@ -5,15 +5,11 @@ import random.*
 import tanque.*
 import wollok.game.*
 
-class Leopard inherits Tanque{
+class Enemigo inherits Tanque{
 
 	var timeMove
 	var shotTime
 
-	override method image() {
-		return "leopard_" + direccion.sufijo()  + ".png"
-	}
-	
 	method moverDisparandoAleatorio(){		
 		game.onTick(timeMove,  "MOVER_ENEMIGO" + self.identity(), {self.avanzar()})
 		game.onTick(shotTime,  "DISPARAR_ENEMIGO" + self.identity(), {config.movimientoDe(self.balaDisparada())})			
@@ -35,6 +31,7 @@ class Leopard inherits Tanque{
 	}
 	
 	override method impactar(bala){
+		game.say(self, "Vida:" + self.vida().toString()) // msg para testear la cantidad de vida que quita.
 		if (self.validaVida()){
 			self.hacerDanio(bala)	
 		} else {
@@ -57,7 +54,52 @@ class Leopard inherits Tanque{
 		vida -= bala.danio()
 	}
 	
-	method modelo(){
+
+}
+
+
+class MBT70 inherits Enemigo{
+
+	override method image() {
+		return "MBT-70_" + direccion.sufijo()  + ".png"
+	}
+	
+	override method modelo(){
+		return "MBT70"
+	}
+	
+	override method balaDisparada(){
+		return new Fireball(direccion = direccion, position = position)
+	}
+}
+
+
+class T62 inherits Enemigo{
+
+	override method image() {
+		return "T-62_" + direccion.sufijo()  + ".png"
+	}
+	
+	override method modelo(){
+		return "T62"
+	}
+	
+	override method balaDisparada(){
+		return new Plasma(direccion = direccion, position = position)
+	}
+}
+
+
+class Leopard inherits Enemigo{
+
+	override method image() {
+		return "leopard_" + direccion.sufijo()  + ".png"
+	}
+	
+	override method modelo(){
 		return "Leopard II"
 	}
 }
+
+
+

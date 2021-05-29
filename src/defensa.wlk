@@ -11,7 +11,7 @@ object defensa {
 	method impactar(bala){
 		if (self.validaVida()){
 			bala.explotar()
-			vida -= bala.danho()	
+			vida -= bala.danio()	
 		} else {
 		//Implementar trigger de fin de juego por perder.
 			game.removeVisual(self)
