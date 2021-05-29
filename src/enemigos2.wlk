@@ -3,17 +3,17 @@ import random.*
 import elementos.*
 import random.*
 import wollok.game.*
+import tanque.*
 
-class Enemigo {
+class Enemigo inherits Tanque{
 	
-	var property position = game.at(10,10)
-	var property direccion = izquierda
 	var timeMove
 	var shotTime
 	
 	
 	method moverDisparandoAleatorio(){		
 		game.onTick(timeMove,  "MOVER_ENEMIGO" + self.identity(), {self.avanzar()})
+		game.onTick(shotTime,  "DISPARAR_ENEMIGO" + self.identity(), {config.movimientoDe(self.balaDisparada())})		
 	}
 	
 	method avanzar(){
@@ -23,9 +23,11 @@ class Enemigo {
 		} 
 	}
 	
-	method sinObstaculo(_position){
-		return game.getObjectsIn(_position).isEmpty()
+	method hacerDanio(bala) {
+		bala.explotar()
+		vida -= bala.danio()
 	}
+	
 	
 	method moverAl(_direccion){
 		return {_direccion.siguientePosicion(self.position())}
@@ -49,10 +51,7 @@ class Enemigo {
 
 class Leopard inherits Enemigo {
 	
-	var property vida = 100
-	const danioDisparo = 10
-	
-	method image() {
+	override method image() {
 		return "leopard_" + direccion.sufijo()  + ".png"
 	}
 	
@@ -60,40 +59,15 @@ class Leopard inherits Enemigo {
 		return "Leopard II"
 	}
 	
-	override method moverDisparandoAleatorio(){		
-		super()
-		game.onTick(shotTime,  "DISPARAR_ENEMIGO" + self.identity(), {config.movimientoDe(self.balaDisparada())})		
-	}
 	
-	method balaDisparada(){
-		return new Bala(danio = danioDisparo , direccion = direccion, tanqueActual = self, position = position)
-	}
-	
-	method hacerDanio(bala) {
-		bala.explotar()
-		vida -= bala.danio()
-	}
-	
-	method validaVida(){
-		return vida > 0
-	}
-	
-	method impactar(bala){
-		if (self.validaVida()){
-			self.hacerDanio(bala)	
-		} else {
-			self.removerEnemigo()
-		}
-	}
 }
 
 
 class T62 inherits Enemigo {
 	
-	var property vida = 140
-	const danioDisparo = 15
+	//Cambiar valor de vida y danioDisparo al instanciar
 	
-	method image() {
+	override method image() {
 		return "T-62_" + direccion.sufijo()  + ".png"
 	}
 	
@@ -101,39 +75,14 @@ class T62 inherits Enemigo {
 		return "T-62"
 	}
 	
-	override method moverDisparandoAleatorio(){		
-		super()
-		game.onTick(shotTime,  "DISPARAR_ENEMIGO" + self.identity(), {config.movimientoDe(self.balaDisparada())})		
-	}
 	
-	method balaDisparada(){
-		return new Bala(danio = danioDisparo , direccion = direccion, tanqueActual = self, position = position)
-	}
-	
-	method hacerDanio(bala) {
-		bala.explotar()
-		vida -= bala.danio()
-	}
-	
-	method validaVida(){
-		return vida > 0
-	}
-	
-	method impactar(bala){
-		if (self.validaVida()){
-			self.hacerDanio(bala)	
-		} else {
-			self.removerEnemigo()
-		}
-	}
 }
 
 class MBT70 inherits Enemigo {
 	
-	var property vida = 180
-	const danioDisparo = 20
+	//Cambiar valor de vida y danioDisparo al instanciar
 	
-	method image() {
+	override method image() {
 		return "MBT-70_" + direccion.sufijo()  + ".png"
 	}
 	
@@ -141,30 +90,5 @@ class MBT70 inherits Enemigo {
 		return "MBT-70"
 	}
 	
-	override method moverDisparandoAleatorio(){		
-		super()
-		game.onTick(shotTime,  "DISPARAR_ENEMIGO" + self.identity(), {config.movimientoDe(self.balaDisparada())})		
-	}
-	
-	method balaDisparada(){
-		return new Bala(danio = danioDisparo , direccion = direccion, tanqueActual = self, position = position)
-	}
-	
-	method hacerDanio(bala) {
-		bala.explotar()
-		vida -= bala.danio()
-	}
-	
-	method validaVida(){
-		return vida > 0
-	}
-	
-	method impactar(bala){
-		if (self.validaVida()){
-			self.hacerDanio(bala)	
-		} else {
-			self.removerEnemigo()
-		}
-	}
 }
 
