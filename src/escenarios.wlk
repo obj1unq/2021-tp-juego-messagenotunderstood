@@ -3,10 +3,23 @@ import elementos.*
 import tanque.*
 import config.*
 
+
+object pantallaInicial {
+	
+	const property position = game.origin()
+	
+	method image() = "wollanzer.jpg"
+	
+	method iniciar() {
+		game.addVisual(self)
+		keyboard.enter().onPressDo({ nivelUno.iniciar() })
+	}
+}
+
 object nivelUno {
 	
 	method iniciar() {
-		game.boardGround("fondo.jpg")	
+		game.clear()
 		self.paredDefensa()
 		self.agregarObjetosIniciales()
 		self.configurarTeclasYMecanismos()
