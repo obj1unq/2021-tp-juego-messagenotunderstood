@@ -69,13 +69,32 @@ class Bala {
 	}
 }
 
+class Obstaculo {
+	var property position
+	var property vida
+	
+	method removerElemento(){
+		game.removeVisual(self)
+	}
+	method hacerDanio(bala) {
+		bala.explotar()
+		vida -= bala.danio()
+	}
+	
+	method validaVida(){
+		return vida > 0
+	}
+	method impactar(bala){
+		//No hace nada
+	}
+}
 
-class Pasto{
-	var property position = null
-	var vida = 20
+class Pasto inherits Obstaculo{
+	//var property position = null
+	//var vida = 20
 	method image() = "pasto.png"
 
-	method impactar(bala){
+	override method impactar(bala){
 		if (self.validaVida()){
 			self.hacerDanio(bala)
 		} else {
@@ -83,47 +102,24 @@ class Pasto{
 		}
 	}
 	
-	method removerElemento(){
-		game.removeVisual(self)
-	}
-	
-	method hacerDanio(bala) {
-		bala.explotar()
-		vida -= bala.danio()
-	}
-	
-	method validaVida(){
-		return vida > 0
-	}
 }
 
-class Ladrillo{
-	var property position
-	var property vida = 100 
+class Ladrillo inherits Obstaculo{
+	//var property position
+	//var property vida = 100 
 	
 	method image() {
 		return if (vida > 50) {"muro.png"}
 		 else {"muro_rajado.png"}
 	} 
 	
-	method impactar(bala){
+	override method impactar(bala){
 		if (self.validaVida()){
 			self.hacerDanio(bala)
-				
 		} else {
 			self.agregarHumo()
 			self.removerElemento()
 		}
-	}
-	
-	
-	method validaVida(){
-		return vida > 0
-	}
-	
-	method hacerDanio(bala) {
-		bala.explotar()
-		vida -= bala.danio()
 	}
 	
 	method agregarExplosion(){
@@ -138,19 +134,32 @@ class Ladrillo{
 		game.schedule(250, { game.removeVisual(humo) })
 	}
 	
-	method removerElemento(){
-		game.removeVisual(self)
-	}
 }
 
-class Agua{
-	
-	var property position = null	
+class Agua inherits Obstaculo{
 	
 	method image() = "agua.png"
 	
 	//TODO: implementar que las balas puedan pasar sobre el agua pero los tanques no.
 	
+}
+
+object defensa inherits Obstaculo{
+
+	method image() = "baseGit1.png"
+	
+	override method position () = game.at( (game.width()) / 2,0)
+	
+	override method impactar(bala){
+		if (self.validaVida()){
+			self.hacerDanio(bala)	
+		} else {
+		//Implementar trigger de fin de juego por perder.			
+			game.say(tanque, "Nooooooooooooooooooooooooo!!!")		
+			game.removeVisual(self) 
+			game.schedule(2000, {game.stop()})
+		}
+	}
 }
 
 class Explosion {
@@ -170,41 +179,6 @@ class Humo {
 	method image() = "humo.png"
 	
 	method impactar(algo){}
-}
-
-object defensa {
-	
-	var property vida = 200
-	
-	method image() = "baseGit1.png"
-	
-	method position () = game.at( (game.width()) / 2,0)
-	
-	method impactar(bala){
-		if (self.validaVida()){
-			self.hacerDanio(bala)	
-		} else {
-		//Implementar trigger de fin de juego por perder.			
-			game.say(tanque, "Nooooooooooooooooooooooooo!!!")		
-			game.removeVisual(self) 
-			game.schedule(2000, {game.stop()})
-
-		}
-	}
-	
-	method validaVida(){
-		return vida > 0
-	}
-	
-	method hacerDanio(bala) {
-		bala.explotar()
-		vida -= bala.danio()
-	}
-	
-	method removerElemento(){
-		game.removeVisual(self)
-	}
-	
 }
 
 object gestorDeEnemigos{
