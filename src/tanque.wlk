@@ -21,6 +21,7 @@ object heroe inherits Tanque{
 }
 
 class Tanque {
+	
 	var property vida = 100
 	var property position = game.origin()
 	var property direccion = arriba

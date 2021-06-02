@@ -10,7 +10,6 @@ class Fireball inherits Bala {
 	override method image(){
 		return "fireball_" + direccion.sufijo()  + ".png"
 	}
-	
 	override method danio(_porcentajeDanioAQuitar){	
 		danio = (self.danio() / _porcentajeDanioAQuitar).roundUp(0)  // El disparo de fuego saca la mitad de daio de la bala por defecto
 	}
@@ -35,7 +34,6 @@ class Bala {
 	
 	const direccion
 	var property danio = 7
-
 	var property position //= game.origin()
 	
 	method image() { 
@@ -56,7 +54,8 @@ class Bala {
 		if (not self.enElBorde()) {
 			position = direccion.siguientePosicion(position)
 		} else{
-			self.removerDisparo()
+			//self.removerDisparo()
+			self.explotar()
 		}
 	}
 	
@@ -97,6 +96,7 @@ class Bala {
 }
 
 class Obstaculo {
+	
 	var property position
 	var property vida = 1
 	
@@ -111,42 +111,31 @@ class Obstaculo {
 	method validaVida(){
 		return vida > 0
 	}
-	method impactar(bala){
-		//No hace nada
-	}
-}
 
-class Pasto inherits Obstaculo{
-	//var property position = null
-	//var vida = 20
-	method image() = "pasto.png"
-
-	override method impactar(bala){
+	 method impactar(bala){
 		if (self.validaVida()){
 			self.hacerDanio(bala)
 		} else {
 			self.removerElemento()			
 		}
 	}
-	
+}
+
+class Pasto inherits Obstaculo{
+
+	method image() = "pasto.png"
 }
 
 class Ladrillo inherits Obstaculo{
-	//var property position
-	//var property vida = 100 
-	
+
 	method image() {
 		return if (vida > 50) {"muro.png"}
 		 else {"muro_rajado.png"}
 	} 
-	
-	override method impactar(bala){
-		if (self.validaVida()){
-			self.hacerDanio(bala)
-		} else {
-			self.agregarHumo()
-			self.removerElemento()
-		}
+
+	override method removerElemento() {
+		self.agregarHumo()
+		super()
 	}
 	
 	method agregarExplosion(){
@@ -177,15 +166,10 @@ object defensa inherits Obstaculo{
 	
 	override method position () = game.at( (game.width()) / 2,0)
 	
-	override method impactar(bala){
-		if (self.validaVida()){
-			self.hacerDanio(bala)	
-		} else {
-		//Implementar trigger de fin de juego por perder.			
-			game.say(heroe, "Nooooooooooooooooooooooooo!!!")		
-			game.removeVisual(self) 
-			game.schedule(2000, {game.stop()})
-		}
+	override method removerElemento(){
+		game.say(heroe, "Nooooooooooooooooooooooooo!!!")		
+		super()
+		game.schedule(2000, {game.stop()})
 	}
 }
 
@@ -196,7 +180,7 @@ class Explosion {
 	method image() = "explosion2.png"
 
 	method impactar(bala){
-		//No hace nada.
+	
 	}
 }
 
@@ -213,9 +197,11 @@ object gestorDeEnemigos{
 	const property enemigosEnMapa = []
 	
 	var enemigosCaidos = 0 
+	
+	//const factorys = [factoryLeopard, factoryMBT70]
 
 	method agregarEnemigos() {
-		if (self.enemigosEnMapa().size() <= 4 ) {
+		if (self.enemigosEnMapa().size() <= 3 ) {
 			self.agregarNuevaEnemigo()
 			game.say(defensa,"¡CUIDADO! Se acerca un " + enemigosEnMapa.last().modelo() + ".")
 		}		
@@ -225,8 +211,7 @@ object gestorDeEnemigos{
 		const enemigosPosibles = [
 			new Leopard(  position =  random.emptyPosition(), danioDisparo= 20, shotTime = 3000 , timeMove = 4000),		
 			new MBT70 (   position =  random.emptyPosition(), danioDisparo= 12, shotTime = 2500,  timeMove = 3000),
-			new T62 (     position =  random.emptyPosition(), danioDisparo= 25, shotTime = 2500,  timeMove = 3000),
-			new T62 (     position =  random.emptyPosition(), danioDisparo= 25, shotTime = 2500,  timeMove = 3000)				
+			new T62 (     position =  random.emptyPosition(), danioDisparo= 25, shotTime = 2500,  timeMove = 3000)			
 		]
 		const nuevoEnemigo = enemigosPosibles.anyOne()
 		nuevoEnemigo.moverDisparandoAleatorio() 
@@ -236,7 +221,6 @@ object gestorDeEnemigos{
 	method agregarElemento(enemigo){
 		enemigosEnMapa.add(enemigo)	 
 		game.addVisual(enemigo)
-		
 	}
 	
 	method removerElemento(enemigo) {

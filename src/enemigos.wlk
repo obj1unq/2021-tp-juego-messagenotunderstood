@@ -6,7 +6,7 @@ import tanque.*
 import wollok.game.*
 
 class Enemigo inherits Tanque{
-
+	
 	var timeMove
 	var shotTime
 
@@ -53,8 +53,6 @@ class Enemigo inherits Tanque{
 		bala.explotar()
 		vida -= bala.danio()
 	}
-	
-
 }
 
 
