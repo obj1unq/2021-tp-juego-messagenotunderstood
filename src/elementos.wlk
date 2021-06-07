@@ -2,6 +2,7 @@ import wollok.game.*
 import tanque.*
 import enemigos.*
 import random.*
+import factoriesEnemigos.*
 
 class Fireball inherits Bala {
 	
@@ -198,7 +199,7 @@ object gestorDeEnemigos{
 	
 	var enemigosCaidos = 0 
 	
-	//const factorys = [factoryLeopard, factoryMBT70]
+	const factories = [factoryLeopard, factoryMBT70, factoryT62];
 
 	method agregarEnemigos() {
 		if (self.enemigosEnMapa().size() <= 3 ) {
@@ -208,12 +209,7 @@ object gestorDeEnemigos{
 	}
 	
 	method agregarNuevaEnemigo(){
-		const enemigosPosibles = [
-			new Leopard(  position =  random.emptyPosition(), danioDisparo= 20, shotTime = 3000 , timeMove = 4000),		
-			new MBT70 (   position =  random.emptyPosition(), danioDisparo= 12, shotTime = 2500,  timeMove = 3000),
-			new T62 (     position =  random.emptyPosition(), danioDisparo= 25, shotTime = 2500,  timeMove = 3000)			
-		]
-		const nuevoEnemigo = enemigosPosibles.anyOne()
+		const nuevoEnemigo = factories.anyOne().generarEnemigo()
 		nuevoEnemigo.moverDisparandoAleatorio() 
 		self.agregarElemento(nuevoEnemigo)
 	}
