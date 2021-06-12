@@ -1,9 +1,9 @@
 import config.*
 import random.*
 import elementos.*
-import random.*
 import tanque.*
 import wollok.game.*
+import escenarios.*
 
 class Enemigo inherits Tanque{
 
@@ -31,11 +31,12 @@ class Enemigo inherits Tanque{
 	}
 	
 	override method impactar(bala){
-		game.say(self, "Vida:" + self.vida().toString()) // msg para testear la cantidad de vida que quita.
+//		game.say(self, "Vida:" + self.vida().toString()) // msg para testear la cantidad de vida que quita.
 		if (self.validaVida()){
 			self.hacerDanio(bala)	
 		} else {
 			self.removerEnemigo()
+			nivelActual.estado()
 		}
 	}
 	
@@ -53,7 +54,10 @@ class Enemigo inherits Tanque{
 		bala.explotar()
 		vida -= bala.danio()
 	}
+	
+	method modelo()
 }
+
 
 class MBT70 inherits Enemigo{
 
@@ -100,3 +104,28 @@ class Leopard inherits Enemigo{
 
 
 
+//DE LA RAMA REFACTOR CON AYUDIN MODIFICADO
+
+//Pensar mecanismo para aumentar dificultad por nivel
+// Se me ocurre que llegue por parametro el nivel, y hacer algun calculo
+// Por ejemplo en el nivel 3 hacer => 3 * 5 y eso sumarle al danio de los disparos o a la velocidad de movimiento
+
+
+
+object factoryLeopard {
+	method generarEnemigo() {
+		return new Leopard(  position =  random.emptyPosition(), danioDisparo= 20, shotTime = 3000 , timeMove = 4000);
+	}
+}
+
+object factoryMBT70 {
+	method generarEnemigo() {
+		return new MBT70 (   position =  random.emptyPosition(), danioDisparo= 12, shotTime = 2500,  timeMove = 3000);
+	}
+}
+
+object factoryT62 {
+	method generarEnemigo() {
+		return new T62 (     position =  random.emptyPosition(), danioDisparo= 25, shotTime = 2500,  timeMove = 3000);
+	}
+}
