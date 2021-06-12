@@ -1,26 +1,10 @@
 import wollok.game.*
 import elementos.*
 import config.*
-
-object heroe inherits Tanque{
-	
-	method irA(_position, _direction){
-		if (self.validaPosicion(_position) and self.sinObstaculo(_position)){
-			position = _position
-			direccion = _direction
-		}
-	}
-	
-	override method modelo(){
-		return "F450"
-	}
-
-	method validaPosicion(_position){
-		return (_position.y().between(0,game.width() -1) and _position.x().between(0, game.height() -1))
-	}
-}
+import escenarios.*
 
 class Tanque {
+	
 	var property vida = 100
 	var property position = game.origin()
 	var property direccion = arriba
@@ -30,20 +14,11 @@ class Tanque {
 		return "tanque_" + direccion.sufijo()  + ".png"
 	}
 		
-	
 	method balaDisparada(){
 		return new Bala(danio = danioDisparo , direccion = direccion, position = position)
 	}
 	
-	method impactar(bala){
-		game.say(self, "Vida:" + self.vida().toString()) // msg para testear la cantidad de vida que quita.
-		if (self.validaVida()){
-			bala.explotar()
-			vida -= bala.danio()	
-		} else {
-			game.removeVisual(self)
-		}
-	}
+	method impactar(bala)
 	
 	method validaVida(){
 		return vida > 0
@@ -53,6 +28,43 @@ class Tanque {
 		return game.getObjectsIn(_position).isEmpty()
 	}
 	
-	method modelo()
+	
+}
+
+object heroe inherits Tanque{
+	
+	var property cantidadDeVidas = 3
+	
+	method irA(_position, _direction){
+		if (self.validaPosicion(_position) and self.sinObstaculo(_position)){
+			position = _position
+			direccion = _direction
+		}
+	}
+	
+
+	override method impactar(bala){
+		game.say(self, "Vida:" + self.vida().toString()) // msg para testear la cantidad de vida que quita.
+		if (self.validaVida()){
+			bala.explotar()
+			vida -= bala.danio()	
+		} else {
+			self.perderVida()
+		}
+	}
+	
+	method validaPosicion(_position){
+		return (_position.y().between(0,game.width() -1) and _position.x().between(0, game.height() -1))
+	}
+	
+	method perderVida() {
+		game.removeVisual(self)
+		cantidadDeVidas -= 1
+		nivelActual.reStartSiPuede() 
+	}
+	
+	method leQuedanVidas() {
+		return cantidadDeVidas > 0
+	}
 	
 }
