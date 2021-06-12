@@ -8,7 +8,7 @@ program game {
 	game.title("Wollanzerkampfwagen")
 	game.height(13)
 	game.width(13)
-	game.cellSize(50)
+	game.cellSize(60)
 	game.boardGround("fondo.jpg")	
 	pantallaInicial.iniciar()
 	game.start()
