@@ -53,10 +53,7 @@ class Enemigo inherits Tanque{
 		bala.explotar()
 		vida -= bala.danio()
 	}
-	
-
 }
-
 
 class MBT70 inherits Enemigo{
 

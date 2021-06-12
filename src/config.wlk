@@ -35,4 +35,5 @@ object config {
 		game.addVisual(bala)
 		game.onTick(50, "MOVIMIENTO_DE_BALA" + bala.identity(), {bala.desplazar()})	
 	}
+	
 }

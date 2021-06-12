@@ -38,7 +38,7 @@ class Bala {
 
 	var property position //= game.origin()
 	
-	method image() { 
+	method image() {
 		return "bala_" + direccion.sufijo()  + ".png"
 	}
 	
@@ -100,6 +100,9 @@ class Obstaculo {
 	var property position
 	var property vida = 1
 	
+	
+	method image()
+	
 	method removerElemento(){
 		game.removeVisual(self)
 	}
@@ -107,22 +110,22 @@ class Obstaculo {
 		bala.explotar()
 		vida -= bala.danio()
 	}
-	
-	method validaVida(){
-		return vida > 0
-	}
-	method impactar(bala){
-		//No hace nada
-	}
+
+	method impactar(bala)
+	method validaVida(bala)
 }
 
 class Pasto inherits Obstaculo{
 	//var property position = null
 	//var vida = 20
-	method image() = "pasto.png"
+	override method image() = "pasto.png"
 
 	override method impactar(bala){
-		if (self.validaVida()){
+		self.validaVida(bala)
+	}
+	
+	override method validaVida(bala){
+		if (vida > 0){
 			self.hacerDanio(bala)
 		} else {
 			self.removerElemento()			
@@ -135,17 +138,21 @@ class Ladrillo inherits Obstaculo{
 	//var property position
 	//var property vida = 100 
 	
-	method image() {
+	override method image() {
 		return if (vida > 50) {"muro.png"}
 		 else {"muro_rajado.png"}
 	} 
 	
 	override method impactar(bala){
-		if (self.validaVida()){
+		self.validaVida(bala)
+	}
+	
+	override method validaVida(bala){
+		if (vida > 0){
 			self.hacerDanio(bala)
 		} else {
 			self.agregarHumo()
-			self.removerElemento()
+			self.removerElemento()			
 		}
 	}
 	
@@ -165,7 +172,7 @@ class Ladrillo inherits Obstaculo{
 
 class Agua inherits Obstaculo{
 	
-	method image() = "agua.png"
+	override method image() = "agua.png"
 	
 	//TODO: implementar que las balas puedan pasar sobre el agua pero los tanques no.
 	
@@ -173,15 +180,19 @@ class Agua inherits Obstaculo{
 
 object defensa inherits Obstaculo{
 	
-	method image() = "baseAguila.png"
+	override method image() = "baseAguila.png"
 	
 	override method position () = game.at( (game.width()) / 2,0)
 	
 	override method impactar(bala){
-		if (self.validaVida()){
-			self.hacerDanio(bala)	
+		self.validaVida(bala)
+	}
+	
+	override method validaVida(bala){
+		if (vida > 0){
+			self.hacerDanio(bala)
 		} else {
-		//Implementar trigger de fin de juego por perder.			
+			//Implementar trigger de fin de juego por perder.			
 			game.say(heroe, "Nooooooooooooooooooooooooo!!!")		
 			game.removeVisual(self) 
 			game.schedule(2000, {game.stop()})

@@ -1,4 +1,5 @@
 import wollok.game.*
+import menuSuperior.*
 import elementos.*
 import tanque.*
 import config.*
@@ -7,7 +8,6 @@ import config.*
 object pantallaInicial {
 	
 	const property position = game.origin()
-	
 	method image() = "wollanzer.jpg"
 	
 	method iniciar() {
@@ -16,13 +16,24 @@ object pantallaInicial {
 	}
 }
 
+
+object menuSuperiorInfoDelJuego{
+	
+	method estadoDelNivel(){
+		game.addVisual(self)
+	}	
+	
+}
+
 object nivelUno {
 	
+
 	method iniciar() {
 		game.clear()
 		self.paredDefensa()
 		self.agregarObjetosIniciales()
 		self.configurarTeclasYMecanismos()
+	
 	
 	}	
 	
@@ -35,14 +46,13 @@ object nivelUno {
 	method paredDefensa(){
 		game.addVisual(new Ladrillo(position = game.at(5,0), vida = 100))
 		game.addVisual(new Ladrillo(position = game.at(5,1), vida = 100))
-		game.addVisual(new Ladrillo(position = game.at(6, 1), vida = 100))
+		game.addVisual(new Ladrillo(position = game.at(6,1), vida = 100))
 		game.addVisual(new Ladrillo(position = game.at(7,1), vida = 100))
 		game.addVisual(new Ladrillo(position = game.at(7,0), vida = 100))
 	}
 	
 	method configurarTeclasYMecanismos(){
 		config.configurarTeclas()
-		//config.configurarColisiones()
 		config.configurarMovimientosYDisparosAleatoriosEnemigos()
 	}
 
