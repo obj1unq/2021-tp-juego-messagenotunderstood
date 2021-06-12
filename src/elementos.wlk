@@ -3,33 +3,6 @@ import tanque.*
 import enemigos.*
 import random.*
 
-class Fireball inherits Bala {
-	
-	const porcentajeDanioAQuitar = 2
-	
-	override method image(){
-		return "fireball_" + direccion.sufijo()  + ".png"
-	}
-	
-	override method danio(_porcentajeDanioAQuitar){	
-		danio = (self.danio() / _porcentajeDanioAQuitar).roundUp(0)  // El disparo de fuego saca la mitad de daio de la bala por defecto
-	}
-}
-
-
-class Plasma inherits Bala {
-	
-	const porcentajeExtraDanio = 2
-	
-	override method image(){
-		return "plasma_" + direccion.sufijo()  + ".png"
-	}
-	
-	override method danio(_porcentajeExtraDanio){		
-		danio = (self.danio() * _porcentajeExtraDanio).roundUp(0)  // El disparo de plasma saca el doble de danio de la bala por defecto
-	}
-}
-
 
 class Bala {
 	
@@ -38,7 +11,7 @@ class Bala {
 
 	var property position //= game.origin()
 	
-	method image() {
+	method image() { 
 		return "bala_" + direccion.sufijo()  + ".png"
 	}
 	
@@ -52,7 +25,6 @@ class Bala {
 	}	
 	
 	method desplazar(){
-		//Hay que revisar error en nuevo desplazamiento de la bala
 		if (not self.enElBorde()) {
 			position = direccion.siguientePosicion(position)
 		} else{
@@ -63,7 +35,8 @@ class Bala {
 	method explotar(){
 		self.removerDisparo()
 		self.agregarExplosion()		
-	}	
+	}
+		
 	method removerDisparo(){
 		game.removeTickEvent("MOVIMIENTO_DE_BALA"+ self.identity())
 		game.removeVisual(self)
@@ -96,72 +69,96 @@ class Bala {
 	}
 }
 
+class Fireball inherits Bala {
+	
+	const porcentajeDanioAQuitar = 2
+	
+	override method image(){
+		return "fireball_" + direccion.sufijo()  + ".png"
+	}
+	
+	override method danio(_porcentajeDanioAQuitar){	
+		danio = (self.danio() / _porcentajeDanioAQuitar).roundUp(0)  // El disparo de fuego saca la mitad de daio de la bala por defecto
+	}
+}
+
+
+class Plasma inherits Bala {
+	
+	const porcentajeExtraDanio = 2
+	
+	override method image(){
+		return "plasma_" + direccion.sufijo()  + ".png"
+	}
+	
+	override method danio(_porcentajeExtraDanio){		
+		danio = (self.danio() * _porcentajeExtraDanio).roundUp(0)  // El disparo de plasma saca el doble de danio de la bala por defecto
+	}
+}
+
+
 class Obstaculo {
+	
 	var property position
 	var property vida = 1
-	
-	
-	method image()
 	
 	method removerElemento(){
 		game.removeVisual(self)
 	}
+	
 	method hacerDanio(bala) {
 		bala.explotar()
 		vida -= bala.danio()
 	}
+	
+	method validaVida(){
+		return vida > 0
+	}
 
-	method impactar(bala)
-	method validaVida(bala)
+	 method impactar(bala){
+		if (self.validaVida()){
+			self.hacerDanio(bala)
+		} else {
+			self.removerElemento()			
+		}
+	}
+	
+}
+
+class Metal inherits Obstaculo {
+	
+	method image() = "metal.jpg"
+	
+	override method hacerDanio(bala) {
+		bala.explotar()
+	}
+	
+	override method impactar(bala) {
+		self.hacerDanio(bala)
+	}
 }
 
 class Pasto inherits Obstaculo{
-	//var property position = null
-	//var vida = 20
-	override method image() = "pasto.png"
 
-	override method impactar(bala){
-		self.validaVida(bala)
-	}
+	method image() = "pasto.png"
 	
-	override method validaVida(bala){
-		if (vida > 0){
-			self.hacerDanio(bala)
-		} else {
-			self.removerElemento()			
-		}
-	}
+	override method hacerDanio(bala) {}
 	
+	override method impactar(bala) {}
 }
 
 class Ladrillo inherits Obstaculo{
-	//var property position
-	//var property vida = 100 
-	
-	override method image() {
+
+	method image() {
 		return if (vida > 50) {"muro.png"}
 		 else {"muro_rajado.png"}
 	} 
-	
-	override method impactar(bala){
-		self.validaVida(bala)
+
+	override method removerElemento() {
+		self.agregarHumo()
+		super()
 	}
-	
-	override method validaVida(bala){
-		if (vida > 0){
-			self.hacerDanio(bala)
-		} else {
-			self.agregarHumo()
-			self.removerElemento()			
-		}
-	}
-	
-	method agregarExplosion(){
-		const explocion = new Explosion(position = position)
-		game.addVisual( explocion)
-		game.schedule(250, { game.removeVisual( explocion) })
-	}
-	
+
 	method agregarHumo() {
 		const humo = new Humo(position = position)
 		game.addVisual(humo)
@@ -172,31 +169,24 @@ class Ladrillo inherits Obstaculo{
 
 class Agua inherits Obstaculo{
 	
-	override method image() = "agua.png"
+	method image() = "agua.png"
 	
 	//TODO: implementar que las balas puedan pasar sobre el agua pero los tanques no.
+	override method hacerDanio(bala) {}
 	
+	override method impactar(bala) {}
 }
 
 object defensa inherits Obstaculo{
 	
-	override method image() = "baseAguila.png"
+	method image() = "baseAguila.png"
 	
 	override method position () = game.at( (game.width()) / 2,0)
 	
-	override method impactar(bala){
-		self.validaVida(bala)
-	}
-	
-	override method validaVida(bala){
-		if (vida > 0){
-			self.hacerDanio(bala)
-		} else {
-			//Implementar trigger de fin de juego por perder.			
-			game.say(heroe, "Nooooooooooooooooooooooooo!!!")		
-			game.removeVisual(self) 
-			game.schedule(2000, {game.stop()})
-		}
+	override method removerElemento(){
+		game.say(heroe, "Nooooooooooooooooooooooooo!!!")		
+		super()
+		game.schedule(2000, {game.stop()})
 	}
 }
 
@@ -206,12 +196,12 @@ class Explosion {
 
 	method image() = "explosion2.png"
 
-	method impactar(bala){
-		//No hace nada.
-	}
+	method impactar(bala){}
 }
 
+
 class Humo {
+	
 	var property position
 
 	method image() = "humo.png"
@@ -219,27 +209,24 @@ class Humo {
 	method impactar(algo){}
 }
 
+
 object gestorDeEnemigos{
 	
 	const property enemigosEnMapa = []
 	
-	var enemigosCaidos = 0 
+	var property enemigosCaidos = 0 
+	
+	const factories = [factoryLeopard, factoryMBT70, factoryT62];
 
 	method agregarEnemigos() {
-		if (self.enemigosEnMapa().size() <= 4 ) {
+		if (self.enemigosEnMapa().size() <= 3 ) {
 			self.agregarNuevaEnemigo()
 			game.say(defensa,"¡CUIDADO! Se acerca un " + enemigosEnMapa.last().modelo() + ".")
 		}		
 	}
 	
 	method agregarNuevaEnemigo(){
-		const enemigosPosibles = [
-			new Leopard(  position =  random.emptyPosition(), danioDisparo= 20, shotTime = 3000 , timeMove = 4000),		
-			new MBT70 (   position =  random.emptyPosition(), danioDisparo= 12, shotTime = 2500,  timeMove = 3000),
-			new T62 (     position =  random.emptyPosition(), danioDisparo= 25, shotTime = 2500,  timeMove = 3000),
-			new T62 (     position =  random.emptyPosition(), danioDisparo= 25, shotTime = 2500,  timeMove = 3000)				
-		]
-		const nuevoEnemigo = enemigosPosibles.anyOne()
+		const nuevoEnemigo = factories.anyOne().generarEnemigo()
 		nuevoEnemigo.moverDisparandoAleatorio() 
 		self.agregarElemento(nuevoEnemigo)
 	}
@@ -247,7 +234,6 @@ object gestorDeEnemigos{
 	method agregarElemento(enemigo){
 		enemigosEnMapa.add(enemigo)	 
 		game.addVisual(enemigo)
-		
 	}
 	
 	method removerElemento(enemigo) {
