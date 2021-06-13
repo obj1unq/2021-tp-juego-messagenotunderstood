@@ -3,7 +3,7 @@ import menuSuperior.*
 import elementos.*
 import tanque.*
 import config.*
-
+import tanque.*
 
 object pantallaInicial {
 	
@@ -179,6 +179,7 @@ object nivelActual {
 	
 	method pasarDeNivel() {
 		self.nivelSiguiente()
+		heroe.reiniciarPosicion()
 		nivel.iniciar()
 	}
 	

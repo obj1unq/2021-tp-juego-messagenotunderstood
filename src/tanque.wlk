@@ -67,4 +67,8 @@ object heroe inherits Tanque{
 		return cantidadDeVidas > 0
 	}
 	
+	method reiniciarPosicion() {
+		position = game.origin()
+		direccion = arriba
+	}
 }
