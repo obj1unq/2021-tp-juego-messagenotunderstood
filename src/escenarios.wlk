@@ -69,6 +69,8 @@ class Nivel {
 	method agregarPastizales() 
 
 	method agregarMetales()
+	
+	method seGanoNivel()
 }
 
 object nivelUno inherits Nivel {
@@ -106,6 +108,10 @@ object nivelUno inherits Nivel {
 		game.addVisual(new Metal(position = game.at(6,10)))
 		game.addVisual(new Metal(position = game.at(6,9)))
 	}
+	
+	override method seGanoNivel() {
+		return gestorDeEnemigos.enemigosCaidos() == 15
+	}
 }
 
 object nivelDos inherits Nivel {
@@ -125,6 +131,10 @@ object nivelDos inherits Nivel {
 	override method agregarMetales() {
 		//definir posiciones para los ladrrilos
 		
+	}
+	
+	override method seGanoNivel() {
+		return gestorDeEnemigos.enemigosCaidos() == 20
 	}
 }
 
@@ -147,6 +157,10 @@ object ultimoNivel inherits Nivel{
 		//definir posiciones para los ladrrilos
 		
 	}
+	
+	override method seGanoNivel() {
+		return gestorDeEnemigos.enemigosCaidos() == 25
+	}
 }
 
 
@@ -155,7 +169,7 @@ object nivelActual {
 	var property nivel = nivelUno
 	
 	method estado() {
-		if (self.seGanoNivel()) {self.estadoDelJuego()}
+		if (nivel.seGanoNivel()) {self.estadoDelJuego()}
 	}
 	
 	method estadoDelJuego() {
@@ -189,10 +203,6 @@ object nivelActual {
 	
 	method gameOver() {
 		//agregar imagen de fin del juego y que vuelva a pantalla inicial al apretar cualquier tecla
-	}
-	
-	method seGanoNivel() {
-		return gestorDeEnemigos.enemigosCaidos() == 15
 	}
 	
 }
