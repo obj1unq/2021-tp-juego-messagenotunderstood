@@ -9,12 +9,13 @@ class Tanque {
 	var property position = game.origin()
 	var property direccion = arriba
 	var property danioDisparo = 15
+	var property cargador = 1
 	
 	method image() {
 		return "tanque_" + direccion.sufijo()  + ".png"
 	}
-		
-	method balaDisparada(){
+	
+	method nuevaBala(){
 		return new Bala(danio = danioDisparo , direccion = direccion, position = position)
 	}
 	
@@ -33,7 +34,30 @@ class Tanque {
 		return game.getObjectsIn(_position).isEmpty()
 	}
 	
+	method cargarBala(){
+		cargador += 1
+	}
 	
+	method recargar(){
+	//Cooldown de recarga
+		game.schedule(1500, { self.cargarBala() })
+		
+	}
+	
+	method disparar(){
+	//Si tiene una bala dispara y recarga
+		if (self.tieneBala()){
+			cargador -= 1
+			config.movimientoDe(self.nuevaBala())
+			self.recargar()
+		} else {
+			//TODO: armar la logica para cambiar la visual del cargador en la barra superior.
+		}
+	}
+	
+	method tieneBala(){
+		return cargador > 0
+	}
 }
 
 object heroe inherits Tanque{

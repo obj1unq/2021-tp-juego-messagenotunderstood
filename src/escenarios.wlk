@@ -8,6 +8,7 @@ import tanque.*
 object pantallaInicial {
 	
 	const property position = game.origin()
+	
 	method image() = "wollanzer2.jpg"
 	
 	method iniciar() {

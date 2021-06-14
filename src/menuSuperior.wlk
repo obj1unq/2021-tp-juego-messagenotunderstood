@@ -7,9 +7,6 @@ object vidaDelHeroe {
 	method image(){
 		 return "vida.png"
 	}
-	
-	
-	
 }
 
 

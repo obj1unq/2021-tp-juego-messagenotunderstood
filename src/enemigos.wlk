@@ -12,7 +12,7 @@ class Enemigo inherits Tanque{
 	
 	method moverDisparandoAleatorio(){		
 		game.onTick(timeMove,  "MOVER_ENEMIGO" + self.identity(), {self.avanzar()})
-		game.onTick(shotTime,  "DISPARAR_ENEMIGO" + self.identity(), {config.movimientoDe(self.balaDisparada())})			
+		game.onTick(shotTime,  "DISPARAR_ENEMIGO" + self.identity(), {config.movimientoDe(self.nuevaBala())})			
 	}
 
 	method avanzar(){
@@ -66,7 +66,7 @@ class MBT70 inherits Enemigo{
 		return "MBT70"
 	}
 	
-	override method balaDisparada(){
+	override method nuevaBala(){
 		return new Fireball(direccion = direccion, position = position)
 	}
 }
@@ -82,7 +82,7 @@ class T62 inherits Enemigo{
 		return "T62"
 	}
 	
-	override method balaDisparada(){
+	override method nuevaBala(){
 		return new Plasma(direccion = direccion, position = position)
 	}
 }
