@@ -9,7 +9,7 @@ class Enemigo inherits Tanque{
 
 	var timeMove
 	var shotTime
-
+	
 	method moverDisparandoAleatorio(){		
 		game.onTick(timeMove,  "MOVER_ENEMIGO" + self.identity(), {self.avanzar()})
 		game.onTick(shotTime,  "DISPARAR_ENEMIGO" + self.identity(), {config.movimientoDe(self.balaDisparada())})			
@@ -114,18 +114,18 @@ class Leopard inherits Enemigo{
 
 object factoryLeopard {
 	method generarEnemigo() {
-		return new Leopard(  position =  random.emptyPosition(), danioDisparo= 20, shotTime = 3000 , timeMove = 4000);
+		return new Leopard(direccion = abajo, position =  random.emptyPosition(), danioDisparo= 20, shotTime = 3000, timeMove = 4000);
 	}
 }
 
 object factoryMBT70 {
 	method generarEnemigo() {
-		return new MBT70 (   position =  random.emptyPosition(), danioDisparo= 12, shotTime = 2500,  timeMove = 3000);
+		return new MBT70 (direccion=abajo, position = random.emptyPosition(), danioDisparo= 12, shotTime = 2500, timeMove = 3000);
 	}
 }
 
 object factoryT62 {
 	method generarEnemigo() {
-		return new T62 (     position =  random.emptyPosition(), danioDisparo= 25, shotTime = 2500,  timeMove = 3000);
+		return new T62 (direccion=abajo, position = random.emptyPosition(), danioDisparo= 25, shotTime = 2500, timeMove = 3000);
 	}
 }
