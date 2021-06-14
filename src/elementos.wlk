@@ -52,8 +52,9 @@ class Bala {
 		return _position.y().between(0, game.width() -1 ) and _position.x().between(0, game.height() -1)
 	}
 	
-	method impactar(algo){
-		// No hace nada.
+	method impactar(bala){
+		bala.explotar()
+		self.removerDisparo()
 	}
 	
 	method enElBorde(){
@@ -102,47 +103,42 @@ class Obstaculo {
 	var property position
 	var property vida = 1
 	
-	method removerElemento(){
-		game.removeVisual(self)
-	}
-	
-	method hacerDanio(bala) {
-		bala.explotar()
-		vida -= bala.danio()
+	method impactar(bala){
+		if (self.validaVida()){
+			self.recibirDanio(bala)
+		} else {
+			bala.explotar()
+			self.removerElemento()			
+		}
 	}
 	
 	method validaVida(){
 		return vida > 0
 	}
-
-	 method impactar(bala){
-		if (self.validaVida()){
-			self.hacerDanio(bala)
-		} else {
-			self.removerElemento()			
-		}
+	
+	method recibirDanio(bala) {
+		bala.explotar()
+		vida -= bala.danio()
 	}
 	
+	method removerElemento(){
+		game.removeVisual(self)
+	}
+
 }
 
 class Metal inherits Obstaculo {
 	
 	method image() = "metal.jpg"
 	
-	override method hacerDanio(bala) {
-		bala.explotar()
-	}
-	
 	override method impactar(bala) {
-		self.hacerDanio(bala)
+		bala.explotar()
 	}
 }
 
 class Pasto inherits Obstaculo{
 
 	method image() = "pasto.png"
-	
-	override method hacerDanio(bala) {}
 	
 	override method impactar(bala) {}
 }
@@ -170,9 +166,6 @@ class Ladrillo inherits Obstaculo{
 class Agua inherits Obstaculo{
 	
 	method image() = "agua.png"
-	
-	//TODO: implementar que las balas puedan pasar sobre el agua pero los tanques no.
-	override method hacerDanio(bala) {}
 	
 	override method impactar(bala) {}
 }
@@ -206,7 +199,7 @@ class Humo {
 
 	method image() = "humo.png"
 	
-	method impactar(algo){}
+	method impactar(bala){}
 }
 
 

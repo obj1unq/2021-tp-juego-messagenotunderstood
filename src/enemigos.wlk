@@ -33,8 +33,9 @@ class Enemigo inherits Tanque{
 	override method impactar(bala){
 //		game.say(self, "Vida:" + self.vida().toString()) // msg para testear la cantidad de vida que quita.
 		if (self.validaVida()){
-			self.hacerDanio(bala)	
+			self.recibirDanio(bala)	
 		} else {
+			bala.explotar()
 			self.removerEnemigo()
 			nivelActual.estado()
 		}
@@ -50,12 +51,8 @@ class Enemigo inherits Tanque{
 		game.removeVisual(self)
 	}
 	
-	method hacerDanio(bala) {
-		bala.explotar()
-		vida -= bala.danio()
-	}
-	
 	method modelo()
+	
 }
 
 

@@ -24,6 +24,11 @@ class Tanque {
 		return vida > 0
 	}
 	
+	method recibirDanio(bala) {
+		bala.explotar()
+		vida -= bala.danio()
+	}
+	
 	method sinObstaculo(_position){
 		return game.getObjectsIn(_position).isEmpty()
 	}
@@ -46,9 +51,9 @@ object heroe inherits Tanque{
 	override method impactar(bala){
 		game.say(self, "Vida:" + self.vida().toString()) // msg para testear la cantidad de vida que quita.
 		if (self.validaVida()){
-			bala.explotar()
-			vida -= bala.danio()	
+			self.recibirDanio(bala)	
 		} else {
+			bala.explotar()
 			self.perderVida()
 		}
 	}
