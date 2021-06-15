@@ -4,6 +4,7 @@ import elementos.*
 import tanque.*
 import config.*
 import enemigos.*
+import musica.*
 
 object pantallaInicial {
 	
@@ -13,11 +14,10 @@ object pantallaInicial {
 	
 	method iniciar() {
 		game.addVisual(self)
-		keyboard.enter().onPressDo({ nivelUno.iniciar() })
+		musicaMenu.iniciar()
+		keyboard.enter().onPressDo({ nivelUno.iniciar(); musicaMenu.stop() })
 	}
 }
-
-
 
 
 class Nivel {
