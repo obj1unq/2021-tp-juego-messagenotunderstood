@@ -3,7 +3,7 @@ import menuSuperior.*
 import elementos.*
 import tanque.*
 import config.*
-import tanque.*
+import enemigos.*
 
 object pantallaInicial {
 	
@@ -31,6 +31,9 @@ class Nivel {
 	
 	method iniciar() {
 		game.clear()
+		heroe.resetearPosicion()
+		heroe.vida(100)
+		gestorDeEnemigos.resetearEnemigos()
 		self.paredDefensa()
 		self.agregarObjetosIniciales()
 		self.configurarTeclasYMecanismos()
@@ -72,30 +75,23 @@ class Nivel {
 	method agregarMetales()
 	
 	method seGanoNivel()
+	
+	method pasarNivel() 
 }
+
+//Pendiente: definir metodos para agregar los elementos de a columnas o filas
 
 object nivelUno inherits Nivel {
 	
 	override method agregarCharcos() {
 		//definir posiciones de elementos agua
-		game.addVisual(new Agua(position = game.at(0,5)))
-		game.addVisual(new Agua(position = game.at(1,5)))
-		game.addVisual(new Agua(position = game.at(2,5)))
-		game.addVisual(new Agua(position = game.at(12,8)))
-		game.addVisual(new Agua(position = game.at(11,8)))	
-		game.addVisual(new Agua(position = game.at(10,8)))
+		(0..4).forEach({n => game.addVisual(new Agua(position = game.at(n,5)))})
 	}
 	
 	override method agregarLadrillos() {
-		//definir posiciones para los ladrrilos
-		game.addVisual(new Ladrillo(position = game.at(1,7), vida = 100))
-		game.addVisual(new Ladrillo(position = game.at(2,7), vida = 100))
-		game.addVisual(new Ladrillo(position = game.at(3,7), vida = 100))
-		game.addVisual(new Ladrillo(position = game.at(8,4), vida = 100))
-		game.addVisual(new Ladrillo(position = game.at(9,4), vida = 100))
-		game.addVisual(new Ladrillo(position = game.at(10,4), vida = 49))
-		game.addVisual(new Ladrillo(position = game.at(2,10), vida = 49))
-		game.addVisual(new Ladrillo(position = game.at(2,4), vida = 49))
+		//definir posiciones para los ladrilos
+		(8..12).forEach({n => game.addVisual(new Ladrillo(position = game.at(6,n), vida = 100))})
+
 	}
 	
 	override method agregarPastizales() {
@@ -103,15 +99,17 @@ object nivelUno inherits Nivel {
 	}
 	
 	override method agregarMetales() {
-		//definir posiciones para los ladrrilos
-		game.addVisual(new Metal(position = game.at(6,12)))
-		game.addVisual(new Metal(position = game.at(6,11)))
-		game.addVisual(new Metal(position = game.at(6,10)))
-		game.addVisual(new Metal(position = game.at(6,9)))
+		//definir posiciones para los metales
+		(8..12).forEach({n => game.addVisual(new Metal(position = game.at(n,5), vida = 100))})
 	}
 	
 	override method seGanoNivel() {
 		return gestorDeEnemigos.enemigosCaidos() == 15
+	}
+	
+	override method pasarNivel() {
+		nivelActual.nivel(nivelDos)
+		nivelDos.iniciar()
 	}
 }
 
@@ -122,7 +120,7 @@ object nivelDos inherits Nivel {
 	}
 	
 	override method agregarLadrillos() {
-		//definir posiciones para los ladrrilos
+		//definir posiciones para los ladrilos
 	}
 	
 	override method agregarPastizales() {
@@ -130,12 +128,17 @@ object nivelDos inherits Nivel {
 	}
 	
 	override method agregarMetales() {
-		//definir posiciones para los ladrrilos
+		//definir posiciones para los Metales
 		
 	}
 	
 	override method seGanoNivel() {
-		return gestorDeEnemigos.enemigosCaidos() == 20
+		return gestorDeEnemigos.enemigosCaidos() == 18
+	}
+	
+	override method pasarNivel() {
+		nivelActual.nivel(ultimoNivel)
+		ultimoNivel.iniciar()
 	}
 }
 
@@ -147,7 +150,7 @@ object ultimoNivel inherits Nivel{
 	}
 	
 	override method agregarLadrillos() {
-		//definir posiciones para los ladrrilos
+		//definir posiciones para los ladrilos
 	}
 	
 	override method agregarPastizales() {
@@ -155,13 +158,23 @@ object ultimoNivel inherits Nivel{
 	}
 	
 	override method agregarMetales() {
-		//definir posiciones para los ladrrilos
+		//definir posiciones para los Metales
 		
 	}
 	
 	override method seGanoNivel() {
-		return gestorDeEnemigos.enemigosCaidos() == 25
+		return gestorDeEnemigos.enemigosCaidos() == 21
 	}
+	
+	override method pasarNivel() {
+		self.victory()
+	}
+	
+	method victory() {
+		//agregar imagen de victoria y que vuelva a pantalla inicial al apretar cualquier tecla
+		game.schedule(2000, {game.stop()}) //Provisional
+	}
+	
 }
 
 
@@ -170,41 +183,19 @@ object nivelActual {
 	var property nivel = nivelUno
 	
 	method estado() {
-		if (nivel.seGanoNivel()) {self.estadoDelJuego()}
-	}
-	
-	method estadoDelJuego() {
-		if (self.quedanNiveles()) {self.pasarDeNivel()}
-		 else {self.victory()}
-	}
-	
-	method pasarDeNivel() {
-		self.nivelSiguiente()
-		heroe.reiniciarPosicion()
-		nivel.iniciar()
-	}
-	
-	method quedanNiveles() {
-		return nivel != ultimoNivel
-	}
-	
-	method nivelSiguiente() { //mejorar con alguna visual y delay
-	if (nivel == nivelUno) {nivel = nivelDos}
-//	 else if (nivel == nivelDos) {nivel = nivelTres}
-	  else nivel = ultimoNivel
+		if (nivel.seGanoNivel()) {nivel.pasarNivel()}
 	}
 	
 	method reStartSiPuede() { //mejorar con alguna visual y delay
-		if (heroe.leQuedanVidas()) {nivel.iniciar()}
-		 else {self.gameOver()}
-	}
-	
-	method victory() {
-		//agregar imagen de victoria y que vuelva a pantalla inicial al apretar cualquier tecla
+		if (heroe.leQuedanVidas()) {
+			nivel.iniciar()
+		} else 
+			{self.gameOver()}
 	}
 	
 	method gameOver() {
 		//agregar imagen de fin del juego y que vuelva a pantalla inicial al apretar cualquier tecla
+		game.schedule(2000, {game.stop()}) //Provisional
 	}
 	
 }
