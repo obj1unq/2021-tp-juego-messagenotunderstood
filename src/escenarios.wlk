@@ -17,13 +17,7 @@ object pantallaInicial {
 }
 
 
-object menuSuperiorInfoDelJuego{
-	
-	method estadoDelNivel(){
-		game.addVisual(self)
-	}	
-	
-}
+
 
 class Nivel {
 	
@@ -33,9 +27,10 @@ class Nivel {
 		self.paredDefensa()
 		self.agregarObjetosIniciales()
 		self.configurarTeclasYMecanismos()
+		//self.estadoDelNivel()
 		self.mapa()
 	}	
-	
+
 	method agregarObjetosIniciales(){
 		game.addVisual(heroe)
 		game.addVisual(defensa)
@@ -76,37 +71,24 @@ class Nivel {
 object nivelUno inherits Nivel {
 	
 	override method agregarCharcos() {
-		//definir posiciones de elementos agua
-		game.addVisual(new Agua(position = game.at(0,5)))
-		game.addVisual(new Agua(position = game.at(1,5)))
-		game.addVisual(new Agua(position = game.at(2,5)))
-		game.addVisual(new Agua(position = game.at(12,8)))
-		game.addVisual(new Agua(position = game.at(11,8)))	
-		game.addVisual(new Agua(position = game.at(10,8)))
+
+		gestorDeElementos.generarFilaDeAguaDesdeConTamanio(5,2)
+		gestorDeElementos.generarColumaDeAguaDesdeConTamanio(9,4)
 	}
 	
 	override method agregarLadrillos() {
-		//definir posiciones para los ladrrilos
-		game.addVisual(new Ladrillo(position = game.at(1,7), vida = 100))
-		game.addVisual(new Ladrillo(position = game.at(2,7), vida = 100))
-		game.addVisual(new Ladrillo(position = game.at(3,7), vida = 100))
-		game.addVisual(new Ladrillo(position = game.at(8,4), vida = 100))
-		game.addVisual(new Ladrillo(position = game.at(9,4), vida = 100))
-		game.addVisual(new Ladrillo(position = game.at(10,4), vida = 49))
-		game.addVisual(new Ladrillo(position = game.at(2,10), vida = 49))
-		game.addVisual(new Ladrillo(position = game.at(2,4), vida = 49))
+		gestorDeElementos.generarFilaDeLadrillosDesdeConTamanio(10,5)	
+		gestorDeElementos.generarColumaDeLadrillosDesdeConTamanio(3,7)	
 	}
 	
 	override method agregarPastizales() {
-		//definir posiciones para pastos
+		
 	}
 	
 	override method agregarMetales() {
-		//definir posiciones para los ladrrilos
-		game.addVisual(new Metal(position = game.at(6,12)))
-		game.addVisual(new Metal(position = game.at(6,11)))
-		game.addVisual(new Metal(position = game.at(6,10)))
-		game.addVisual(new Metal(position = game.at(6,9)))
+		gestorDeElementos.generarColumaDeMetalDesdeConTamanio(10,3)
+		gestorDeElementos.generarFilaMetalDesdeConTamanio(5,4)
+		
 	}
 	
 	override method seGanoNivel() {

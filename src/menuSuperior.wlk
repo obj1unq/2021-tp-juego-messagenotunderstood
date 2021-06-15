@@ -2,14 +2,14 @@ import wollok.game.*
 
 object vidaDelHeroe {
 	
+	const vidas = 3
+	
 	const property position = game.at(12,10)
 	
 	method image(){
 		 return "vida.png"
 	}
-	
-	
-	
+
 }
 
 

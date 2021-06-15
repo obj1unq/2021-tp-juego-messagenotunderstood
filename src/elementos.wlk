@@ -236,6 +236,42 @@ object gestorDeEnemigos{
 	}
 }
 
+
+object gestorDeElementos {
+	
+	method generarColumaDeLadrillosDesdeConTamanio(desde, hasta){
+		(1..hasta).forEach({n => game.addVisual(new Ladrillo(position = game.at(desde,n), vida = 100))})
+	}
+	
+	method generarFilaDeLadrillosDesdeConTamanio(desde, hasta){
+		(1..hasta).forEach({n => game.addVisual(new Ladrillo(position = game.at(n,desde), vida = 100))})
+	}
+	
+	method generarColumaDeAguaDesdeConTamanio(desde, hasta){
+		(1..hasta).forEach({n => game.addVisual(new Agua(position = game.at(desde,n)))})
+	}
+	
+	method generarFilaDeAguaDesdeConTamanio(desde, hasta){
+		(1..hasta).forEach({n => game.addVisual(new Agua(position = game.at(n,desde)))})
+	}
+	
+	method generarColumaDeMetalDesdeConTamanio(desde, hasta){
+		(1..hasta).forEach({n => game.addVisual(new Metal(position = game.at(desde,n)))})
+	}
+	
+	method generarFilaMetalDesdeConTamanio(desde, hasta){
+		(1..hasta).forEach({n => game.addVisual(new Metal(position = game.at(n,desde)))})
+	}
+	
+	method generarColumaDePastoDesdeConTamanio(desde, hasta){
+		(1..hasta).forEach({n => game.addVisual(new Pasto(position = game.at(desde,n)))})
+	}
+	
+	method generarFilaDePastoDesdeConTamanio(desde, hasta){
+		(1..hasta).forEach({n => game.addVisual(new Pasto(position = game.at(n,desde)))})
+	}
+}
+
 object arriba {
 	method sufijo(){
 		return "up"
