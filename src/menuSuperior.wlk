@@ -9,9 +9,7 @@ object vidaDelHeroe {
 	method image(){
 		 return "vida.png"
 	}
-
 }
-
 
 object tanques {
 	

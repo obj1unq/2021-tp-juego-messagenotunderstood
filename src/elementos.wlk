@@ -2,7 +2,7 @@ import wollok.game.*
 import tanque.*
 import enemigos.*
 import random.*
-
+import escenarios.*
 
 class Bala {
 	
@@ -98,17 +98,17 @@ class Plasma inherits Bala {
 }
 
 
-class Obstaculo {
+class Elemento {
 	
-	var property position
-	var property vida = 1
+	var property position = game.origin()
+	var property vida = 100
 	
 	method impactar(bala){
 		if (self.validaVida()){
 			self.recibirDanio(bala)
 		} else {
 			bala.explotar()
-			self.removerElemento()			
+			self.destruido()			
 		}
 	}
 	
@@ -121,13 +121,14 @@ class Obstaculo {
 		vida -= bala.danio()
 	}
 	
-	method removerElemento(){
-		game.removeVisual(self)
+	method destruido(){
+		game.removeVisual(self)	
 	}
-
 }
 
-class Metal inherits Obstaculo {
+
+
+class Metal inherits Elemento {
 	
 	method image() = "metal.jpg"
 	
@@ -136,23 +137,23 @@ class Metal inherits Obstaculo {
 	}
 }
 
-class Pasto inherits Obstaculo{
+class Pasto inherits Elemento{
 
 	method image() = "pasto.png"
 	
 	override method impactar(bala) {}
 }
 
-class Ladrillo inherits Obstaculo{
+class Ladrillo inherits Elemento {
 
 	method image() {
 		return if (vida > 50) {"muro.png"}
 		 else {"muro_rajado.png"}
 	} 
 
-	override method removerElemento() {
-		self.agregarHumo()
+	override method destruido() {
 		super()
+		self.agregarHumo()
 	}
 
 	method agregarHumo() {
@@ -163,23 +164,28 @@ class Ladrillo inherits Obstaculo{
 	
 }
 
-class Agua inherits Obstaculo{
+class Agua inherits Elemento {
 	
 	method image() = "agua.png"
 	
 	override method impactar(bala) {}
 }
 
-object defensa inherits Obstaculo{
+object defensa inherits Elemento {
 	
 	method image() = "baseAguila.png"
 	
 	override method position () = game.at( (game.width()) / 2,0)
 	
-	override method removerElemento(){
+	override method impactar(bala) {
+		bala.explotar()
+		self.destruido()
+	}
+	
+	override method destruido() {
 		game.say(heroe, "Nooooooooooooooooooooooooo!!!")		
 		super()
-		game.schedule(2000, {game.stop()})
+		nivelActual.gameOver()
 	}
 }
 
@@ -202,39 +208,6 @@ class Humo {
 	method impactar(bala){}
 }
 
-
-object gestorDeEnemigos{
-	
-	const property enemigosEnMapa = []
-	
-	var property enemigosCaidos = 0 
-	
-	const factories = [factoryLeopard, factoryMBT70, factoryT62];
-
-	method agregarEnemigos() {
-		if (self.enemigosEnMapa().size() <= 3 ) {
-			self.agregarNuevaEnemigo()
-			game.say(defensa,"¡CUIDADO! Se acerca un " + enemigosEnMapa.last().modelo() + ".")
-		}		
-	}
-	
-	method agregarNuevaEnemigo(){
-		const nuevoEnemigo = factories.anyOne().generarEnemigo()
-		nuevoEnemigo.moverDisparandoAleatorio() 
-		self.agregarElemento(nuevoEnemigo)
-	}
-	
-	method agregarElemento(enemigo){
-		enemigosEnMapa.add(enemigo)	 
-		game.addVisual(enemigo)
-	}
-	
-	method removerElemento(enemigo) {
-		enemigosEnMapa.remove(enemigo)
-		game.removeVisual(enemigo) 
-		enemigosCaidos += 1
-	}
-}
 
 
 object gestorDeElementos {
@@ -272,37 +245,46 @@ object gestorDeElementos {
 	}
 }
 
+
 object arriba {
+	
 	method sufijo(){
 		return "up"
 	}
+	
 	method siguientePosicion(posicion){
 		return posicion.up(1)
 	}
 }
 
 object abajo {
+	
 	method sufijo(){
 		return "down"
 	}
+	
 	method siguientePosicion(posicion){
 		return posicion.down(1)
 	}
 }
 
 object izquierda {
+	
 	method sufijo(){
 		return "left"
 	}
+	
 	method siguientePosicion(posicion){
 		return posicion.left(1)
 	}
 }
 
 object derecha {
+	
 	method sufijo(){
 		return "right"
 	}
+	
 	method siguientePosicion(posicion){
 		return posicion.right(1)
 	}

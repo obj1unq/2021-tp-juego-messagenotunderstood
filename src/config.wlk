@@ -10,7 +10,8 @@ object config {
 		keyboard.d().onPressDo({ heroe.irA(heroe.position().right(1), derecha)})
 		keyboard.w().onPressDo({ heroe.irA(heroe.position().up(1), arriba)})
 		keyboard.s().onPressDo({ heroe.irA(heroe.position().down(1), abajo)})
-		keyboard.space().onPressDo({ self.movimientoDe(heroe.balaDisparada()) })
+		//keyboard.space().onPressDo({ self.movimientoDe(heroe.balaDisparada()) })
+		keyboard.space().onPressDo({ heroe.disparar()})
 	}
 	
 	method configurarColisiones(){
