@@ -24,15 +24,18 @@ class Nivel {
 	
 	
 	method iniciar() {
-		game.clear()
-		heroe.resetearPosicion()
-		heroe.vida(100)
-		gestorDeEnemigos.resetearEnemigos()
+		self.reset()
 		self.paredDefensa()
 		self.agregarObjetosIniciales()
 		self.configurarTeclasYMecanismos()
 		//self.estadoDelNivel()
 		self.mapa()
+	}
+	
+	method reset() {
+		game.clear()
+		heroe.resetValores()
+		gestorDeEnemigos.resetEnemigos()
 	}	
 
 	method agregarObjetosIniciales(){
@@ -72,9 +75,9 @@ class Nivel {
 	method seGanoNivel()
 	
 	method pasarNivel() 
+	
 }
 
-//Pendiente: definir metodos para agregar los elementos de a columnas o filas
 
 object nivelUno inherits Nivel {
 	

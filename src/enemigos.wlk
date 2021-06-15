@@ -150,7 +150,7 @@ object gestorDeEnemigos{
 		enemigosCaidos += 1
 	}
 	
-	method resetearEnemigos() {
+	method resetEnemigos() {
 		enemigosEnMapa = [] //Provisional (no haria falta si de dejar de crear enemigos en cierto número que responda cada nivel)
 		enemigosCaidos = 0
 	}

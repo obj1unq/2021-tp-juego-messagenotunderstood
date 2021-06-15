@@ -7,7 +7,7 @@ class Tanque inherits Elemento {
 	
 	var property direccion = arriba
 	var property danioDisparo = 15
-	var property cargador = 1 //Nota a revisar: si queda sin bala al pasar de nivel ya no dispara
+	var property cargador = 1 
 	
 	method image() {
 		return "tanque_" + direccion.sufijo()  + ".png"
@@ -81,8 +81,10 @@ object heroe inherits Tanque{
 		return cantidadDeVidas > 0
 	}
 	
-	method resetearPosicion() {
+	method resetValores() {
 		position = game.origin()
 		direccion = arriba
+		vida = 100
+		cargador = 1
 	}
 }
