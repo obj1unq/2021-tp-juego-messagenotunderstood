@@ -62,9 +62,9 @@ object heroe inherits Tanque{
 		}
 	}
 	
-	override method impactar(bala) {
+	override method recibirDanio(bala) {
+		super(bala)
 		game.say(self, "Vida:" + self.vida().toString()) // msg para testear la cantidad de vida que quita.
-		super(bala)	
 	}
 	
 	override method destruido() {
