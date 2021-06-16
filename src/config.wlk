@@ -23,7 +23,7 @@ object config {
 	}
 
 	method configurarMovimientosYDisparosAleatoriosEnemigos(){
-		game.onTick(5000, "TANQUESENEMIGOS", {gestorDeEnemigos.agregarEnemigos()})
+		game.onTick(6500, "TANQUESENEMIGOS", {gestorDeEnemigos.agregarEnemigos()})
 	}
 	
 	method movimientoDe(bala){

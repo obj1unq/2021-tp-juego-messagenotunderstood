@@ -53,7 +53,7 @@ class MBT70 inherits Enemigo{
 	}
 	
 	override method nuevaBala(){
-		return new Fireball(direccion = direccion, position = position)
+		return new Fireball(danio = danioDisparo, direccion = direccion, position = position)
 	}
 }
 
@@ -69,7 +69,7 @@ class T62 inherits Enemigo{
 	}
 	
 	override method nuevaBala(){
-		return new Plasma(direccion = direccion, position = position)
+		return new Plasma(danio = danioDisparo, direccion = direccion, position = position)
 	}
 }
 
@@ -97,43 +97,47 @@ class Leopard inherits Enemigo{
 
 object factoryLeopard {
 	method generarEnemigo() {
-		return new Leopard(direccion = abajo, position =  random.emptyPosition(), danioDisparo= 20, shotTime = 3000, timeMove = 4000);
+		return new Leopard(direccion = abajo, position = random.emptyPosition(), danioDisparo= 20, shotTime = 3000, timeMove = 4000);
 	}
 }
 
 object factoryMBT70 {
 	method generarEnemigo() {
-		return new MBT70 (direccion=abajo, position = random.emptyPosition(), danioDisparo= 12, shotTime = 2500, timeMove = 3000);
+		return new MBT70 (direccion = abajo, position = random.emptyPosition(), danioDisparo= 12, shotTime = 2500, timeMove = 3000);
 	}
 }
 
 object factoryT62 {
 	method generarEnemigo() {
-		return new T62 (direccion=abajo, position = random.emptyPosition(), danioDisparo= 25, shotTime = 2500, timeMove = 3000);
+		return new T62 (direccion = abajo, position = random.emptyPosition(), danioDisparo= 25, shotTime = 2500, timeMove = 3000);
 	}
 }
 
 
 object gestorDeEnemigos{ 
 	
-/*Pendiente: mejorar que se dejen de agregar enemigos cuando se alcanza la cantidad de enemigos
-			 a destruir por nivel. 
-*/
-	  
-	
 	var property enemigosEnMapa = []
+	var property enemigosCreados = 0
 	var property enemigosCaidos = 0 
 	
 	const factories = [factoryLeopard, factoryMBT70, factoryT62];
 
+
 	method agregarEnemigos() {
-		if (self.enemigosEnMapa().size() <= 3 ) {
-			self.agregarNuevaEnemigo()
+		if (self.faltanAgregarEnemigos()){
+			self.agregarNuevoEnemigo()
 			game.say(defensa,"¡CUIDADO! Se acerca un " + enemigosEnMapa.last().modelo() + ".")
+			enemigosCreados += 1
 		}		
 	}
 	
-	method agregarNuevaEnemigo(){
+	method faltanAgregarEnemigos() {
+		return enemigosCreados < nivelActual.enemigosADestruirPorNivel()
+			   and 
+			   enemigosEnMapa.size() <= 3
+	}
+	
+	method agregarNuevoEnemigo(){
 		const nuevoEnemigo = factories.anyOne().generarEnemigo()
 		nuevoEnemigo.moverDisparandoAleatorio() 
 		self.agregarElemento(nuevoEnemigo)
@@ -151,7 +155,7 @@ object gestorDeEnemigos{
 	}
 	
 	method resetEnemigos() {
-		enemigosEnMapa = [] //Provisional (no haria falta si de dejar de crear enemigos en cierto número que responda cada nivel)
+		enemigosCreados = 0
 		enemigosCaidos = 0
 	}
 }

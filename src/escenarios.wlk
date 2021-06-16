@@ -72,7 +72,11 @@ class Nivel {
 
 	method agregarMetales()
 	
-	method seGanoNivel()
+	method enemigosADestruir()
+	
+	method seGanoNivel() {
+		return gestorDeEnemigos.enemigosCaidos() == self.enemigosADestruir()
+	}
 	
 	method pasarNivel() 
 	
@@ -92,6 +96,7 @@ object nivelUno inherits Nivel {
 		gestorDeElementos.generarColumaDeLadrillosDesdeConTamanio(3,7)	
 
 	}
+	
 	override method agregarPastizales() {
 		
 	}
@@ -100,16 +105,15 @@ object nivelUno inherits Nivel {
 
 		gestorDeElementos.generarColumaDeMetalDesdeConTamanio(10,3)
 		gestorDeElementos.generarFilaMetalDesdeConTamanio(5,4)
-		
-}
+	}
 	
-	override method seGanoNivel() {
-		return gestorDeEnemigos.enemigosCaidos() == 15
+	override method enemigosADestruir() {
+		return 5
 	}
 	
 	override method pasarNivel() {
 		nivelActual.nivel(nivelDos)
-		nivelDos.iniciar()
+		game.schedule(500, {nivelDos.iniciar()})
 	}
 }
 
@@ -132,13 +136,13 @@ object nivelDos inherits Nivel {
 		
 	}
 	
-	override method seGanoNivel() {
-		return gestorDeEnemigos.enemigosCaidos() == 18
+	override method enemigosADestruir() {
+		return 18
 	}
 	
 	override method pasarNivel() {
 		nivelActual.nivel(ultimoNivel)
-		ultimoNivel.iniciar()
+		game.schedule(500, {ultimoNivel.iniciar()})
 	}
 }
 
@@ -162,8 +166,8 @@ object ultimoNivel inherits Nivel{
 		
 	}
 	
-	override method seGanoNivel() {
-		return gestorDeEnemigos.enemigosCaidos() == 21
+	override method enemigosADestruir() {
+		return 21
 	}
 	
 	override method pasarNivel() {
@@ -196,6 +200,10 @@ object nivelActual {
 	method gameOver() {
 		//agregar imagen de fin del juego y que vuelva a pantalla inicial al apretar cualquier tecla
 		game.schedule(2000, {game.stop()}) //Provisional
+	}
+	
+	method enemigosADestruirPorNivel() {
+		return nivel.enemigosADestruir()
 	}
 	
 }
