@@ -10,7 +10,7 @@ object pantallaInicial {
 	
 	const property position = game.origin()
 	
-	method image() = "wollanzer2.jpg"
+	method image() = "wollanzer.jpg"
 	
 	method iniciar() {
 		game.addVisual(self)
