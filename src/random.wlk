@@ -8,7 +8,7 @@ object random {
 	}
 	
 	method direccionAleatoria(){				
-		return [arriba, izquierda, abajo, derecha].anyOne()	
+		return [/*arriba*/ abajo, izquierda, abajo, derecha].anyOne()	
 	}
 	
 	method emptyPosition() {
