@@ -4,6 +4,7 @@ import enemigos.*
 import random.*
 import escenarios.*
 
+
 class Bala {
 	
 	const property tanque
@@ -140,23 +141,6 @@ class Elemento {
 }
 
 
-
-class Metal inherits Elemento {
-	
-	method image() = "metal.jpg"
-	
-	override method impactar(bala) {
-		bala.explotar()
-	}
-}
-
-class Pasto inherits Elemento{
-
-	method image() = "pasto.png"
-	
-	override method impactar(bala) {}
-}
-
 class Ladrillo inherits Elemento {
 
 	method image() {
@@ -177,13 +161,6 @@ class Ladrillo inherits Elemento {
 	
 }
 
-class Agua inherits Elemento {
-	
-	method image() = "agua.png"
-	
-	override method impactar(bala) {}
-}
-
 object defensa inherits Elemento {
 	
 	method image() = "baseAguila.png"
@@ -202,102 +179,111 @@ object defensa inherits Elemento {
 	}
 }
 
-class Explosion {
+
+class ElementoSinVida {
 	
-	var property position
+	const property position
+	
+	method impactar(bala) {
+		//No hace nada
+	}
+}
+
+class Pasto inherits ElementoSinVida{
+
+	method image() = "pasto.png"
+	
+}
+
+class Agua inherits ElementoSinVida {
+	
+	method image() = "agua.png"
+	
+}
+
+class Metal inherits ElementoSinVida {
+	
+	method image() = "metal.jpg"
+	
+	override method impactar(bala) {
+		bala.explotar()
+	}
+}
+
+class Explosion inherits ElementoSinVida{
 
 	method image() = "explosion2.png"
 
-	method impactar(bala){}
 }
 
 
-class Humo {
+class Humo inherits ElementoSinVida{
 	
-	var property position
-
 	method image() = "humo.png"
 	
-	method impactar(bala){}
 }
 
 
-
-object gestorDeElementos {
+object gestorDeElementos { // (y < y2)    (x < x2)
 	
-	method generarColumaDeLadrillosDesdeConTamanio(desde, hasta){
-		(1..hasta).forEach({n => game.addVisual(new Ladrillo(position = game.at(desde,n), vida = 100))})
+	
+	method columnaDeLadrilloAPartirDe_Y_hasta_(x, y, y2) {
+		(y..y2).forEach({n => game.addVisual(new Ladrillo(position = game.at(x,n)))})
 	}
 	
-	method generarFilaDeLadrillosDesdeConTamanio(desde, hasta){
-		(1..hasta).forEach({n => game.addVisual(new Ladrillo(position = game.at(n,desde), vida = 100))})
+	method filaDeLadrilloAPartirDe_Y_hasta_(x, y, x2) {
+		(x..x2).forEach({n => game.addVisual(new Ladrillo(position = game.at(n,y)))})
 	}
 	
-	method generarColumaDeAguaDesdeConTamanio(desde, hasta){
-		(1..hasta).forEach({n => game.addVisual(new Agua(position = game.at(desde,n)))})
+	method columnaDeAguaAPartirDe_Y_hasta_(x, y, y2) {
+		(y..y2).forEach({n => game.addVisual(new Ladrillo(position = game.at(x,n)))})
 	}
 	
-	method generarFilaDeAguaDesdeConTamanio(desde, hasta){
-		(1..hasta).forEach({n => game.addVisual(new Agua(position = game.at(n,desde)))})
+	method filaDeAguaAPartirDe_Y_hasta_(x, y, x2) {
+		(x..x2).forEach({n => game.addVisual(new Ladrillo(position = game.at(n,y)))})
 	}
 	
-	method generarColumaDeMetalDesdeConTamanio(desde, hasta){
-		(1..hasta).forEach({n => game.addVisual(new Metal(position = game.at(desde,n)))})
+	method columnaDeMetalAPartirDe_Y_hasta_(x, y, y2) {
+		(y..y2).forEach({n => game.addVisual(new Ladrillo(position = game.at(x,n)))})
 	}
 	
-	method generarFilaMetalDesdeConTamanio(desde, hasta){
-		(1..hasta).forEach({n => game.addVisual(new Metal(position = game.at(n,desde)))})
-	}
-	
-	method generarColumaDePastoDesdeConTamanio(desde, hasta){
-		(1..hasta).forEach({n => game.addVisual(new Pasto(position = game.at(desde,n)))})
-	}
-	
-	method generarFilaDePastoDesdeConTamanio(desde, hasta){
-		(1..hasta).forEach({n => game.addVisual(new Pasto(position = game.at(n,desde)))})
+	method filaDeMetalAPartirDe_Y_hasta_(x, y, x2) {
+		(x..x2).forEach({n => game.addVisual(new Ladrillo(position = game.at(n,y)))})
 	}
 }
 
 
 object arriba {
-	
 	method sufijo(){
 		return "up"
 	}
-	
 	method siguientePosicion(posicion){
 		return posicion.up(1)
 	}
 }
 
 object abajo {
-	
 	method sufijo(){
 		return "down"
 	}
-	
 	method siguientePosicion(posicion){
 		return posicion.down(1)
 	}
 }
 
 object izquierda {
-	
 	method sufijo(){
 		return "left"
 	}
-	
 	method siguientePosicion(posicion){
 		return posicion.left(1)
 	}
 }
 
 object derecha {
-	
 	method sufijo(){
 		return "right"
 	}
-	
 	method siguientePosicion(posicion){
 		return posicion.right(1)
 	}
