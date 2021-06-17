@@ -6,6 +6,7 @@ object musicaMenu {
 	
 	method iniciar() {
 		track.shouldLoop(true)
+		track.volume(0.3)
 		game.schedule(100,{track.play()})
 	}
 	
@@ -13,4 +14,15 @@ object musicaMenu {
 		game.schedule(100,{track.stop()})
 	}
 	
+}
+
+class SoundDisparo {
+	
+	const property sound = game.sound("cañon.mp3")
+	
+	method reproducirDisparo() {
+		sound.volume(0.3)
+		sound.play()
+		game.schedule(800,{sound.stop()})
+	}
 }

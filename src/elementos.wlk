@@ -6,23 +6,26 @@ import escenarios.*
 
 class Bala {
 	
+	const property tanque
 	const direccion
-	var property danio = 7
-
-	var property position //= game.origin()
+	var property position 
 	
 	method image() { 
 		return "bala_" + direccion.sufijo()  + ".png"
+	}
+	
+	method danio() {
+		return self.danioPropio() + tanque.potenciaDisparo()
+	}
+	
+	method danioPropio() {
+		return 15
 	}
 	
 	method ubicarPosicion(){
 		// Se utiliza para evitar la colision con el tanque que dispara
 		self.desplazar()
 	}
-	
-	method dirALaQueApuntaElTanque(dir){
-		return direccion == dir
-	}	
 	
 	method desplazar(){
 		if (not self.enElBorde()) {
@@ -44,10 +47,10 @@ class Bala {
 	
 	method agregarExplosion(){
 		const explocion = new Explosion(position = position)
-		game.addVisual( explocion)
+		game.addVisual(explocion)
 		game.schedule(250, { game.removeVisual( explocion) })
 	}
-
+	
 	method validaPosicion(_position){
 		return _position.y().between(0, game.width() -1 ) and _position.x().between(0, game.height() -1)
 	}
@@ -70,33 +73,42 @@ class Bala {
 	}
 }
 
+//Pendiente: definir el tema de los danios de las balas y potenciaDisparo de los tanques
+
 class Fireball inherits Bala {
 	
-	const porcentajeDanioAQuitar = 2
+//	const porcentajeDanioAQuitar = 2
 	
 	override method image(){
 		return "fireball_" + direccion.sufijo()  + ".png"
 	}
 	
-	override method danio(_porcentajeDanioAQuitar){	
-		danio = (self.danio() / _porcentajeDanioAQuitar).roundUp(0)  // El disparo de fuego saca la mitad de daio de la bala por defecto
+//	override method danio(_porcentajeDanioAQuitar){	
+//		danio = (self.danio() / _porcentajeDanioAQuitar).roundUp(0)  // El disparo de fuego saca la mitad de daio de la bala por defecto
+//	}
+
+	override method danioPropio() {// El disparo de fuego hace menos danio que la bala por defecto
+		return 10
 	}
 }
 
 
 class Plasma inherits Bala {
 	
-	const porcentajeExtraDanio = 2
+//	const porcentajeExtraDanio = 2
 	
 	override method image(){
 		return "plasma_" + direccion.sufijo()  + ".png"
 	}
 	
-	override method danio(_porcentajeExtraDanio){		
-		danio = (self.danio() * _porcentajeExtraDanio).roundUp(0)  // El disparo de plasma saca el doble de danio de la bala por defecto
+//	override method danio(_porcentajeExtraDanio){		
+//		danio = (self.danio() * _porcentajeExtraDanio).roundUp(0)  // El disparo de plasma saca el doble de danio de la bala por defecto
+//	}
+
+	override method danioPropio() {// El disparo de plasma hace mas danio que la bala por defecto
+		return 20
 	}
 }
-
 
 class Elemento {
 	
