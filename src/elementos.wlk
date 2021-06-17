@@ -110,6 +110,7 @@ class Plasma inherits Bala {
 	}
 }
 
+
 class Elemento {
 	
 	var property position = game.origin()

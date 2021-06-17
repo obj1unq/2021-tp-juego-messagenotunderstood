@@ -32,6 +32,14 @@ class Enemigo inherits Tanque {
 		gestorDeEnemigos.removerElemento(self)
 	}
 	
+	override method recibirDanio(bala) {
+		if (self.esDisparoDelDefensor(bala)) {super(bala)}
+	}
+	
+	method esDisparoDelDefensor(bala) {
+		return bala.tanque() == heroe
+	}
+	
 	override method destruido(){
 		self.removerEnemigo()
 		nivelActual.estado()
@@ -41,6 +49,16 @@ class Enemigo inherits Tanque {
 	
 }
 
+class Leopard inherits Enemigo{
+
+	override method image() {
+		return "leopard_" + direccion.sufijo()  + ".png"
+	}
+	
+	override method modelo(){
+		return "Leopard II"
+	}
+}
 
 class MBT70 inherits Enemigo{
 
@@ -53,7 +71,7 @@ class MBT70 inherits Enemigo{
 	}
 	
 	override method nuevaBala(){
-		return new Fireball(danio = danioDisparo, direccion = direccion, position = position)
+		return new Fireball(tanque = self, direccion = direccion, position = position)
 	}
 }
 
@@ -69,19 +87,7 @@ class T62 inherits Enemigo{
 	}
 	
 	override method nuevaBala(){
-		return new Plasma(danio = danioDisparo, direccion = direccion, position = position)
-	}
-}
-
-
-class Leopard inherits Enemigo{
-
-	override method image() {
-		return "leopard_" + direccion.sufijo()  + ".png"
-	}
-	
-	override method modelo(){
-		return "Leopard II"
+		return new Plasma(tanque = self, direccion = direccion, position = position)
 	}
 }
 
@@ -97,19 +103,19 @@ class Leopard inherits Enemigo{
 
 object factoryLeopard {
 	method generarEnemigo() {
-		return new Leopard(direccion = abajo, position = random.emptyPosition(), danioDisparo= 20, shotTime = 3000, timeMove = 4000);
+		return new Leopard(direccion = abajo, position = random.emptyPosition(), potenciaDisparo = 10, shotTime = 3000, timeMove = 4000);
 	}
 }
 
 object factoryMBT70 {
 	method generarEnemigo() {
-		return new MBT70 (direccion = abajo, position = random.emptyPosition(), danioDisparo= 12, shotTime = 2500, timeMove = 3000);
+		return new MBT70 (direccion = abajo, position = random.emptyPosition(), potenciaDisparo = 5, shotTime = 2500, timeMove = 3000);
 	}
 }
 
 object factoryT62 {
 	method generarEnemigo() {
-		return new T62 (direccion = abajo, position = random.emptyPosition(), danioDisparo= 25, shotTime = 2500, timeMove = 3000);
+		return new T62 (direccion = abajo, position = random.emptyPosition(), potenciaDisparo = 15, shotTime = 2500, timeMove = 3000);
 	}
 }
 
@@ -117,7 +123,7 @@ object factoryT62 {
 object gestorDeEnemigos{ 
 	
 	var property enemigosEnMapa = []
-	var property enemigosCreados = 0
+	var property enemigosAgregados = 0
 	var property enemigosCaidos = 0 
 	
 	const factories = [factoryLeopard, factoryMBT70, factoryT62];
@@ -127,12 +133,12 @@ object gestorDeEnemigos{
 		if (self.faltanAgregarEnemigos()){
 			self.agregarNuevoEnemigo()
 			game.say(defensa,"¡CUIDADO! Se acerca un " + enemigosEnMapa.last().modelo() + ".")
-			enemigosCreados += 1
+			enemigosAgregados += 1
 		}		
 	}
 	
-	method faltanAgregarEnemigos() {
-		return enemigosCreados < nivelActual.enemigosADestruirPorNivel()
+	method faltanAgregarEnemigos() { 
+		return enemigosAgregados < nivelActual.enemigosADestruirPorNivel()
 			   and 
 			   enemigosEnMapa.size() <= 3
 	}
@@ -155,7 +161,8 @@ object gestorDeEnemigos{
 	}
 	
 	method resetEnemigos() {
-		enemigosCreados = 0
+		enemigosEnMapa = []
+		enemigosAgregados = 0
 		enemigosCaidos = 0
 	}
 }
