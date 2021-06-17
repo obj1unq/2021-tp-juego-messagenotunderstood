@@ -86,15 +86,14 @@ class Nivel {
 object nivelUno inherits Nivel {
 	
 	override method agregarCharcos() {
-
-		gestorDeElementos.generarFilaDeAguaDesdeConTamanio(5,2)
-		gestorDeElementos.generarColumaDeAguaDesdeConTamanio(9,4)
+//		gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(0, 6, 2)
+//		gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(10, 6, 12)
 	}
+	
 	override method agregarLadrillos() {
-
-		gestorDeElementos.generarFilaDeLadrillosDesdeConTamanio(10,8)	
-		gestorDeElementos.generarColumaDeLadrillosDesdeConTamanio(3,7)	
-
+		gestorDeElementos.columnaDeLadrilloAPartirDe_Y_hasta_(1, 7, 12)
+		gestorDeElementos.columnaDeLadrilloAPartirDe_Y_hasta_(11, 7, 12)
+		gestorDeElementos.filaDeLadrilloAPartirDe_Y_hasta_(3, 6, 9)
 	}
 	
 	override method agregarPastizales() {
@@ -103,12 +102,12 @@ object nivelUno inherits Nivel {
 	
 	override method agregarMetales() {
 
-		gestorDeElementos.generarColumaDeMetalDesdeConTamanio(10,3)
-		gestorDeElementos.generarFilaMetalDesdeConTamanio(5,4)
+//		gestorDeElementos.generarColumaDeMetalDesdeConTamanio(10,3)
+//		gestorDeElementos.generarFilaMetalDesdeConTamanio(5,4)
 	}
 	
 	override method enemigosADestruir() {
-		return 5
+		return 15
 	}
 	
 	override method pasarNivel() {
