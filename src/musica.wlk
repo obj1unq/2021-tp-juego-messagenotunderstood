@@ -1,5 +1,6 @@
 import wollok.game.*
 
+
 object musicaMenu {
 	
 	const property track = game.sound("menuInicial.mp3")
