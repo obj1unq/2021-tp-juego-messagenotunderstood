@@ -16,7 +16,7 @@ class Enemigo inherits Tanque {
 	}
 
 	method avanzar(){
-		const direccion = self.proximaDireccion();
+		direccion = self.proximaDireccion();
 
 	 	if(self.validaPosicion(direccion.siguientePosicion(position)) and self.sinObstaculo(direccion.siguientePosicion(position))) {
         	position = direccion.siguientePosicion(position)
