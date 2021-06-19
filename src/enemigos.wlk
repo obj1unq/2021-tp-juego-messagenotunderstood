@@ -16,10 +16,33 @@ class Enemigo inherits Tanque {
 	}
 
 	method avanzar(){
-		direccion = random.direccionAleatoria()
+		const direccion = self.proximaDireccion();
+
 	 	if(self.validaPosicion(direccion.siguientePosicion(position)) and self.sinObstaculo(direccion.siguientePosicion(position))) {
-                position = direccion.siguientePosicion(position)
+        	position = direccion.siguientePosicion(position)
 		} 
+	}
+	
+	method proximaDireccion() {
+		if(self.heroeEsObjetivo()) {
+			return self.ubicarHeroe()	
+		} else {
+			return random.direccionAleatoria();	
+		}
+	}
+	
+	method ubicarHeroe() {
+		const posicionHeroe = heroe.position();
+		if(self.position().x() > posicionHeroe.x()) return izquierda
+		else if(self.position().x() < posicionHeroe.x()) return derecha
+		else if(self.position().y() > posicionHeroe.y()) return abajo
+		else return arriba
+	}
+	
+	method heroeEsObjetivo() {
+		const heroePosition = heroe.position();
+		
+		return heroePosition.x() == self.position().x() or heroePosition.y() == self.position().y();
 	}
 
 	method moverAl(_direccion){
