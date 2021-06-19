@@ -13,4 +13,3 @@ program game {
 	pantallaInicial.iniciar()
 	game.start()
 }
-

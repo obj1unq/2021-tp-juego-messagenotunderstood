@@ -44,11 +44,9 @@ class Nivel {
 	}
 	
 	method paredDefensa(){
-		game.addVisual(new Ladrillo(position = game.at(5,0), vida = 100))
-		game.addVisual(new Ladrillo(position = game.at(5,1), vida = 100))
-		game.addVisual(new Ladrillo(position = game.at(6, 1), vida = 100))
-		game.addVisual(new Ladrillo(position = game.at(7,1), vida = 100))
-		game.addVisual(new Ladrillo(position = game.at(7,0), vida = 100))
+		gestorDeElementos.columnaDeLadrilloAPartirDe_Y_hasta_(5, 0, 1)
+		gestorDeElementos.filaDeLadrilloAPartirDe_Y_hasta_(6, 1, 7)
+		gestorDeElementos.columnaDeLadrilloAPartirDe_Y_hasta_(7, 0, 1)
 	}
 	
 	method configurarTeclasYMecanismos(){
@@ -165,11 +163,13 @@ object nivelDos inherits Nivel {
 object ultimoNivel inherits Nivel{
 	
 	override method agregarCharcos() {
-		//definir posiciones de elementos agua	
+	 	gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(4, 7, 8)
+		gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(4, 6, 8)
+
 	}
 	
 	override method agregarLadrillos() {
-		//definir posiciones para los ladrilos
+		
 	}
 	
 	override method agregarPastizales() {
@@ -177,7 +177,17 @@ object ultimoNivel inherits Nivel{
 	}
 	
 	override method agregarMetales() {
-		//definir posiciones para los Metales
+		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(4, 6, 6)
+		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(8, 6, 6)
+		gestorDeElementos.filaDeMetalAPartirDe_Y_hasta_(4, 8, 8)
+		gestorDeElementos.filaDeMetalAPartirDe_Y_hasta_(4, 5, 8)
+		
+		gestorDeElementos.filaDeMetalAPartirDe_Y_hasta_(2, 4, 5)
+		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(2, 6, 4)
+		gestorDeElementos.filaDeMetalAPartirDe_Y_hasta_(7, 9, 10)
+		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(10, 7, 8)
+		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(4, 6, 6)
+		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(8, 6, 6)
 		
 	}
 	
