@@ -236,19 +236,19 @@ object gestorDeElementos { // (y < y2)    (x < x2)
 	}
 	
 	method columnaDeAguaAPartirDe_Y_hasta_(x, y, y2) {
-		(y..y2).forEach({n => game.addVisual(new Ladrillo(position = game.at(x,n)))})
+		(y..y2).forEach({n => game.addVisual(new Agua(position = game.at(x,n)))})
 	}
 	
 	method filaDeAguaAPartirDe_Y_hasta_(x, y, x2) {
-		(x..x2).forEach({n => game.addVisual(new Ladrillo(position = game.at(n,y)))})
+		(x..x2).forEach({n => game.addVisual(new Agua(position = game.at(n,y)))})
 	}
 	
 	method columnaDeMetalAPartirDe_Y_hasta_(x, y, y2) {
-		(y..y2).forEach({n => game.addVisual(new Ladrillo(position = game.at(x,n)))})
+		(y..y2).forEach({n => game.addVisual(new Metal(position = game.at(x,n)))})
 	}
 	
 	method filaDeMetalAPartirDe_Y_hasta_(x, y, x2) {
-		(x..x2).forEach({n => game.addVisual(new Ladrillo(position = game.at(n,y)))})
+		(x..x2).forEach({n => game.addVisual(new Metal(position = game.at(n,y)))})
 	}
 }
 
