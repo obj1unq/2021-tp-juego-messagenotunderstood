@@ -2,6 +2,7 @@ import tanque.*
 import wollok.game.*
 import elementos.*
 import enemigos.*
+import menuSuperior.*
 
 object config {
 
@@ -37,4 +38,5 @@ object config {
 		game.onTick(50, "MOVIMIENTO_DE_BALA" + bala.identity(), {bala.desplazar()})	
 	}
 	
+
 }

@@ -29,14 +29,13 @@ class Nivel {
 		self.configurarTeclasYMecanismos()
 		//self.estadoDelNivel()
 		self.mapa()
-		//Testing
-		game.addVisual(vidaDelHeroe)
 	}
 	
 	method reset() {
 		game.clear()
 		heroe.resetValores()
 		gestorDeEnemigos.resetEnemigos()
+		self.generarMenuSuperior()
 	}	
 
 	method agregarObjetosIniciales(){
@@ -79,6 +78,11 @@ class Nivel {
 	
 	method pasarNivel() 
 	
+	method generarMenuSuperior(){
+		game.addVisual(vidaDelHeroe)
+		game.addVisual(leyendaEnemigos)
+		game.addVisual(contadorEnemigos)
+	}
 }
 
 

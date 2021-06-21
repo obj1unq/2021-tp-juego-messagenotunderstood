@@ -1,8 +1,8 @@
 import wollok.game.*
 import tanque.*
+import enemigos.*
+import escenarios.*
 
-// 196
-// 19
 object vidaDelHeroe {
 	
 	const vidas = 3
@@ -20,13 +20,32 @@ object vidaDelHeroe {
 	method vidaDelHeroe(){
 		return heroe.vida().div(10).roundUp() 
 	}
+	method impactar(algo){}
 }
 
-object tanques {
-	
-	const property position = game.at(11,10)
-	
+object leyendaEnemigos{
 	method image(){
-		 return "vida.png" // cambiar imagen por un tanque
+		return "leyenda_enemigos.png"
 	}
+	
+	method position(){
+		return game.at(7,12)
+	}
+	
+	method impactar(algo){}
+}
+
+object contadorEnemigos{
+	method image(){
+		return self.cantidadDeEnemigos().toString() + ".png"
+	}
+	
+	method position(){
+		return game.at(11,12)
+	}
+	
+	method cantidadDeEnemigos(){
+		return (nivelActual.enemigosADestruirPorNivel() - gestorDeEnemigos.enemigosCaidos()).max(0)
+	}
+	method impactar(algo){}
 }
