@@ -4,7 +4,7 @@ import elementos.*
 object random {	
 	method position() {
 		return 	game.at( 
-					(0 .. game.width() - 1 ).anyOne(), (12)) 
+					(0 .. game.width() - 1 ).anyOne(), (11)) 
 	}
 	
 	method direccionAleatoria(){				

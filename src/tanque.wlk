@@ -22,7 +22,7 @@ class Tanque inherits Elemento {
 	}
 	
 	method validaPosicion(_position){
-		return (_position.y().between(0,game.width() -1) and _position.x().between(0, game.height() -1))
+		return (_position.y().between(0,game.height() -2) and _position.x().between(0, game.width() -1))
 	}
 	
 	

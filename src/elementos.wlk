@@ -53,7 +53,7 @@ class Bala {
 	}
 	
 	method validaPosicion(_position){
-		return _position.y().between(0, game.width() -1 ) and _position.x().between(0, game.height() -1)
+		return _position.y().between(0, game.height() - 1) and _position.x().between(0, game.width() -1)
 	}
 	
 	method impactar(bala){
@@ -70,7 +70,7 @@ class Bala {
 	}
 	
 	method margenesSupEInf(){
-		return position.y() > game.height() or position.y() < 0
+		return position.y() > (game.height() - 2)  or position.y() < 0
 	}
 }
 
