@@ -140,8 +140,8 @@ object nivelDos inherits Nivel {
 	
 	override method agregarMetales() {
 		//definir posiciones para los Metales
-		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(3, 11, 12)
-		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(9, 11, 12)
+		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(3, 11, 11)
+		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(9, 11, 11)
 		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(6, 3, 3)
 		
 	}
