@@ -3,7 +3,7 @@ import tanque.*
 import enemigos.*
 import random.*
 import escenarios.*
-
+import musica.*
 
 class Bala {
 	
@@ -168,14 +168,20 @@ object defensa inherits Elemento {
 	override method position () = game.at( (game.width()) / 2,0)
 	
 	override method impactar(bala) {
-		bala.explotar()
-		self.destruido()
+		self.vida(1)
+		super(bala)
 	}
 	
 	override method destruido() {
-		game.say(heroe, "Nooooooooooooooooooooooooo!!!")		
 		super()
+		const lamento = game.sound("nooo.mp3")
+		reproductor.play(lamento, 3000)
+		game.say(heroe, "Noooooo Nooooooooooooooooooo!!!")		
 		nivelActual.gameOver()
+	}
+	
+	method estaDestruida() {
+		return vida < 1
 	}
 }
 

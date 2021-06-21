@@ -43,7 +43,7 @@ object heroe inherits Tanque{
 	method disparar(){
 	//Si tiene una bala dispara y recarga
 		if (self.tieneBala()){
-			self.agregarSonido()
+			self.agregarSonidoDisparo()
 			self.descargar()
 			config.movimientoDe(self.nuevaBala())
 			self.recargar()
@@ -56,9 +56,9 @@ object heroe inherits Tanque{
 		return cargador > 0
 	}
 	
-	method agregarSonido() {
-		const disparo = new SoundDisparo()
-		disparo.reproducirDisparo()
+	method agregarSonidoDisparo() {
+		const disparo = game.sound("cañon.mp3")
+		reproductor.play(disparo, 1000)
 	}
 	
 	method descargar() {
@@ -74,11 +74,17 @@ object heroe inherits Tanque{
 		cargador += 1
 	}
 	
-	override method recibirDanio(bala) {
-		self.agregarSonido()
+	override method impactar(bala) {
+		self.agregarSonidoDisparo()
+		const doh = game.sound("homero doh.mp3")
+		reproductor.play(doh, 1000)
 		super(bala)
-		game.say(self, "Vida:" + self.vida().toString()) // msg para testear la cantidad de vida que quita.
 	}
+	
+//	override method recibirDanio(bala) {
+//		super(bala)
+//		game.say(self, "Vida:" + self.vida().toString()) // msg para testear la cantidad de vida que quita.
+//	}
 	
 	override method destruido() {
 		game.say(self, "Me Muerooo")

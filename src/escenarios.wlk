@@ -13,9 +13,10 @@ object pantallaInicial {
 	method image() = "wollanzer.jpg"
 	
 	method iniciar() {
+		game.clear()
 		game.addVisual(self)
-		musicaMenu.iniciar()
-		keyboard.enter().onPressDo({ nivelUno.iniciar(); musicaMenu.stop() })
+		musicaMenu.play()
+		keyboard.enter().onPressDo({ nivelUno.iniciar(); musicaMenu.pause() })
 	}
 }
 
@@ -76,7 +77,10 @@ class Nivel {
 		return gestorDeEnemigos.enemigosCaidos() == self.enemigosADestruir()
 	}
 	
-	method pasarNivel() 
+	method pasarNivel() {
+		const festejo = game.sound("homero woohoo.mp3")
+		reproductor.play(festejo, 1000)
+	}
 	
 	method generarMenuSuperior(){
 		game.addVisual(vidaDelHeroe)
@@ -114,6 +118,7 @@ object nivelUno inherits Nivel {
 	}
 	
 	override method pasarNivel() {
+		super()
 		nivelActual.nivel(nivelDos)
 		game.schedule(500, {nivelDos.iniciar()})
 	}
@@ -159,6 +164,7 @@ object nivelDos inherits Nivel {
 	}
 	
 	override method pasarNivel() {
+		super()
 		nivelActual.nivel(ultimoNivel)
 		game.schedule(500, {ultimoNivel.iniciar()})
 	}
@@ -201,6 +207,7 @@ object ultimoNivel inherits Nivel{
 	}
 	
 	override method pasarNivel() {
+		super()
 		self.victory()
 	}
 	
@@ -229,7 +236,7 @@ object nivelActual {
 	
 	method gameOver() {
 		//agregar imagen de fin del juego y que vuelva a pantalla inicial al apretar cualquier tecla
-		game.schedule(2000, {game.stop()}) //Provisional
+		game.schedule(3000, {pantallaInicial.iniciar()}) //Provisional
 	}
 	
 	method enemigosADestruirPorNivel() {

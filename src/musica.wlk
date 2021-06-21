@@ -1,29 +1,31 @@
 import wollok.game.*
 
-
 object musicaMenu {
 	
 	const property track = game.sound("menuInicial.mp3")
 	
-	method iniciar() {
+	method play() {
 		track.shouldLoop(true)
-		track.volume(0.3)
-		game.schedule(100,{track.play()})
+		track.volume(0.2)
+		if(!track.paused()) {
+			game.schedule(100,{track.play()})
+		} else {
+			track.resume()
+		}
 	}
 	
-	method stop() {
-		game.schedule(100,{track.stop()})
+	method pause() {
+		game.schedule(100,{track.pause()})
 	}
 	
 }
 
-class SoundDisparo {
+
+object reproductor {
 	
-	const property sound = game.sound("cañon.mp3")
-	
-	method reproducirDisparo() {
-		sound.volume(0.3)
+	method play(sound, time) {
+		sound.volume(0.2)
 		sound.play()
-		game.schedule(800,{sound.stop()})
+		game.schedule(time,{sound.stop()})
 	}
 }
