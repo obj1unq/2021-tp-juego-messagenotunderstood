@@ -15,13 +15,12 @@ object pantallaInicial {
 	method iniciar() {
 		game.addVisual(self)
 		musicaMenu.iniciar()
-		keyboard.enter().onPressDo({ ultimoNivel.iniciar(); musicaMenu.stop() })
+		keyboard.enter().onPressDo({ nivelUno.iniciar(); musicaMenu.stop() })
 	}
 }
 
 
 class Nivel {
-	
 	
 	method iniciar() {
 		self.reset()
@@ -30,6 +29,8 @@ class Nivel {
 		self.configurarTeclasYMecanismos()
 		//self.estadoDelNivel()
 		self.mapa()
+		//Testing
+		game.addVisual(vidaDelHeroe)
 	}
 	
 	method reset() {
@@ -89,8 +90,8 @@ object nivelUno inherits Nivel {
 	}
 	
 	override method agregarLadrillos() {
-		gestorDeElementos.columnaDeLadrilloAPartirDe_Y_hasta_(1, 7, 12)
-		gestorDeElementos.columnaDeLadrilloAPartirDe_Y_hasta_(11, 7, 12)
+		gestorDeElementos.columnaDeLadrilloAPartirDe_Y_hasta_(1, 7, 11)
+		gestorDeElementos.columnaDeLadrilloAPartirDe_Y_hasta_(11, 7, 11)
 		gestorDeElementos.filaDeLadrilloAPartirDe_Y_hasta_(3, 6, 9)
 	}
 	

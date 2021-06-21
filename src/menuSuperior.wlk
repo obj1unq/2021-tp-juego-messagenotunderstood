@@ -1,13 +1,24 @@
 import wollok.game.*
+import tanque.*
 
+// 196
+// 19
 object vidaDelHeroe {
 	
 	const vidas = 3
 	
-	const property position = game.at(12,10)
+	const property position = game.at(0,12)
 	
 	method image(){
-		 return "vida.png"
+		 return self.sufijo() + self.vidaDelHeroe() + ".png"
+	}
+	
+	method sufijo(){
+		return "VIDA_"
+	}
+	
+	method vidaDelHeroe(){
+		return heroe.vida().div(10).roundUp() 
 	}
 }
 
