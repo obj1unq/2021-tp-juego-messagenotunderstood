@@ -179,10 +179,6 @@ object defensa inherits Elemento {
 		game.say(heroe, "Noooooo Nooooooooooooooooooo!!!")		
 		nivelActual.gameOver()
 	}
-	
-	method estaDestruida() {
-		return vida < 1
-	}
 }
 
 

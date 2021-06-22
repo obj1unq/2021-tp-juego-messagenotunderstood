@@ -155,7 +155,7 @@ object gestorDeEnemigos{
 	method agregarEnemigos() {
 		if (self.faltanAgregarEnemigos()){
 			self.agregarNuevoEnemigo()
-			game.say(defensa,"¡CUIDADO! Se acerca un " + enemigosEnMapa.last().modelo() + ".")
+			self.avisoDeDefensa()
 			enemigosAgregados += 1
 		}		
 	}
@@ -187,5 +187,15 @@ object gestorDeEnemigos{
 		enemigosEnMapa = []
 		enemigosAgregados = 0
 		enemigosCaidos = 0
+	}
+	
+	method avisoDeDefensa(){
+		 if (self.validaDefensa()){
+			game.say(defensa,"¡CUIDADO! Se acerca un " + enemigosEnMapa.last().modelo() + ".")
+		}
+	}
+	
+	method validaDefensa(){
+		return game.hasVisual(defensa)
 	}
 }
