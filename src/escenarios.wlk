@@ -28,15 +28,15 @@ class Nivel {
 		self.paredDefensa()
 		self.agregarObjetosIniciales()
 		self.configurarTeclasYMecanismos()
-		//self.estadoDelNivel()
 		self.mapa()
+		self.generarMenuSuperior()
 	}
 	
 	method reset() {
 		game.clear()
 		heroe.resetValores()
 		gestorDeEnemigos.resetEnemigos()
-		self.generarMenuSuperior()
+	
 	}	
 
 	method agregarObjetosIniciales(){
@@ -52,7 +52,6 @@ class Nivel {
 	
 	method configurarTeclasYMecanismos(){
 		config.configurarTeclas()
-		//config.configurarColisiones()
 		config.configurarMovimientosYDisparosAleatoriosEnemigos()
 	}
 	
@@ -127,10 +126,6 @@ object nivelUno inherits Nivel {
 object nivelDos inherits Nivel {
 	
 	override method agregarCharcos() {
-		//definir posiciones de elementos agua	
-		//gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(0, 5, 2)
-		//gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(4, 5, 8)
-		//gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(10, 5, 13)
 		gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(0, 6, 2)
 		gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(4, 6, 8)
 		gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(10, 6, 13)
@@ -140,8 +135,6 @@ object nivelDos inherits Nivel {
 	}
 	
 	override method agregarLadrillos() {
-		//definir posiciones para los ladrilos
-		
 		gestorDeElementos.filaDeLadrilloAPartirDe_Y_hasta_(2, 10, 4)
 		gestorDeElementos.filaDeLadrilloAPartirDe_Y_hasta_(8, 10, 10)
 		gestorDeElementos.filaDeLadrilloAPartirDe_Y_hasta_(0, 2, 2)
@@ -149,7 +142,6 @@ object nivelDos inherits Nivel {
 	}
 	
 	override method agregarMetales() {
-		//definir posiciones para los Metales
 		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(3, 11, 11)
 		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(9, 11, 11)
 		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(6, 3, 3)

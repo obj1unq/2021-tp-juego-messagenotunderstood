@@ -4,9 +4,7 @@ import enemigos.*
 import escenarios.*
 
 object vidaDelHeroe {
-	
-	const vidas = 3
-	
+
 	const property position = game.at(0,12)
 	
 	method image(){
