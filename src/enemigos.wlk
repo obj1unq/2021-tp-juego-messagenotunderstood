@@ -68,29 +68,21 @@ class Enemigo inherits Tanque {
 		nivelActual.estado()
 	}
 	
-	method modelo()
+
 	
 }
 
 class Leopard inherits Enemigo{
 
-	override method image() {
-		return "leopard_" + direccion.sufijo()  + ".png"
-	}
-	
 	override method modelo(){
-		return "Leopard II"
+		return "leopard"
 	}
 }
 
 class MBT70 inherits Enemigo{
 
-	override method image() {
-		return "MBT-70_" + direccion.sufijo()  + ".png"
-	}
-	
 	override method modelo(){
-		return "MBT70"
+		return "MBT-70"
 	}
 	
 	override method nuevaBala(){
@@ -101,12 +93,8 @@ class MBT70 inherits Enemigo{
 
 class T62 inherits Enemigo{
 
-	override method image() {
-		return "T-62_" + direccion.sufijo()  + ".png"
-	}
-	
 	override method modelo(){
-		return "T62"
+		return "T-62"
 	}
 	
 	override method nuevaBala(){

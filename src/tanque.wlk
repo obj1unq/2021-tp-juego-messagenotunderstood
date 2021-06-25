@@ -8,10 +8,6 @@ class Tanque inherits Elemento {
 	
 	var property direccion = arriba
 	var property potenciaDisparo = 15
-
-	method image() {
-		return "tanque_" + direccion.sufijo()  + ".png"
-	}
 	
 	method nuevaBala(){
 		return new Bala(tanque = self, direccion = direccion, position = position)
@@ -25,7 +21,13 @@ class Tanque inherits Elemento {
 		return (_position.y().between(0,game.height() -2) and _position.x().between(0, game.width() -1))
 	}
 	
+	method image() {
+		return self.modelo() + "_"+ direccion.sufijo()  + ".png"
+	}
 	
+	method modelo(){
+		return "tanque"
+	}
 }
 
 object heroe inherits Tanque{
@@ -80,12 +82,7 @@ object heroe inherits Tanque{
 		reproductor.play(doh, 1000)
 		super(bala)
 	}
-	
-//	override method recibirDanio(bala) {
-//		super(bala)
-//		game.say(self, "Vida:" + self.vida().toString()) // msg para testear la cantidad de vida que quita.
-//	}
-	
+
 	override method destruido() {
 		game.say(self, "Me Muerooo")
 		game.schedule(1000, {super()})

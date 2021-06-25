@@ -113,7 +113,6 @@ class Plasma inherits Bala {
 
 
 class Elemento {
-	
 	var property position = game.origin()
 	var property vida = 100
 	
@@ -138,6 +137,7 @@ class Elemento {
 	method destruido(){
 		game.removeVisual(self)	
 	}
+	
 }
 
 
