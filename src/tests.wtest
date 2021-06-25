@@ -1,5 +1,51 @@
-test "testX" {
+import tanque.*
+import elementos.*
+import wollok.game.*
+import escenarios.*
 
-	assert.that(true)
 
+describe "Tanque" {
+	
+	test "Comprobar imagen de la direccion" {
+		assert.equals("tanque_up.png", heroe.image());
+		
+		heroe.irA(heroe.position().right(1), derecha);
+		
+		assert.equals("tanque_right.png", heroe.image());
+		
+		heroe.irA(heroe.position().up(1), arriba);
+		
+		assert.equals("tanque_up.png", heroe.image());
+		
+		heroe.irA(heroe.position().left(1), izquierda);
+		
+		assert.equals("tanque_left.png", heroe.image());
+		
+		heroe.irA(heroe.position().down(1), abajo);
+		
+		assert.equals("tanque_down.png", heroe.image());
+	}
+	
+	test "Verificar obstaculos" {
+		assert.equals(true, heroe.sinObstaculo(game.at(5,0)));
+		nivelUno.iniciar();
+		assert.equals(false, heroe.sinObstaculo(game.at(5,0)));
+	}
+	
+	test "Verificar vida del tanque" {
+		assert.equals(3, heroe.cantidadDeVidas());
+		heroe.perderVida();
+		assert.equals(2, heroe.cantidadDeVidas());
+		heroe.perderVida();
+		heroe.perderVida();
+		assert.equals(0, heroe.cantidadDeVidas());
+	}
+	
+	test "Verificar destruccion del tanque" {
+		nivelUno.iniciar();
+		assert.equals(true, game.hasVisual(heroe));
+		heroe.destruido();
+		game.schedule(2000, {assert.equals(false, game.hasVisual(heroe))})
+	}
+	
 }
