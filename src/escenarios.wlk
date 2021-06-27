@@ -23,14 +23,21 @@ object pantallaInicial {
 
 class Nivel {
 	
+	const property position = game.origin()
+	
 	method iniciar() {
-		self.reset()
-		self.paredDefensa()
-		self.agregarObjetosIniciales()
-		self.configurarTeclasYMecanismos()
-		self.mapa()
-		self.generarMenuSuperior()
+		game.addVisual(self)
+		game.schedule(4000, {
+			self.reset()
+			self.paredDefensa()
+			self.agregarObjetosIniciales()
+			self.configurarTeclasYMecanismos()
+			self.mapa()
+			self.generarMenuSuperior()
+		})
 	}
+	
+	method image()
 	
 	method reset() {
 		game.clear()
@@ -91,6 +98,8 @@ class Nivel {
 
 object nivelUno inherits Nivel {
 	
+	override method image() = "Nivel1.jpg"
+	
 	override method agregarCharcos() {
 		gestorDeElementos.columnaDeAguaAPartirDe_Y_hasta_(0, 3, 5)
 		gestorDeElementos.columnaDeAguaAPartirDe_Y_hasta_(1, 3, 5)
@@ -117,7 +126,7 @@ object nivelUno inherits Nivel {
 	}
 	
 	override method enemigosADestruir() {
-		return 15
+		return 14
 	}
 	
 	override method pasarNivel() {
@@ -128,6 +137,8 @@ object nivelUno inherits Nivel {
 }
 
 object nivelDos inherits Nivel {
+	
+	override method image() = "Nivel2.jpg"
 	
 	override method agregarCharcos() {
 		gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(0, 6, 2)
@@ -156,7 +167,7 @@ object nivelDos inherits Nivel {
 		//definir posiciones para pastos
 	}
 	override method enemigosADestruir() {
-		return 18
+		return 17
 	}
 	
 	override method pasarNivel() {
@@ -168,6 +179,8 @@ object nivelDos inherits Nivel {
 
 
 object ultimoNivel inherits Nivel{
+	
+	override method image() = "Nivel3.jpg"
 	
 	override method agregarCharcos() {
 	 	gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(4, 7, 8)
@@ -199,7 +212,7 @@ object ultimoNivel inherits Nivel{
 	}
 	
 	override method enemigosADestruir() {
-		return 21
+		return 20
 	}
 	
 	override method pasarNivel() {
