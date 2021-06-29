@@ -105,17 +105,21 @@ object nivelUno inherits Nivel {
 	override method agregarCharcos() {
 		gestorDeElementos.columnaDeAguaAPartirDe_Y_hasta_(0, 3, 5)
 		gestorDeElementos.columnaDeAguaAPartirDe_Y_hasta_(1, 3, 5)
+//		gestorDeElementos.columnaDeAguaAPartirDe_Y_hasta_(2, 3, 5)
 		gestorDeElementos.columnaDeAguaAPartirDe_Y_hasta_(12, 3, 5)
 		gestorDeElementos.columnaDeAguaAPartirDe_Y_hasta_(11, 3, 5)
+//		gestorDeElementos.columnaDeAguaAPartirDe_Y_hasta_(10, 3, 5)
 	}
 	
 	override method agregarLadrillos() {
 		gestorDeElementos.columnaDeLadrilloAPartirDe_Y_hasta_(2, 8, 11)
 		gestorDeElementos.columnaDeLadrilloAPartirDe_Y_hasta_(10, 8, 11)
-		gestorDeElementos.filaDeLadrilloAPartirDe_Y_hasta_(5, 6, 7)
-		gestorDeElementos.filaDeLadrilloAPartirDe_Y_hasta_(5, 5, 7)
+		gestorDeElementos.columnaDeLadrilloAPartirDe_Y_hasta_(4, 4, 5)
+		gestorDeElementos.columnaDeLadrilloAPartirDe_Y_hasta_(8, 4, 5)
+		gestorDeElementos.filaDeLadrilloAPartirDe_Y_hasta_(5, 4, 7)
 		gestorDeElementos.filaDeLadrilloAPartirDe_Y_hasta_(0, 2, 1)
 		gestorDeElementos.filaDeLadrilloAPartirDe_Y_hasta_(11, 2, 12)
+		game.addVisual(new Ladrillo(position = game.at(6,5)))
 	}
 	
 	override method agregarPastizales() {
@@ -125,10 +129,11 @@ object nivelUno inherits Nivel {
 	override method agregarMetales() {
 		game.addVisual(new Metal(position = game.at(4,9)))
 		game.addVisual(new Metal(position = game.at(8,9)))
+		game.addVisual(new Metal(position = game.at(6,7)))
 	}
 	
 	override method enemigosADestruir() {
-		return 2
+		return 14
 	}
 	
 	override method pasarNivel() {
