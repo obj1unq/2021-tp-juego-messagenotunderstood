@@ -16,9 +16,10 @@ object pantallaInicial {
 		game.clear()
 		game.addVisual(self)
 		musicaMenu.play()
-		keyboard.enter().onPressDo({ nivelUno.iniciar(); musicaMenu.pause() })
+		keyboard.enter().onPressDo({ nivelUno.iniciar(); musicaMenu.pause()})
 	}
 }
+
 
 
 class Nivel {
@@ -26,8 +27,9 @@ class Nivel {
 	const property position = game.origin()
 	
 	method iniciar() {
-		game.addVisual(self)
-		game.schedule(4000, {
+		//game.addVisual(self)
+		self.agregarImagen()
+		game.schedule(1500, {
 			self.reset()
 			self.paredDefensa()
 			self.agregarObjetosIniciales()
@@ -35,6 +37,19 @@ class Nivel {
 			self.mapa()
 			self.generarMenuSuperior()
 		})
+	}
+	
+	method hayImagen(){
+		return game.hasVisual(self)
+	}
+	
+	method agregarImagen(){
+		if (not self.hayImagen()){
+			game.addVisual(self)
+		} else {
+			//Linea comentada para que no se muestre el error en pantalla
+			//self.error("No se puede volver colocar la imagen de " + self)
+		}
 	}
 	
 	method image()
@@ -212,7 +227,7 @@ object ultimoNivel inherits Nivel{
 	}
 	
 	override method enemigosADestruir() {
-		return 20
+		return 21
 	}
 	
 	override method pasarNivel() {

@@ -15,9 +15,18 @@ object musicaMenu {
 	}
 	
 	method pause() {
-		game.schedule(100,{track.pause()})
+		self.pausarSonido()
 	}
 	
+	method estaPausado(){
+		return track.paused()
+	}
+	
+	method pausarSonido(){
+		if (not self.estaPausado()){
+			game.schedule(100,{track.pause()})
+		}
+	}
 }
 
 
