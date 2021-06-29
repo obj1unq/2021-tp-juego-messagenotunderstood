@@ -67,15 +67,12 @@ class Nivel {
 	method mapa() {
 		self.agregarCharcos()
 		self.agregarLadrillos()
-		self.agregarPastizales()
 		self.agregarMetales()
 	}
 	
 	method agregarCharcos() 
 	
 	method agregarLadrillos() 
-	
-	method agregarPastizales() 
 
 	method agregarMetales()
 	
@@ -105,10 +102,8 @@ object nivelUno inherits Nivel {
 	override method agregarCharcos() {
 		gestorDeElementos.columnaDeAguaAPartirDe_Y_hasta_(0, 3, 5)
 		gestorDeElementos.columnaDeAguaAPartirDe_Y_hasta_(1, 3, 5)
-//		gestorDeElementos.columnaDeAguaAPartirDe_Y_hasta_(2, 3, 5)
 		gestorDeElementos.columnaDeAguaAPartirDe_Y_hasta_(12, 3, 5)
 		gestorDeElementos.columnaDeAguaAPartirDe_Y_hasta_(11, 3, 5)
-//		gestorDeElementos.columnaDeAguaAPartirDe_Y_hasta_(10, 3, 5)
 	}
 	
 	override method agregarLadrillos() {
@@ -120,10 +115,6 @@ object nivelUno inherits Nivel {
 		gestorDeElementos.filaDeLadrilloAPartirDe_Y_hasta_(0, 2, 1)
 		gestorDeElementos.filaDeLadrilloAPartirDe_Y_hasta_(11, 2, 12)
 		game.addVisual(new Ladrillo(position = game.at(6,5)))
-	}
-	
-	override method agregarPastizales() {
-		
 	}
 	
 	override method agregarMetales() {
@@ -170,9 +161,6 @@ object nivelDos inherits Nivel {
 		
 	}
 	
-	override method agregarPastizales() {
-		//definir posiciones para pastos
-	}
 	override method enemigosADestruir() {
 		return 17
 	}
@@ -197,10 +185,6 @@ object ultimoNivel inherits Nivel{
 	
 	override method agregarLadrillos() {
 		
-	}
-	
-	override method agregarPastizales() {
-		//definir posiciones para pastos
 	}
 	
 	override method agregarMetales() {

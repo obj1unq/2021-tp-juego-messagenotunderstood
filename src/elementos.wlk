@@ -191,12 +191,6 @@ class ElementoSinVida {
 	}
 }
 
-class Pasto inherits ElementoSinVida{
-
-	method image() = "pasto.png"
-	
-}
-
 class Agua inherits ElementoSinVida {
 	
 	method image() = "agua.png"
