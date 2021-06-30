@@ -149,9 +149,15 @@ object gestorDeEnemigos{
 	}
 	
 	method faltanAgregarEnemigos() { 
-		return enemigosAgregados < nivelActual.enemigosADestruirPorNivel()
-			   and 
-			   enemigosEnMapa.size() <= 3
+		return not (self.seCompletoLaCantidadDeEnemigosDelNivel() or self.hayMaximoDeEnemigosEnMapa())
+	}
+	
+	method seCompletoLaCantidadDeEnemigosDelNivel() {
+		return enemigosAgregados == nivelActual.enemigosADestruirPorNivel()
+	}
+	
+	method hayMaximoDeEnemigosEnMapa() {
+		return enemigosEnMapa.size() == 4
 	}
 	
 	method agregarNuevoEnemigo(){
