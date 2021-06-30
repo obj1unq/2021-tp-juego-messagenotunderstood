@@ -2,7 +2,8 @@ import tanque.*
 import elementos.*
 import wollok.game.*
 import escenarios.*
-
+import enemigos.*
+import config.*
 
 describe "Tanque" {
 	
@@ -48,4 +49,48 @@ describe "Tanque" {
 		game.schedule(2000, {assert.equals(false, game.hasVisual(heroe))})
 	}
 	
+}
+
+
+describe "Enemigos" {
+	
+	const leopard = new Leopard(timeMove=2000, shotTime=2000)
+	const mbt70 = new MBT70(timeMove=2000, shotTime=2000)
+	const bala = new Bala(tanque=heroe, position=game.origin(), direccion=arriba)
+	const fireball = new Fireball(tanque=mbt70, position=game.origin(), direccion=arriba)
+	
+	test "leopard recibe daño" {
+		config.agregarYMover(bala)
+		leopard.recibirDanio(bala)
+		assert.equals(70, leopard.vida())
+	}
+	
+	test "leopard no recibe daño de otro enemigo" {
+		config.agregarYMover(fireball)
+		leopard.recibirDanio(fireball)
+		assert.equals(100, leopard.vida())
+	}
+	
+	test "gestor de enemigos" {
+		//Se agregan 2 enemigos y se verifica la cantidad de enemigos en el mapa y que faltan agregar enemigos.
+		gestorDeEnemigos.agregarNuevoEnemigo()
+		gestorDeEnemigos.agregarNuevoEnemigo()
+		assert.equals(2, gestorDeEnemigos.enemigosEnMapa().size())
+		assert.that(gestorDeEnemigos.faltanAgregarEnemigos())
+		//Se agregan 2 enemigos más y se verifica que no hace falta agregar más enemigos al alcanzar el máximo a la vez.
+		gestorDeEnemigos.agregarNuevoEnemigo()
+		gestorDeEnemigos.agregarNuevoEnemigo()
+		assert.notThat(gestorDeEnemigos.faltanAgregarEnemigos())
+		//Se elimina un enemigo y se verifica la actualización del estado.
+		gestorDeEnemigos.enemigosEnMapa().head().moverDisparandoAleatorio()
+		gestorDeEnemigos.enemigosEnMapa().head().removerEnemigo()
+		assert.equals(3, gestorDeEnemigos.enemigosEnMapa().size())
+		assert.that(gestorDeEnemigos.faltanAgregarEnemigos())
+		assert.equals(1, gestorDeEnemigos.enemigosCaidos())
+		//Se resetea el gestor de enemigos y se verifica
+		gestorDeEnemigos.resetEnemigos()
+		assert.equals([], gestorDeEnemigos.enemigosEnMapa())
+		assert.equals(0, gestorDeEnemigos.enemigosCaidos())
+		assert.equals(0, gestorDeEnemigos.enemigosAgregados())
+		}
 }
