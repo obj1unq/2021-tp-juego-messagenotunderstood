@@ -15,8 +15,8 @@ object pantallaInicial {
 	method iniciar() {
 		game.clear()
 		game.addVisual(self)
-		musicaMenu.play()
-		keyboard.enter().onPressDo({ nivelUno.iniciar(); musicaMenu.pause()})
+		reproductor.musicaMenu()
+		keyboard.enter().onPressDo({nivelUno.iniciar()})
 	}
 }
 

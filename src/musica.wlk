@@ -1,40 +1,20 @@
 import wollok.game.*
 
-object musicaMenu {
+object reproductor {
 	
-	const property track = game.sound("menuInicial.mp3")
-	
-	method play() {
+	method musicaMenu() {
+		const track = game.sound("menuInicial.mp3")
 		track.shouldLoop(true)
 		track.volume(0.2)
-		if(!track.paused()) {
-			game.schedule(100,{track.play()})
-		} else {
-			track.resume()
-		}
+		game.schedule(100,{track.play()})
+		keyboard.enter().onPressDo({track.stop()})
 	}
-	
-	method pause() {
-		self.pausarSonido()
-	}
-	
-	method estaPausado(){
-		return track.paused()
-	}
-	
-	method pausarSonido(){
-		if (not self.estaPausado()){
-			game.schedule(100,{track.pause()})
-		}
-	}
-}
-
-
-object reproductor {
 	
 	method play(sound, time) {
 		sound.volume(0.2)
 		sound.play()
 		game.schedule(time,{sound.stop()})
 	}
+	
+	
 }
