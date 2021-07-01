@@ -20,15 +20,23 @@ object pantallaInicial {
 	}
 }
 
-
+object pantallaTriunfoNivel {
+	
+	method image() = "NivelSuperado.jpg"
+	
+	method festejo() {
+		game.clear()
+		game.addVisualIn(self, game.origin())
+		const triunfo = game.sound("MetalSlug.mp3")
+		reproductor.play(triunfo, 7000)
+	}
+}
 
 class Nivel {
 	
-	const property position = game.origin()
-	
 	method iniciar() {
 		game.clear()
-		game.addVisual(self)
+		game.addVisualIn(self, game.origin())
 		game.schedule(2000, {
 			self.reset()
 			self.paredDefensa()
@@ -83,8 +91,7 @@ class Nivel {
 	}
 	
 	method pasarNivel() {
-		const festejo = game.sound("homero woohoo.mp3")
-		reproductor.play(festejo, 1000)
+		pantallaTriunfoNivel.festejo()
 	}
 	
 	method generarMenuSuperior(){
@@ -100,10 +107,10 @@ object nivelUno inherits Nivel {
 	override method image() = "Nivel1.jpg"
 	
 	override method agregarCharcos() {
-		gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(0, 4, 3)
-		gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(0, 5, 4)
-		gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(9, 4, 12)
-		gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(9, 5, 12)
+		gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(1, 4, 3)
+		gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(1, 5, 4)
+		gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(9, 4, 11)
+		gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(9, 5, 11)
 	}
 	
 	override method agregarLadrillos() {
@@ -114,8 +121,8 @@ object nivelUno inherits Nivel {
 		gestorDeElementos.columnaDeLadrilloAPartirDe_Y_hasta_(2, 1, 2)
 		gestorDeElementos.columnaDeLadrilloAPartirDe_Y_hasta_(10, 1, 2)
 		gestorDeElementos.filaDeLadrilloAPartirDe_Y_hasta_(5, 4, 7)
-		gestorDeElementos.filaDeLadrilloAPartirDe_Y_hasta_(0, 6, 4)
-		gestorDeElementos.filaDeLadrilloAPartirDe_Y_hasta_(8, 6, 12)
+		gestorDeElementos.filaDeLadrilloAPartirDe_Y_hasta_(1, 6, 4)
+		gestorDeElementos.filaDeLadrilloAPartirDe_Y_hasta_(8, 6, 11)
 		gestorDeElementos.filaDeLadrilloAPartirDe_Y_hasta_(0, 3, 4)
 		gestorDeElementos.filaDeLadrilloAPartirDe_Y_hasta_(8, 3, 12)
 	}
@@ -132,8 +139,10 @@ object nivelUno inherits Nivel {
 	
 	override method pasarNivel() {
 		super()
-		nivelActual.nivel(nivelDos)
-		game.schedule(500, {nivelDos.iniciar()})
+		game.schedule(8000, {
+			nivelActual.nivel(nivelDos)
+			nivelDos.iniciar()
+		})	
 	}
 }
 
@@ -170,8 +179,10 @@ object nivelDos inherits Nivel {
 	
 	override method pasarNivel() {
 		super()
-		nivelActual.nivel(ultimoNivel)
-		game.schedule(500, {ultimoNivel.iniciar()})
+		game.schedule(8000, {
+			nivelActual.nivel(ultimoNivel)
+			ultimoNivel.iniciar()
+		})	
 	}
 }
 
@@ -210,7 +221,7 @@ object ultimoNivel inherits Nivel{
 	}
 	
 	override method pasarNivel() {
-		super()
+//		super() pendiente hacer pantalla de Winner para mostrar
 		self.victory()
 	}
 	
@@ -227,7 +238,11 @@ object nivelActual {
 	var property nivel = nivelUno
 	
 	method estado() {
-		if (nivel.seGanoNivel()) {nivel.pasarNivel()}
+		if (nivel.seGanoNivel()) {
+			const festejo = game.sound("woohoo.mp3")
+			reproductor.play(festejo, 1000)
+			game.schedule(1100, {nivel.pasarNivel()})
+		}
 	}
 	
 	method reStartSiPuede() { //mejorar con alguna visual y delay

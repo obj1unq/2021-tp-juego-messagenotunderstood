@@ -78,7 +78,7 @@ object heroe inherits Tanque{
 	
 	override method impactar(bala) {
 		self.agregarSonidoDisparo()
-		const doh = game.sound("homero doh.mp3")
+		const doh = game.sound("doh.mp3")
 		reproductor.play(doh, 1000)
 		super(bala)
 	}
