@@ -15,7 +15,7 @@ object pantallaInicial {
 	method iniciar() {
 		game.clear()
 		game.addVisual(self)
-		reproductor.musicaMenu()
+		reproductor.playMusicaMenu()
 		keyboard.enter().onPressDo({nivelUno.iniciar()})
 	}
 }
@@ -27,8 +27,7 @@ object pantallaTriunfoNivel {
 	method festejo() {
 		game.clear()
 		game.addVisualIn(self, game.origin())
-		const triunfo = game.sound("MetalSlug.mp3")
-		reproductor.play(triunfo, 7000)
+		reproductor.playNivelSuperado()
 	}
 }
 
@@ -134,7 +133,7 @@ object nivelUno inherits Nivel {
 	}
 	
 	override method enemigosADestruir() {
-		return 14
+		return 3
 	}
 	
 	override method pasarNivel() {
@@ -239,8 +238,7 @@ object nivelActual {
 	
 	method estado() {
 		if (nivel.seGanoNivel()) {
-			const festejo = game.sound("woohoo.mp3")
-			reproductor.play(festejo, 1000)
+			reproductor.playFestejo()
 			game.schedule(1100, {nivel.pasarNivel()})
 		}
 	}
