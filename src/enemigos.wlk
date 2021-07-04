@@ -55,7 +55,7 @@ class Enemigo inherits Tanque {
 		gestorDeEnemigos.removerElemento(self)
 	}
 	
-	override method recibirDanio(bala) {
+	override method impactar(bala) {
 		if (self.esDisparoDelDefensor(bala)) {super(bala)}
 	}
 	
