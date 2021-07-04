@@ -43,7 +43,7 @@ object gameOver inherits Pantalla {
 	
 	override method iniciar() {
 		super()
-		//TODO: Agregar sonido 
+		reproductor.playGameOver()
 		keyboard.any().onPressDo({pantallaInicial.iniciar()})
 	}
 }

@@ -36,4 +36,14 @@ object reproductor {
 		self.play(festejo, 1000)
 	}
 	
+	method playGameOver() {
+		const gameOver = game.sound("gameOver.mp3")
+		const track = game.sound("Villainous.mp3")
+		self.play(gameOver, 1100)
+		track.shouldLoop(true)
+		track.volume(0.2)
+		track.play()
+		keyboard.any().onPressDo({track.stop()})
+		
+	}
 }
