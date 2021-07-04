@@ -177,7 +177,7 @@ object defensa inherits Elemento {
 		const lamento = game.sound("nooo.mp3")
 		reproductor.play(lamento, 3000)
 		game.say(heroe, "Noooooo Nooooooooooooooooooo!!!")		
-		nivelActual.gameOver()
+		game.schedule(3300, {gameOver.iniciar()})
 	}
 }
 

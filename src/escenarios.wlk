@@ -6,36 +6,52 @@ import config.*
 import enemigos.*
 import musica.*
 
-object pantallaInicial {
+class Pantalla {
 	
-	const property position = game.origin()
-	
-	method image() = "wollanzer.jpg"
+	method image()
 	
 	method iniciar() {
 		game.clear()
-		game.addVisual(self)
+		game.addVisualIn(self, game.origin())
+	}
+}
+
+object pantallaInicial inherits Pantalla{
+	
+	override method image() = "wollanzer.jpg"
+	
+	override method iniciar() {
+		super()
 		reproductor.playMusicaMenu()
 		keyboard.enter().onPressDo({nivelUno.iniciar()})
 	}
 }
 
-object pantallaTriunfoNivel {
+object nivelSuperado inherits Pantalla {
 	
-	method image() = "NivelSuperado.jpg"
+	override method image() = "NivelSuperado.jpg"
 	
-	method festejo() {
-		game.clear()
-		game.addVisualIn(self, game.origin())
+	override method iniciar() {
+		super()
 		reproductor.playNivelSuperado()
 	}
 }
 
-class Nivel {
+object gameOver inherits Pantalla {
 	
-	method iniciar() {
-		game.clear()
-		game.addVisualIn(self, game.origin())
+	override method image() = "GameOver.jpg"
+	
+	override method iniciar() {
+		super()
+		//TODO: Agregar sonido 
+		keyboard.any().onPressDo({pantallaInicial.iniciar()})
+	}
+}
+
+class Nivel inherits Pantalla {
+	
+	override method iniciar() {
+		super()
 		game.schedule(2000, {
 			self.reset()
 			self.paredDefensa()
@@ -45,8 +61,6 @@ class Nivel {
 			self.generarMenuSuperior()
 		})
 	}
-	
-	method image()
 	
 	method reset() {
 		game.clear()
@@ -90,7 +104,7 @@ class Nivel {
 	}
 	
 	method pasarNivel() {
-		pantallaTriunfoNivel.festejo()
+		nivelSuperado.iniciar()
 	}
 	
 	method generarMenuSuperior(){
@@ -133,7 +147,7 @@ object nivelUno inherits Nivel {
 	}
 	
 	override method enemigosADestruir() {
-		return 3
+		return 14
 	}
 	
 	override method pasarNivel() {
@@ -243,16 +257,11 @@ object nivelActual {
 		}
 	}
 	
-	method reStartSiPuede() { //mejorar con alguna visual y delay
+	method reStartSiPuede() { 
 		if (heroe.leQuedanVidas()) {
 			nivel.iniciar()
 		} else 
-			{self.gameOver()}
-	}
-	
-	method gameOver() {
-		//agregar imagen de fin del juego y que vuelva a pantalla inicial al apretar cualquier tecla
-		game.schedule(3000, {pantallaInicial.iniciar()}) //Provisional
+			{gameOver.iniciar()}
 	}
 	
 	method enemigosADestruirPorNivel() {
