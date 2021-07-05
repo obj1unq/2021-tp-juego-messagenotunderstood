@@ -39,6 +39,8 @@ object heroe inherits Tanque{
 		if (self.validaPosicion(_position) and self.sinObstaculo(_position)){
 			position = _position
 			direccion = _direction
+		} else {
+			direccion = _direction
 		}
 	}
 	
