@@ -79,8 +79,11 @@ object heroe inherits Tanque{
 
 	override method destruido() {
 		game.say(self, "Me Muerooo")
-		game.schedule(1000, {super()})
-		self.perderVida()	
+		game.schedule(500, {
+			explosion.agregarExplosion()
+			super()
+		})
+		game.schedule(1000, {self.perderVida()})
 	}
 	
 	method perderVida() {
@@ -98,4 +101,5 @@ object heroe inherits Tanque{
 		vida = 100
 		cargador = 1
 	}
+	
 }

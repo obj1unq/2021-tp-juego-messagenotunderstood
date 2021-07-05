@@ -195,11 +195,19 @@ class Explosion inherits ElementoSinVida{
 	method image() = "explosion2.png"
 }
 
-
-
 class Humo inherits ElementoSinVida{
 	
 	method image() = "humo.png"
+}
+
+object explosion inherits ElementoSinVida{
+
+	method image() = "explosion1.png"
+	
+	method agregarExplosion() {
+		game.addVisualIn(self, heroe.position())
+		game.schedule(250, { game.removeVisual(self) })
+	}
 }
 
 object gestorDeElementos { // (y < y2)    (x < x2)
