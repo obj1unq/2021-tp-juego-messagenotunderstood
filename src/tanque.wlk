@@ -78,16 +78,13 @@ object heroe inherits Tanque{
 	}
 
 	override method destruido() {
-		game.say(self, "Me Muerooo")
-		game.schedule(500, {
-			explosion.agregarExplosion()
-			super()
-		})
+		explosion.agregarExplosion()
+		super()
 		game.schedule(1000, {self.perderVida()})
 	}
 	
 	method perderVida() {
-		cantidadDeVidas -= 1
+		cantidadDeVidas = (cantidadDeVidas - 1).max(0)
 		game.schedule(1000, {nivelActual.reStartSiPuede()})
 	}
 	
