@@ -108,12 +108,14 @@ class Nivel inherits Pantalla {
 	}
 	
 	method generarMenuSuperior(){
-		game.addVisual(vidaDelHeroe)
+		game.addVisual(barraDeVida)
+		//game.addVisual(textoVida)
+		game.addVisual(contadorDeVida)
 		game.addVisual(leyendaEnemigos)
 		game.addVisual(contadorEnemigos)
+		
 	}
 }
-
 
 object nivelUno inherits Nivel {
 	

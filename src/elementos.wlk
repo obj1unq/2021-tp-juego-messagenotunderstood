@@ -78,15 +78,9 @@ class Bala {
 
 class Fireball inherits Bala {
 	
-//	const porcentajeDanioAQuitar = 2
-	
 	override method image(){
 		return "fireball_" + direccion.sufijo()  + ".png"
 	}
-	
-//	override method danio(_porcentajeDanioAQuitar){	
-//		danio = (self.danio() / _porcentajeDanioAQuitar).roundUp(0)  // El disparo de fuego saca la mitad de daio de la bala por defecto
-//	}
 
 	override method danioPropio() {// El disparo de fuego hace menos danio que la bala por defecto
 		return 10
@@ -95,16 +89,10 @@ class Fireball inherits Bala {
 
 
 class Plasma inherits Bala {
-	
-//	const porcentajeExtraDanio = 2
-	
+		
 	override method image(){
 		return "plasma_" + direccion.sufijo()  + ".png"
 	}
-	
-//	override method danio(_porcentajeExtraDanio){		
-//		danio = (self.danio() * _porcentajeExtraDanio).roundUp(0)  // El disparo de plasma saca el doble de danio de la bala por defecto
-//	}
 
 	override method danioPropio() {// El disparo de plasma hace mas danio que la bala por defecto
 		return 20
@@ -137,7 +125,6 @@ class Elemento {
 	method destruido(){
 		game.removeVisual(self)	
 	}
-	
 }
 
 
@@ -158,7 +145,6 @@ class Ladrillo inherits Elemento {
 		game.addVisual(humo)
 		game.schedule(250, { game.removeVisual(humo) })
 	}
-	
 }
 
 object defensa inherits Elemento {
@@ -181,7 +167,6 @@ object defensa inherits Elemento {
 	}
 }
 
-
 class ElementoSinVida {
 	
 	const property position
@@ -194,7 +179,6 @@ class ElementoSinVida {
 class Agua inherits ElementoSinVida {
 	
 	method image() = "agua.png"
-	
 }
 
 class Metal inherits ElementoSinVida {
@@ -209,16 +193,14 @@ class Metal inherits ElementoSinVida {
 class Explosion inherits ElementoSinVida{
 
 	method image() = "explosion2.png"
-
 }
+
 
 
 class Humo inherits ElementoSinVida{
 	
 	method image() = "humo.png"
-	
 }
-
 
 object gestorDeElementos { // (y < y2)    (x < x2)
 	

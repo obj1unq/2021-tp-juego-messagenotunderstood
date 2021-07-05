@@ -3,7 +3,7 @@ import tanque.*
 import enemigos.*
 import escenarios.*
 
-object vidaDelHeroe {
+object barraDeVida {
 
 	const property position = game.at(0,12)
 	
@@ -20,6 +20,34 @@ object vidaDelHeroe {
 	}
 	method impactar(algo){}
 }
+
+object contadorDeVida{
+	method position() {
+		return game.at(3,12)
+	}	
+	
+	method image(){
+		return self.sufijo() + self.cantVidasDelHeroe() + ".png"
+	}
+	
+	method sufijo(){
+		return "CORAZON_"
+	}
+	
+	method cantVidasDelHeroe(){
+		return heroe.cantidadDeVidas()
+	}
+}
+
+//object textoVida{
+//	method position(){
+//		return game.at(3,12)
+//	}
+//	
+//	method image(){
+//		return "TEXTO_VIDA.png"
+//	}
+//}
 
 object leyendaEnemigos{
 	method image(){
