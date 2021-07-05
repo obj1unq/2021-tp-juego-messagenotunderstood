@@ -160,8 +160,7 @@ object defensa inherits Elemento {
 	
 	override method destruido() {
 		super()
-		const lamento = game.sound("nooo.mp3")
-		reproductor.play(lamento, 3000)
+		reproductor.playLamento()
 		game.say(heroe, "Noooooo Nooooooooooooooooooo!!!")		
 		game.schedule(3300, {gameOver.iniciar()})
 	}
@@ -205,6 +204,7 @@ object explosion inherits ElementoSinVida{
 	method image() = "explosion1.png"
 	
 	method agregarExplosion() {
+		reproductor.playExplosion()
 		game.addVisualIn(self, heroe.position())
 		game.schedule(250, { game.removeVisual(self) })
 	}

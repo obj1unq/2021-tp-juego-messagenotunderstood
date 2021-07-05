@@ -36,6 +36,11 @@ object reproductor {
 		self.play(festejo, 1000)
 	}
 	
+	method playLamento() {
+		const lamento = game.sound("nooo.mp3")
+		self.play(lamento, 3000)
+	}
+		
 	method playGameOver() {
 		const gameOver = game.sound("gameOver.mp3")
 		const track = game.sound("Villainous.mp3")
@@ -45,5 +50,10 @@ object reproductor {
 		track.play()
 		keyboard.any().onPressDo({track.stop()})
 		
+	}
+	
+	method playExplosion() {
+		const explosion = game.sound("explosion.mp3")
+		self.play(explosion, 1500)
 	}
 }
