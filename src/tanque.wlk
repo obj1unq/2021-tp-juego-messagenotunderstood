@@ -72,13 +72,15 @@ object heroe inherits Tanque{
 	method cargarBala(){
 		cargador += 1
 	}
-	
+		
 	override method recibirDanio(bala) {
-		reproductor.playDisparo()
-		reproductor.playQuejido()
 		super(bala)
-	}
-
+		if (self.leQuedaVida()) {
+			reproductor.playDisparo()
+			reproductor.playQuejido()
+		}
+	}  
+	
 	override method destruido() {
 		explosion.agregarExplosion()
 		super()

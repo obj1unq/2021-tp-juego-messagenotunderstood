@@ -105,19 +105,16 @@ class Elemento {
 	var property vida = 100
 	
 	method impactar(bala){
-		bala.explotar()
-		if (self.validarVida(bala)){
-			self.recibirDanio(bala)
-		} else {
-			self.destruido()			
-		}
+		self.recibirDanio(bala)
+		if (!self.leQuedaVida()) {self.destruido()}
 	}
 	
-	method validarVida(bala){
-		return vida > bala.danio()
+	method leQuedaVida(){
+		return vida > 0
 	}
 	
 	method recibirDanio(bala) {
+		bala.explotar()
 		vida = (vida - bala.danio()).max(0)
 	}
 	
