@@ -67,7 +67,7 @@ describe "Enemigos" {
 	
 	test "leopard no recibe daño de otro enemigo" {
 		config.agregarYMover(fireball)
-		leopard.recibirDanio(fireball)
+		leopard.impactar(fireball)
 		assert.equals(100, leopard.vida())
 	}
 	
