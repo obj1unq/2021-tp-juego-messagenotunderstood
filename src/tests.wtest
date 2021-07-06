@@ -43,14 +43,6 @@ describe "Tanque" {
 		heroe.perderVida();
 		assert.equals(0, heroe.cantidadDeVidas());
 	}
-	
-	test "Verificar destruccion del tanque" {
-		nivelUno.iniciar();
-		game.schedule(2000, {assert.that(game.hasVisual(heroe))});
-		//heroe.destruido();
-		game.schedule(2000, {assert.notThat(game.hasVisual(heroe))})
-	}
-	
 }
 
 
