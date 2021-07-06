@@ -28,9 +28,9 @@ describe "Tanque" {
 	}
 	
 	test "Verificar obstaculos" {
-		assert.equals(true, heroe.sinObstaculo(game.at(5,0)));
+		assert.that(heroe.sinObstaculo(game.at(5,0)));
 		nivelUno.iniciar();
-		assert.equals(false, heroe.sinObstaculo(game.at(5,0)));
+		game.schedule(2000, {assert.notThat(heroe.sinObstaculo(game.at(5,0)))});
 	}
 	
 	test "Verificar vida del tanque" {
@@ -40,13 +40,15 @@ describe "Tanque" {
 		heroe.perderVida();
 		heroe.perderVida();
 		assert.equals(0, heroe.cantidadDeVidas());
+		heroe.perderVida();
+		assert.equals(0, heroe.cantidadDeVidas());
 	}
 	
 	test "Verificar destruccion del tanque" {
 		nivelUno.iniciar();
-		assert.equals(true, game.hasVisual(heroe));
-		heroe.destruido();
-		game.schedule(2000, {assert.equals(false, game.hasVisual(heroe))})
+		game.schedule(2000, {assert.that(game.hasVisual(heroe))});
+		//heroe.destruido();
+		game.schedule(2000, {assert.notThat(game.hasVisual(heroe))})
 	}
 	
 }
