@@ -105,19 +105,19 @@ class T62 inherits Enemigo{
 
 object factoryLeopard {
 	method generarEnemigo() {
-		return new Leopard(direccion = abajo, position = random.emptyPosition(), potenciaDisparo = 10, shotTime = 3000, timeMove = 3000);
+		return new Leopard(direccion = abajo, position = random.emptyPosition(), potenciaDisparo = 10, shotTime = 2700, timeMove = 3000);
 	}
 }
 
 object factoryMBT70 {
 	method generarEnemigo() {
-		return new MBT70 (direccion = abajo, position = random.emptyPosition(), potenciaDisparo = 5, shotTime = 2000, timeMove = 2500);
+		return new MBT70 (direccion = abajo, position = random.emptyPosition(), potenciaDisparo = 5, shotTime = 2500, timeMove = 2500);
 	}
 }
 
 object factoryT62 {
 	method generarEnemigo() {
-		return new T62 (direccion = abajo, position = random.emptyPosition(), potenciaDisparo = 15, shotTime = 2500, timeMove = 3500);
+		return new T62 (direccion = abajo, position = random.emptyPosition(), potenciaDisparo = 15, shotTime = 3000, timeMove = 3500);
 	}
 }
 
