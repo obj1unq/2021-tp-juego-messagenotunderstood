@@ -4,8 +4,7 @@ object reproductor {
 	
 	method playMusicaMenu() {
 		const track = game.sound("menuInicial.mp3")
-		track.shouldLoop(true)
-		track.volume(0.2)
+		self.ajustarVolumenYLoopA(track)
 		game.schedule(100,{track.play()})
 		keyboard.enter().onPressDo({track.stop()})
 	}
@@ -45,8 +44,7 @@ object reproductor {
 		const gameOver = game.sound("gameOver.mp3")
 		const track = game.sound("Villainous.mp3")
 		self.play(gameOver, 1100)
-		track.shouldLoop(true)
-		track.volume(0.2)
+		self.ajustarVolumenYLoopA(track)
 		track.play()
 		keyboard.any().onPressDo({track.stop()})
 		
@@ -55,5 +53,17 @@ object reproductor {
 	method playExplosion() {
 		const explosion = game.sound("explosion.mp3")
 		self.play(explosion, 1500)
+	}
+	
+	method playWinner() {
+		const track = game.sound("winner.mp3")
+		self.ajustarVolumenYLoopA(track)
+		track.play()
+		keyboard.any().onPressDo({track.stop()})
+	}
+	
+	method ajustarVolumenYLoopA(sonido) {
+		sonido.volume(0.2)
+		sonido.shouldLoop(true)
 	}
 }

@@ -74,7 +74,6 @@ class Bala {
 	}
 }
 
-//Pendiente: definir el tema de los danios de las balas y potenciaDisparo de los tanques
 
 class Fireball inherits Bala {
 	

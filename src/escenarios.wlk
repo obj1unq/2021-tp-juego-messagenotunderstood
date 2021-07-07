@@ -49,6 +49,18 @@ object gameOver inherits Pantalla {
 	}
 }
 
+object pantallaTriunfo inherits Pantalla {
+	
+	override method image() = "winner.jpg"
+	
+	override method iniciar() {
+		super()
+		reproductor.playWinner()
+		keyboard.any().onPressDo({pantallaInicial.iniciar()})
+	}
+	
+}
+
 class Nivel inherits Pantalla {
 	
 	override method iniciar() {
@@ -110,7 +122,6 @@ class Nivel inherits Pantalla {
 	
 	method generarMenuSuperior(){
 		game.addVisual(barraDeVida)
-		//game.addVisual(textoVida)
 		game.addVisual(contadorDeVida)
 		game.addVisual(leyendaEnemigos)
 		game.addVisual(contadorEnemigos)
@@ -150,7 +161,7 @@ object nivelUno inherits Nivel {
 	}
 	
 	override method enemigosADestruir() {
-		return 14
+		return 9
 	}
 	
 	override method pasarNivel() {
@@ -190,20 +201,20 @@ object nivelDos inherits Nivel {
 	}
 	
 	override method enemigosADestruir() {
-		return 17
+		return 12
 	}
 	
 	override method pasarNivel() {
 		super()
 		game.schedule(8000, {
-			nivelActual.nivel(ultimoNivel)
-			ultimoNivel.iniciar()
+			nivelActual.nivel(nivelTres)
+			nivelTres.iniciar()
 		})	
 	}
 }
 
 
-object ultimoNivel inherits Nivel{
+object nivelTres inherits Nivel{
 	
 	override method image() = "Nivel3.jpg"
 	
@@ -233,21 +244,15 @@ object ultimoNivel inherits Nivel{
 	}
 	
 	override method enemigosADestruir() {
-		return 21
+		return 15
 	}
 	
 	override method pasarNivel() {
-//		super() pendiente hacer pantalla de Winner para mostrar
-		self.victory()
+		super()
+		game.schedule(8000, {pantallaTriunfo.iniciar()})
 	}
-	
-	method victory() {
-		//agregar imagen de victoria y que vuelva a pantalla inicial al apretar cualquier tecla
-		game.schedule(2000, {game.stop()}) //Provisional
-	}
-	
-}
 
+}
 
 object nivelActual {
 	
