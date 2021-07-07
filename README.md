@@ -12,7 +12,6 @@ El tanque inicialmente tiene 3 vidas. Al perder las 3 vidas o si los enemigos de
 
 
 ### __Enemigos__:
-===
 
 **Hay 3 tipos de tanques enemigos en el juego:**
 
@@ -25,7 +24,6 @@ El tanque inicialmente tiene 3 vidas. Al perder las 3 vidas o si los enemigos de
 ---
 
 ### Controles:
-===
 
 - **W** -> Mover hacia arriba
 
