@@ -1,6 +1,6 @@
-WOLLANZERKAMPFWAVEN
+# WOLLANZERKAMPFWAVEN
 
-Descripción:
+### Descripción:
 
 Juego inspirado en el clásico Battle City.
 
@@ -11,30 +11,30 @@ Cada nivel se supera cuando se hayan destruido todos los tanques enemigos. La ca
 El tanque inicialmente tiene 3 vidas. Al perder las 3 vidas o si los enemigos destruyen tu base, sin importar las vidas que te queden, se pierde el juego.
 
 
-Enemigos:
+### Enemigos:
 
-Hay 3 tipos de tanques enemigos en el juego:
+**Hay 3 tipos de tanques enemigos en el juego:**
 
-Los MBT-70, estos disparan bolas de fuego y son los que menos daño hacen. Aunque su cadencia de disparo y su velocidad de movimiento es un poco mayor a la de los demás.
+- **Los MBT-70**, estos tanques disparan bolas de fuego y son los que menos daño hacen. Aunque su cadencia de disparo y su velocidad de movimiento es un poco mayor a la de los demás.
 
-Los Leopard, estos disparan munición común y su daño destructivo es similar al de nuestro tanque.
+- **Los Leopard**, estos tanques disparan munición común y su daño destructivo es similar al de nuestro tanque.
 
-Los T62, sus disparos son de plasma y hacen un daño elevado, lo que los hace los enemigos más peligrosos del juego.
-
-
-Controles:
+- **Los T62**, estos tanques disparan munición de plasma y hacen un daño elevado, lo que los hace los enemigos más peligrosos del juego.
 
 
-W -> Mover hacia arriba
-
-A -> Mover hacia la izquierda
-
-S -> Mover hacia abajo
-
-D -> Mover hacia la derecha
-
-Barra espaciadora -> Disparar
+### Controles:
 
 
+**W** -> Mover hacia arriba
 
-¡Buena suerte!
+**A** -> Mover hacia la izquierda
+
+**S** -> Mover hacia abajo
+
+**D** -> Mover hacia la derecha
+
+**Barra espaciadora** -> Disparar
+
+
+
+### ¡Buena suerte!
