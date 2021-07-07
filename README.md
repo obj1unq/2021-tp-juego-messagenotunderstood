@@ -1,6 +1,6 @@
 # WOLLANZERKAMPFWAVEN
 
-### Descripción:
+### __Descripción__:
 
 Juego inspirado en el clásico Battle City.
 
@@ -11,7 +11,8 @@ Cada nivel se supera cuando se hayan destruido todos los tanques enemigos. La ca
 El tanque inicialmente tiene 3 vidas. Al perder las 3 vidas o si los enemigos destruyen tu base, sin importar las vidas que te queden, se pierde el juego.
 
 
-### Enemigos:
+### __Enemigos__:
+===
 
 **Hay 3 tipos de tanques enemigos en el juego:**
 
@@ -21,17 +22,18 @@ El tanque inicialmente tiene 3 vidas. Al perder las 3 vidas o si los enemigos de
 
 - **Los T62**, estos tanques disparan munición de plasma y hacen un daño elevado, lo que los hace los enemigos más peligrosos del juego.
 
+---
 
 ### Controles:
+===
 
+- **W** -> Mover hacia arriba
 
-**W** -> Mover hacia arriba
+- **A** -> Mover hacia la izquierda
 
-**A** -> Mover hacia la izquierda
+- **S** -> Mover hacia abajo
 
-**S** -> Mover hacia abajo
-
-**D** -> Mover hacia la derecha
+- **D** -> Mover hacia la derecha
 
 **Barra espaciadora** -> Disparar
 
