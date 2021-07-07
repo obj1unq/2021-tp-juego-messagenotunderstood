@@ -39,16 +39,6 @@ object contadorDeVida{
 	}
 }
 
-//object textoVida{
-//	method position(){
-//		return game.at(3,12)
-//	}
-//	
-//	method image(){
-//		return "TEXTO_VIDA.png"
-//	}
-//}
-
 object leyendaEnemigos{
 	method image(){
 		return "leyenda_enemigos.png"
@@ -73,5 +63,6 @@ object contadorEnemigos{
 	method cantidadDeEnemigos(){
 		return (nivelActual.enemigosADestruirPorNivel() - gestorDeEnemigos.enemigosCaidos()).max(0)
 	}
+	
 	method impactar(algo){}
 }

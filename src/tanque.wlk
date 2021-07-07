@@ -51,8 +51,6 @@ object heroe inherits Tanque{
 			self.descargar()
 			config.movimientoDe(self.nuevaBala())
 			self.recargar()
-		} else {
-			//TODO: armar la logica para cambiar la visual del cargador en la barra superior.
 		}
 	}
 	
