@@ -161,7 +161,7 @@ object nivelUno inherits Nivel {
 	}
 	
 	override method enemigosADestruir() {
-		return 9
+		return 6
 	}
 	
 	override method pasarNivel() {
@@ -201,7 +201,7 @@ object nivelDos inherits Nivel {
 	}
 	
 	override method enemigosADestruir() {
-		return 12
+		return 9
 	}
 	
 	override method pasarNivel() {
@@ -244,7 +244,7 @@ object nivelTres inherits Nivel{
 	}
 	
 	override method enemigosADestruir() {
-		return 15
+		return 12
 	}
 	
 	override method pasarNivel() {
