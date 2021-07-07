@@ -67,9 +67,6 @@ class Enemigo inherits Tanque {
 		self.removerEnemigo()
 		nivelActual.estado()
 	}
-	
-
-	
 }
 
 class Leopard inherits Enemigo{
@@ -120,7 +117,6 @@ object factoryT62 {
 		return new T62 (direccion = abajo, position = random.emptyPosition(), potenciaDisparo = 15, shotTime = 3000, timeMove = 3500);
 	}
 }
-
 
 object gestorDeEnemigos{ 
 	

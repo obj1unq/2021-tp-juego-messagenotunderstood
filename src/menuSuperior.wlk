@@ -2,10 +2,13 @@ import wollok.game.*
 import tanque.*
 import enemigos.*
 import escenarios.*
+import elementos.*
 
-object barraDeVida {
+object barraDeVida inherits ElementoSinVida {
 
-	const property position = game.at(0,12)
+	override method position() { 
+		return game.at(0,12)
+	}
 	
 	method image(){
 		 return self.sufijo() + self.vidaDelHeroe() + ".png"
@@ -18,11 +21,10 @@ object barraDeVida {
 	method vidaDelHeroe(){
 		return heroe.vida().div(10).roundUp() 
 	}
-	method impactar(algo){}
 }
 
-object contadorDeVida{
-	method position() {
+object contadorDeVida inherits ElementoSinVida {
+	override method position() {
 		return game.at(3,12)
 	}	
 	
@@ -39,24 +41,23 @@ object contadorDeVida{
 	}
 }
 
-object leyendaEnemigos{
+object leyendaEnemigos inherits ElementoSinVida {
 	method image(){
 		return "leyenda_enemigos.png"
 	}
 	
-	method position(){
+	override method position(){
 		return game.at(7,12)
 	}
 	
-	method impactar(algo){}
 }
 
-object contadorEnemigos{
+object contadorEnemigos inherits ElementoSinVida {
 	method image(){
 		return self.cantidadDeEnemigos().toString() + ".png"
 	}
 	
-	method position(){
+	override method position(){
 		return game.at(11,12)
 	}
 	
@@ -64,5 +65,4 @@ object contadorEnemigos{
 		return (nivelActual.enemigosADestruirPorNivel() - gestorDeEnemigos.enemigosCaidos()).max(0)
 	}
 	
-	method impactar(algo){}
 }
