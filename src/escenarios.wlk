@@ -22,8 +22,9 @@ object pantallaInicial inherits Pantalla{
 	
 	override method iniciar() {
 		super()
-		heroe.cantidadDeVidas(3)
 		reproductor.playMusicaMenu()
+		nivelActual.nivel(nivelUno)
+		heroe.cantidadDeVidas(3)
 		keyboard.enter().onPressDo({nivelUno.iniciar()})
 	}
 }
