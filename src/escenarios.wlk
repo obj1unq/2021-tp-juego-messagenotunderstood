@@ -170,8 +170,9 @@ object nivelUno inherits Nivel {
 		game.schedule(8000, {
 			nivelActual.nivel(nivelDos)
 			nivelDos.iniciar()
-		})	
+		})
 	}
+	
 }
 
 object nivelDos inherits Nivel {
@@ -210,7 +211,7 @@ object nivelDos inherits Nivel {
 		game.schedule(8000, {
 			nivelActual.nivel(nivelTres)
 			nivelTres.iniciar()
-		})	
+		})
 	}
 }
 
@@ -221,7 +222,7 @@ object nivelTres inherits Nivel{
 	
 	override method agregarCharcos() {
 	 	gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(4, 7, 8)
-		gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(4, 6, 8)
+		gestorDeElementos.filaDeAguaAPartirDe_Y_hasta_(5, 6, 7)
 
 	}
 	
@@ -230,18 +231,14 @@ object nivelTres inherits Nivel{
 	}
 	
 	override method agregarMetales() {
-		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(4, 6, 6)
-		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(8, 6, 6)
-		gestorDeElementos.filaDeMetalAPartirDe_Y_hasta_(4, 8, 8)
-		gestorDeElementos.filaDeMetalAPartirDe_Y_hasta_(4, 5, 8)
-		
 		gestorDeElementos.filaDeMetalAPartirDe_Y_hasta_(2, 4, 5)
-		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(2, 6, 4)
+		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(2, 5, 6)
+		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(4, 5, 6)
+		gestorDeElementos.filaDeMetalAPartirDe_Y_hasta_(5, 5, 7)
+		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(8, 5, 6)
+		gestorDeElementos.filaDeMetalAPartirDe_Y_hasta_(4, 8, 8)
 		gestorDeElementos.filaDeMetalAPartirDe_Y_hasta_(7, 9, 10)
 		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(10, 7, 8)
-		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(4, 6, 6)
-		gestorDeElementos.columnaDeMetalAPartirDe_Y_hasta_(8, 6, 6)
-		
 	}
 	
 	override method enemigosADestruir() {
