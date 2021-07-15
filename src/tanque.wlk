@@ -4,7 +4,7 @@ import config.*
 import escenarios.*
 import musica.*
 
-class Tanque inherits Elemento {
+class Tanque inherits ElementoDestruible {
 	
 	var property direccion = arriba
 	var property potenciaDisparo = 15
@@ -28,9 +28,17 @@ class Tanque inherits Elemento {
 	method modelo(){
 		return "tanque"
 	}
+	
+	override method impactar(bala) {
+		if (!self.esDisparoPropio(bala)) {super(bala)}
+	}
+	
+	method esDisparoPropio(bala) {
+		return bala.tanque() == self
+	}
 }
 
-object heroe inherits Tanque{
+object heroe inherits Tanque {
 	
 	var property cantidadDeVidas = 3
 	var property cargador = 1 
@@ -38,10 +46,8 @@ object heroe inherits Tanque{
 	method irA(_position, _direction){
 		if (self.validaPosicion(_position) and self.sinObstaculo(_position)){
 			position = _position
-			direccion = _direction
-		} else {
-			direccion = _direction
 		}
+		direccion = _direction
 	}
 	
 	method disparar(){

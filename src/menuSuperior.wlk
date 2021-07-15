@@ -4,7 +4,7 @@ import enemigos.*
 import escenarios.*
 import elementos.*
 
-object barraDeVida inherits ElementoSinVida {
+object barraDeVida inherits Elemento {
 
 	override method position() { 
 		return game.at(0,12)
@@ -23,7 +23,8 @@ object barraDeVida inherits ElementoSinVida {
 	}
 }
 
-object contadorDeVida inherits ElementoSinVida {
+object contadorDeVida inherits Elemento {
+	
 	override method position() {
 		return game.at(3,12)
 	}	
@@ -41,7 +42,8 @@ object contadorDeVida inherits ElementoSinVida {
 	}
 }
 
-object leyendaEnemigos inherits ElementoSinVida {
+object leyendaEnemigos inherits Elemento {
+	
 	method image(){
 		return "leyenda_enemigos.png"
 	}
@@ -52,7 +54,8 @@ object leyendaEnemigos inherits ElementoSinVida {
 	
 }
 
-object contadorEnemigos inherits ElementoSinVida {
+object contadorEnemigos inherits Elemento {
+	
 	method image(){
 		return self.cantidadDeEnemigos().toString() + ".png"
 	}

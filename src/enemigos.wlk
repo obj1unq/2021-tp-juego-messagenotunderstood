@@ -56,7 +56,7 @@ class Enemigo inherits Tanque {
 	}
 	
 	override method impactar(bala) {
-		if (self.esDisparoDelDefensor(bala)) {super(bala)}
+		if (self.esDisparoDelDefensor(bala) and !self.esDisparoPropio(bala)) {super(bala)}
 	}
 	
 	method esDisparoDelDefensor(bala) {

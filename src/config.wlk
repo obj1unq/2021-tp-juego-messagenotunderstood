@@ -28,7 +28,7 @@ object config {
 	}
 	
 	method agregarYMover(bala){
-		bala.ubicarPosicion()
+	//	bala.ubicarPosicion()
 		game.addVisual(bala)
 		game.onTick(50, "MOVIMIENTO_DE_BALA" + bala.identity(), {bala.desplazar()})	
 	}

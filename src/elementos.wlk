@@ -99,11 +99,57 @@ class Plasma inherits Bala {
 }
 
 
+
+
 class Elemento {
+	
 	var property position = game.origin()
+	
+	method impactar(bala) {
+		//No hace nada
+	}
+}
+
+class Agua inherits Elemento {
+	
+	method image() = "agua.png"
+}
+
+class Metal inherits Elemento {
+	
+	method image() = "metal.jpg"
+	
+	override method impactar(bala) {
+		bala.explotar()
+	}
+}
+
+class Explosion inherits Elemento {
+
+	method image() = "explosion2.png"
+}
+
+class Humo inherits Elemento {
+	
+	method image() = "humo.png"
+}
+
+object explosion inherits Elemento {
+
+	method image() = "explosion1.png"
+	
+	method agregarExplosion() {
+		reproductor.playExplosion()
+		game.addVisualIn(self, heroe.position())
+		game.schedule(250, { game.removeVisual(self) })
+	}
+}
+
+class ElementoDestruible inherits Elemento {
+	
 	var property vida = 100
 	
-	method impactar(bala){
+	override method impactar(bala){
 		self.recibirDanio(bala)
 		if (!self.leQuedaVida()) {self.destruido()}
 	}
@@ -123,7 +169,7 @@ class Elemento {
 }
 
 
-class Ladrillo inherits Elemento {
+class Ladrillo inherits ElementoDestruible {
 
 	method image() {
 		return if (vida > 50) {"muro.png"}
@@ -142,7 +188,7 @@ class Ladrillo inherits Elemento {
 	}
 }
 
-object defensa inherits Elemento {
+object defensa inherits ElementoDestruible {
 	
 	method image() = "baseAguila.png"
 	
@@ -161,49 +207,6 @@ object defensa inherits Elemento {
 	}
 }
 
-class ElementoSinVida {
-	
-	const property position
-	
-	method impactar(bala) {
-		//No hace nada
-	}
-}
-
-class Agua inherits ElementoSinVida {
-	
-	method image() = "agua.png"
-}
-
-class Metal inherits ElementoSinVida {
-	
-	method image() = "metal.jpg"
-	
-	override method impactar(bala) {
-		bala.explotar()
-	}
-}
-
-class Explosion inherits ElementoSinVida{
-
-	method image() = "explosion2.png"
-}
-
-class Humo inherits ElementoSinVida{
-	
-	method image() = "humo.png"
-}
-
-object explosion inherits ElementoSinVida{
-
-	method image() = "explosion1.png"
-	
-	method agregarExplosion() {
-		reproductor.playExplosion()
-		game.addVisualIn(self, heroe.position())
-		game.schedule(250, { game.removeVisual(self) })
-	}
-}
 
 object gestorDeElementos { // (y < y2)    (x < x2)
 	
@@ -235,36 +238,44 @@ object gestorDeElementos { // (y < y2)    (x < x2)
 
 
 object arriba {
+	
 	method sufijo(){
 		return "up"
 	}
+	
 	method siguientePosicion(posicion){
 		return posicion.up(1)
 	}
 }
 
 object abajo {
+	
 	method sufijo(){
 		return "down"
 	}
+	
 	method siguientePosicion(posicion){
 		return posicion.down(1)
 	}
 }
 
 object izquierda {
+	
 	method sufijo(){
 		return "left"
 	}
+	
 	method siguientePosicion(posicion){
 		return posicion.left(1)
 	}
 }
 
 object derecha {
+	
 	method sufijo(){
 		return "right"
 	}
+	
 	method siguientePosicion(posicion){
 		return posicion.right(1)
 	}
